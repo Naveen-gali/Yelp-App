@@ -8,8 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "build-stage-ios": "ENVFILE=.env.staging npx react-native run-ios -- --reset-cache",
-    "build-stage-android": "ENVFILE=.env.staging npx react-native run-android -- --reset-cache",
+    "build-stage-ios": "ENVFILE=.env.staging yarn react-native run-ios cache clean",
+    "build-stage-android": "ENVFILE=.env.staging yarn react-native run-android cache clean",
     "build-prod-android": "cd android && ENVFILE=.env.prod ./gradlew assembleRelease"
   },
   "dependencies": {
