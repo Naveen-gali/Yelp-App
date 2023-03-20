@@ -5,19 +5,18 @@
  * @format
  */
 
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import RNBootsplash from 'react-native-bootsplash';
 
 function App(): JSX.Element {
- 
- useEffect(() => {
+  useEffect(() => {
     RNBootsplash.hide({
       fade: true,
     });
   });
-  
+
   return (
     <NavigationContainer>
       <RootNavigator />
