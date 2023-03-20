@@ -7,12 +7,21 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "build-stage-ios": "ENVFILE=.env.staging yarn react-native run-ios cache clean",
+    "build-stage-android": "ENVFILE=.env.staging yarn react-native run-android cache clean",
+    "build-prod-android": "cd android && ENVFILE=.env.prod ./gradlew assembleRelease"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.6",
+    "@react-navigation/native-stack": "^6.9.12",
     "react": "18.2.0",
     "react-native": "0.71.4",
-    "react-native-bootsplash": "^4.5.3"
+    "react-native-bootsplash": "^4.5.3",
+    "react-native-config": "^1.5.0",
+    "react-native-safe-area-context": "^4.5.0",
+    "react-native-screens": "^3.20.0",
+    "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -22,6 +31,7 @@
     "@tsconfig/react-native": "^2.0.3",
     "@types/jest": "^29.4.2",
     "@types/react": "^18.0.28",
+    "@types/react-native-vector-icons": "^6.4.13",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
