@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 
 export enum RouteName {
@@ -10,7 +10,7 @@ export type RootNavigatorParams = {
   [RouteName.Home]: undefined;
 };
 
-const Stack = createStackNavigator<RootNavigatorParams>();
+const Stack = createNativeStackNavigator<RootNavigatorParams>();
 
 const RootNavigator = () => {
   return (
