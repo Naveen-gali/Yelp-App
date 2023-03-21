@@ -2,32 +2,32 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/Poppins-Bold.ttf",
+      "path": "src/assets/fonts/index.ts",
+      "sha1": "8c12ba466397aa05328fc271445acda846dcf268"
+    },
+    {
+      "path": "src/assets/fonts/src/Poppins-Bold.ttf",
       "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
     },
     {
-      "path": "src/assets/fonts/Poppins-Light.ttf",
+      "path": "src/assets/fonts/src/Poppins-Light.ttf",
       "sha1": "e247a92158e112f8bf7b638c8d95381d66b00dbb"
     },
     {
-      "path": "src/assets/fonts/Poppins-Medium.ttf",
+      "path": "src/assets/fonts/src/Poppins-Medium.ttf",
       "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
     },
     {
-      "path": "src/assets/fonts/Poppins-Regular.ttf",
+      "path": "src/assets/fonts/src/Poppins-Regular.ttf",
       "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
     },
     {
-      "path": "src/assets/fonts/Poppins-SemiBold.ttf",
+      "path": "src/assets/fonts/src/Poppins-SemiBold.ttf",
       "sha1": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d"
     },
     {
-      "path": "src/assets/fonts/RumRaisin-Regular.ttf",
+      "path": "src/assets/fonts/src/RumRaisin-Regular.ttf",
       "sha1": "285371c7af359dc7d6779281b54b2f1a89e187d8"
-    },
-    {
-      "path": "src/assets/fonts/index.ts",
-      "sha1": "1008ec114532089f28c563015db6dfcbfe949c37"
     }
   ]
 }
