@@ -13,7 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-yelpApp-yelpAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-yelpApp-yelpAppTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8A0A796629C725F800B6C7C4 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A796529C725F800B6C7C4 /* BootSplash.storyboard */; };
 		8AA162D529C41E4C00018445 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AA162C529C41E4C00018445 /* Fontisto.ttf */; };
 		8AA162D629C41E4C00018445 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AA162C629C41E4C00018445 /* Octicons.ttf */; };
 		8AA162D729C41E4C00018445 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AA162C729C41E4C00018445 /* Feather.ttf */; };
@@ -58,8 +58,8 @@
 		5709B34CF0A7D63546082F79 /* Pods-yelpApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yelpApp.release.xcconfig"; path = "Target Support Files/Pods-yelpApp/Pods-yelpApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-yelpApp-yelpAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yelpApp-yelpAppTests.debug.xcconfig"; path = "Target Support Files/Pods-yelpApp-yelpAppTests/Pods-yelpApp-yelpAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-yelpApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yelpApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = yelpApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-yelpApp-yelpAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yelpApp-yelpAppTests.release.xcconfig"; path = "Target Support Files/Pods-yelpApp-yelpAppTests/Pods-yelpApp-yelpAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		8A0A796529C725F800B6C7C4 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = yelpApp/BootSplash.storyboard; sourceTree = "<group>"; };
 		8AA162C529C41E4C00018445 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		8AA162C629C41E4C00018445 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		8AA162C729C41E4C00018445 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -123,8 +123,8 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				8A0A796529C725F800B6C7C4 /* BootSplash.storyboard */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = yelpApp;
@@ -302,6 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A0A796629C725F800B6C7C4 /* BootSplash.storyboard in Resources */,
 				8AA162D529C41E4C00018445 /* Fontisto.ttf in Resources */,
 				8AA162E029C41E4C00018445 /* FontAwesome.ttf in Resources */,
 				8AA162DC29C41E4C00018445 /* Foundation.ttf in Resources */,
@@ -309,7 +310,6 @@
 				8AA162DD29C41E4C00018445 /* Ionicons.ttf in Resources */,
 				8AA162E229C41E4C00018445 /* EvilIcons.ttf in Resources */,
 				8AA162D829C41E4C00018445 /* Entypo.ttf in Resources */,
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				8AA162E129C41E4C00018445 /* Zocial.ttf in Resources */,
 				8AA162E329C41E4C00018445 /* SimpleLineIcons.ttf in Resources */,
 				8AA162D729C41E4C00018445 /* Feather.ttf in Resources */,

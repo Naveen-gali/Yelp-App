@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "RNBootSplash.h"
 
 #import <React/RCTBundleURLProvider.h>
 
@@ -12,6 +13,9 @@
   self.initialProps = @{};
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:self.window.rootViewController.view]; // <- initialization using the storyboard file name
+
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
