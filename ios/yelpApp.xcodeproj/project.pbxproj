@@ -37,7 +37,6 @@
 		838994328BF446F99001CC02 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CC1F476BE774552B52214F3 /* Poppins-Regular.ttf */; };
 		E62C537F2BFF4631976B909A /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 287705AFDB5E43508D5F2F93 /* Poppins-SemiBold.ttf */; };
 		D9E8ABB1690C49B38736A4D3 /* RumRaisin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A9362C71A4FA4B8CA40A1948 /* RumRaisin-Regular.ttf */; };
-		D567CA9F1E6D4511AF2E6FB0 /* index.ts in Resources */ = {isa = PBXBuildFile; fileRef = C0A928316C9A47AF963B1B79 /* index.ts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +90,6 @@
 		8CC1F476BE774552B52214F3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/src/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		287705AFDB5E43508D5F2F93 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/src/Poppins-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A9362C71A4FA4B8CA40A1948 /* RumRaisin-Regular.ttf */ = {isa = PBXFileReference; name = "RumRaisin-Regular.ttf"; path = "../src/assets/fonts/src/RumRaisin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C0A928316C9A47AF963B1B79 /* index.ts */ = {isa = PBXFileReference; name = "index.ts"; path = "../src/assets/fonts/index.ts"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +161,6 @@
 				8CC1F476BE774552B52214F3 /* Poppins-Regular.ttf */,
 				287705AFDB5E43508D5F2F93 /* Poppins-SemiBold.ttf */,
 				A9362C71A4FA4B8CA40A1948 /* RumRaisin-Regular.ttf */,
-				C0A928316C9A47AF963B1B79 /* index.ts */,
 			);
 			name = Resources;
 			path = "";
@@ -357,7 +354,6 @@
 				838994328BF446F99001CC02 /* Poppins-Regular.ttf in Resources */,
 				E62C537F2BFF4631976B909A /* Poppins-SemiBold.ttf in Resources */,
 				D9E8ABB1690C49B38736A4D3 /* RumRaisin-Regular.ttf in Resources */,
-				D567CA9F1E6D4511AF2E6FB0 /* index.ts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

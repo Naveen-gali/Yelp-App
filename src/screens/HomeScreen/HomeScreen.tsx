@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {Fonts} from '../../assets';
+import {PrimaryFonts} from '../../assets';
 import Delivery from '../../assets/icons/delivery_bike.svg';
 import Restaurant from '../../assets/icons/restaurant-waiter.svg';
 
@@ -9,7 +9,7 @@ const HomeScreen = () => {
     <View>
       <Text
         style={{
-          fontFamily: Fonts.RM_Regular,
+          fontFamily: PrimaryFonts.SemiBold,
         }}>
         Home
       </Text>

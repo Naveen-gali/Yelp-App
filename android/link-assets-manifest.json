@@ -2,10 +2,6 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/index.ts",
-      "sha1": "8c12ba466397aa05328fc271445acda846dcf268"
-    },
-    {
       "path": "src/assets/fonts/src/Poppins-Bold.ttf",
       "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
     },

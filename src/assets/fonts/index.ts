@@ -1,8 +1,13 @@
-export const Fonts = {
+const PrimaryFonts = {
   Bold: 'Poppins-Bold',
   Light: 'Poppins-Light',
   Medium: 'Poppins-Medium',
   Regular: 'Poppins-Regular',
   SemiBold: 'Poppins-SemiBold',
-  RM_Regular: 'RumRaisin-Regular',
 };
+
+const SecondaryFonts = {
+  Regular: 'RumRaisin-Regular',
+};
+
+export {PrimaryFonts, SecondaryFonts};
