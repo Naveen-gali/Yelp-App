@@ -16,11 +16,11 @@ If applicable, please provide any screenshots or images that demonstrate the cha
 
 ### Checklist
 
-- [] I have tested this code locally and verified that it works as intended.
+- [ ] I have tested this code in both IOS and Android.
+- [ ] I have attached the necessary ScreenShots or Screen Recordings.
+- [ ] I have tested this code locally and verified that it works as intended.
 - [ ] I have checked the code for formatting, syntax, and other best practices.
 - [ ] I have ensured that my changes do not break any existing functionality.
-- [ ] I have added any necessary reviewers or requested any necessary.
-      approvals
 
 ### Additional Notes
 
