@@ -1,4 +1,4 @@
-import * as icomoonConfig from './selection.json';
+import * as icomoonConfig from './icomoonConfig.json';
 
 const PrimaryFonts = {
   Bold: 'Poppins-Bold',
