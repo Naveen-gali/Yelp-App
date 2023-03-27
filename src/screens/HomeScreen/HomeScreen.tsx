@@ -1,8 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {PrimaryFonts} from '../../assets';
-import Delivery from '../../assets/icons/delivery_bike.svg';
-import Restaurant from '../../assets/icons/restaurant-waiter.svg';
+import {PrimaryFonts, SVGS} from '../../assets';
+import {CustomIcon, CustomIconNames} from '../../components';
 
 const HomeScreen = () => {
   return (
@@ -13,8 +12,10 @@ const HomeScreen = () => {
         }}>
         Home
       </Text>
-      <Delivery width={100} height={100} />
-      <Restaurant width={100} height={100} />
+      <CustomIcon name={CustomIconNames.Delivery} size={100} />
+      <CustomIcon name={CustomIconNames.RestaurantPlate} size={100} />
+      <CustomIcon name={CustomIconNames.AmazonPay} size={100} />
+      <SVGS.YelpLogo width={200} height={200} />
     </View>
   );
 };

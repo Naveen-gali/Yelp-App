@@ -1,3 +1,5 @@
+import * as icomoonConfig from './icomoonConfig.json';
+
 const PrimaryFonts = {
   Bold: 'Poppins-Bold',
   Light: 'Poppins-Light',
@@ -10,4 +12,4 @@ const SecondaryFonts = {
   Regular: 'RumRaisin-Regular',
 };
 
-export {PrimaryFonts, SecondaryFonts};
+export {PrimaryFonts, SecondaryFonts, icomoonConfig};
