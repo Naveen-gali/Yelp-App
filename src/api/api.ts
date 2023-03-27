@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosRequestConfig, Method} from 'axios';
 import Config from 'react-native-config';
 
 const YelpApi = axios.create({
@@ -15,31 +15,38 @@ YelpApi.interceptors.request.use(
     return config;
   },
   function (error) {
-    return Promise.reject(error);
+    throw error;
   },
 );
 
 YelpApi.interceptors.response.use(
   function (response) {
-    return response.data;
+    return response;
   },
   function (error) {
-    return Promise.reject(error);
+    throw error.response.data;
   },
 );
 
-export function GetApi<T>(
-  location: string,
-  sort: string,
-  limit: number,
+type ApiRequestType = Omit<AxiosRequestConfig, 'url' | 'method'>;
+
+export function Api<T>(
+  url: string,
+  method: Method,
+  params?: ApiRequestType,
 ): Promise<T> {
-  return YelpApi.get(
-    `/search?location=${location}&sort_by=${sort}&limit=${limit}`,
-  )
-    .then(response => {
-      return response;
+  return YelpApi.request({
+    url,
+    method: method,
+    ...params,
+  })
+    .then(res => {
+      console.log('RES API :- ', res);
+      return res.data;
     })
     .catch(err => {
-      return err;
+      console.log('ERR API :_', err);
+      err.show_error_screen = true;
+      throw err;
     });
 }

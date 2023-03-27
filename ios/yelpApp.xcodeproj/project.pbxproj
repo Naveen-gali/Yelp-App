@@ -13,6 +13,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3768A09625A74D0AA12CE7BB /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D5506D35C044F499B78BA72 /* icomoon.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-yelpApp-yelpAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-yelpApp-yelpAppTests.a */; };
 		838994328BF446F99001CC02 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CC1F476BE774552B52214F3 /* Poppins-Regular.ttf */; };
 		8A0A796629C725F800B6C7C4 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A796529C725F800B6C7C4 /* BootSplash.storyboard */; };
@@ -37,7 +38,6 @@
 		D9E8ABB1690C49B38736A4D3 /* RumRaisin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A9362C71A4FA4B8CA40A1948 /* RumRaisin-Regular.ttf */; };
 		E62C537F2BFF4631976B909A /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 287705AFDB5E43508D5F2F93 /* Poppins-SemiBold.ttf */; };
 		E6E7797A6E8F4C7784A6FC19 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A259C42558E445369603E6D2 /* Poppins-Bold.ttf */; };
-		3768A09625A74D0AA12CE7BB /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D5506D35C044F499B78BA72 /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +67,7 @@
 		5709B34CF0A7D63546082F79 /* Pods-yelpApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yelpApp.release.xcconfig"; path = "Target Support Files/Pods-yelpApp/Pods-yelpApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-yelpApp-yelpAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yelpApp-yelpAppTests.debug.xcconfig"; path = "Target Support Files/Pods-yelpApp-yelpAppTests/Pods-yelpApp-yelpAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-yelpApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yelpApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D5506D35C044F499B78BA72 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../src/assets/fonts/src/icomoon.ttf; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-yelpApp-yelpAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yelpApp-yelpAppTests.release.xcconfig"; path = "Target Support Files/Pods-yelpApp-yelpAppTests/Pods-yelpApp-yelpAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		8A0A796529C725F800B6C7C4 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = yelpApp/BootSplash.storyboard; sourceTree = "<group>"; };
 		8AA162C529C41E4C00018445 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
@@ -91,13 +92,6 @@
 		A9362C71A4FA4B8CA40A1948 /* RumRaisin-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RumRaisin-Regular.ttf"; path = "../src/assets/fonts/src/RumRaisin-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F9B0AF241B9646089F99EB44 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/src/Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		A259C42558E445369603E6D2 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/src/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		151EB775C7354BDA860BFEF2 /* Poppins-Light.ttf */ = {isa = PBXFileReference; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/src/Poppins-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F9B0AF241B9646089F99EB44 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/src/Poppins-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8CC1F476BE774552B52214F3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/src/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		287705AFDB5E43508D5F2F93 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/src/Poppins-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A9362C71A4FA4B8CA40A1948 /* RumRaisin-Regular.ttf */ = {isa = PBXFileReference; name = "RumRaisin-Regular.ttf"; path = "../src/assets/fonts/src/RumRaisin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7D5506D35C044F499B78BA72 /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../src/assets/fonts/src/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

@@ -1,19 +1,38 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import Config from 'react-native-config';
-import {GetApi} from '../../api';
+import {Api} from '../../api';
 import {PrimaryFonts, SVGS} from '../../assets';
 import {CustomIcon, CustomIconNames} from '../../components';
+import {SEARCH_BUSINESS} from '../../constants';
+import {ErrorType, BusinessSuccessType, SortByEnum} from './types';
 
 const HomeScreen = () => {
-  useEffect(() => {
-    GetApi('NYC', 'best_match', 20)
+  const getBusinesses = (
+    location: string,
+    sort_by: SortByEnum,
+    limit: number,
+  ) => {
+    return Api<BusinessSuccessType | ErrorType>(
+      SEARCH_BUSINESS +
+        `?location=${location}&sort_by=${sort_by}&limit=${limit}`,
+      'GET',
+    )
       .then(res => {
         console.log('RES ', res);
+        return res;
       })
-      .catch(er => {
-        console.log('ERR ', er);
+      .catch(err => {
+        console.log('ERR ', err);
+        if (err.show_error_screen) {
+          Alert.alert('Some Thing Went Wrong', err.error.description);
+        }
+        return err;
       });
+  };
+
+  useEffect(() => {
+    getBusinesses('NYC', SortByEnum.Best_Match, 20);
   }, []);
 
   return (
