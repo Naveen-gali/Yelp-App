@@ -24,6 +24,10 @@
     {
       "path": "src/assets/fonts/src/RumRaisin-Regular.ttf",
       "sha1": "285371c7af359dc7d6779281b54b2f1a89e187d8"
+    },
+    {
+      "path": "src/assets/fonts/src/icomoon.ttf",
+      "sha1": "2e5f45b7a22fa2688f188c58cb65c35437135d0e"
     }
   ]
 }
