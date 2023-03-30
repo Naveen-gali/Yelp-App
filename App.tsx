@@ -1,10 +1,10 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {RootNavigator} from './src/navigation/RootNavigator';
-import RNBootsplash from 'react-native-bootsplash';
-import {store, RootStoreContext} from './src/models';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NavigationContainer} from '@react-navigation/native';
 import {persist} from 'mst-persist';
+import React from 'react';
+import RNBootsplash from 'react-native-bootsplash';
+import {RootStoreContext, store} from './src/models';
+import {RootNavigator} from './src/navigation/RootNavigator';
 
 const RootStore = store.create({
   count: 0,

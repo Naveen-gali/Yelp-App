@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext} from 'react';
-import {Button, StyleSheet, Text, ScrollView} from 'react-native';
+import {Button, ScrollView, StyleSheet, Text} from 'react-native';
 import {PrimaryFonts, SVGS} from '../../assets';
 import {CustomIcon, CustomIconNames} from '../../components';
 import {RootStoreContext} from '../../models';
