@@ -1,13 +1,13 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext} from 'react';
-import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {Button, StyleSheet, Text, ScrollView} from 'react-native';
 import {PrimaryFonts, SVGS} from '../../assets';
 import {CustomIcon, CustomIconNames} from '../../components';
-import {YelpStoreContext} from '../../models';
+import {RootStoreContext} from '../../models';
 
 const HomeScreen = () => {
   const {count, increamentCount, Count, decrementCount} =
-    useContext(YelpStoreContext);
+    useContext(RootStoreContext);
 
   return (
     <ScrollView>

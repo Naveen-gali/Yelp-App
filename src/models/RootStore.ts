@@ -10,9 +10,6 @@ const store = types
     get Count(): number {
       return self.count;
     },
-    set Count(val: number) {
-      self.count = val;
-    },
   }))
   .actions(self => ({
     increamentCount(payload: number = 1) {
@@ -24,5 +21,5 @@ const store = types
   }));
 
 export type StoreType = Instance<typeof store>;
-export const YelpStoreContext = createContext<StoreType>({} as StoreType);
+export const RootStoreContext = createContext<StoreType>({} as StoreType);
 export {store};

@@ -2,40 +2,22 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import RNBootsplash from 'react-native-bootsplash';
-import {store, YelpStoreContext} from './src/models';
-import {
-  configurePersistable,
-  getPersistedStore,
-  makePersistable,
-} from 'mobx-persist-store';
-import RNAsyncStorage from '@react-native-async-storage/async-storage';
-import {protect, unprotect} from 'mobx-state-tree';
+import {store, RootStoreContext} from './src/models';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {persist} from 'mst-persist';
 
 const RootStore = store.create({
   count: 0,
 });
 
 function App(): JSX.Element {
-  configurePersistable({
-    expireIn: 86400000,
-    storage: RNAsyncStorage,
-    removeOnExpiration: true,
-  });
-
-  unprotect(RootStore);
-  makePersistable(RootStore, {
-    name: 'RootStore',
-    properties: ['count', 'increamentCount'],
-  }).then(() => {
-    protect(RootStore);
-  });
-
-  getPersistedStore(RootStore).then(res => {
-    console.log('RSE :_ ', res);
+  persist('RootStore', RootStore, {
+    storage: AsyncStorage,
+    whitelist: ['count'],
   });
 
   return (
-    <YelpStoreContext.Provider value={RootStore}>
+    <RootStoreContext.Provider value={RootStore}>
       <NavigationContainer
         onReady={() =>
           RNBootsplash.hide({
@@ -45,7 +27,7 @@ function App(): JSX.Element {
         }>
         <RootNavigator />
       </NavigationContainer>
-    </YelpStoreContext.Provider>
+    </RootStoreContext.Provider>
   );
 }
 
