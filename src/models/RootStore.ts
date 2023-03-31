@@ -26,12 +26,14 @@ const RootStore = store.create({
   count: 0,
 });
 
-persist('RootStore', RootStore, {
-  storage: AsyncStorage,
-  jsonify: true,
-  whitelist: ['count'],
-});
+const setupStore = () => {
+  persist('RootStore', RootStore, {
+    storage: AsyncStorage,
+    jsonify: true,
+    whitelist: ['count'],
+  });
+};
 
 export type StoreType = Instance<typeof store>;
 export const RootStoreContext = createContext<StoreType>({} as StoreType);
-export {RootStore};
+export {setupStore, RootStore};

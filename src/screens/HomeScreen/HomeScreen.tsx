@@ -4,8 +4,9 @@ import {Button, ScrollView, StyleSheet, Text} from 'react-native';
 import {PrimaryFonts, SVGS} from '../../assets';
 import {CustomIcon, CustomIconNames} from '../../components';
 import {RootStoreContext} from '../../models';
+import {HomeScreenProps} from './HomeScreen.types';
 
-const HomeScreen = observer(() => {
+const HomeScreen = observer((_props: HomeScreenProps) => {
   const {count, increamentCount, Count, decrementCount} =
     useContext(RootStoreContext);
 
