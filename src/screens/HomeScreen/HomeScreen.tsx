@@ -1,9 +1,15 @@
-import React from 'react';
-import {ScrollView, Text} from 'react-native';
+import {observer} from 'mobx-react-lite';
+import React, {useContext} from 'react';
+import {Button, ScrollView, StyleSheet, Text} from 'react-native';
 import {PrimaryFonts, SVGS} from '../../assets';
 import {CustomIcon, CustomIconNames} from '../../components';
+import {RootStoreContext} from '../../models';
+import {HomeScreenProps} from './HomeScreen.types';
 
-const HomeScreen = () => {
+const HomeScreen = observer((_props: HomeScreenProps) => {
+  const {count, increamentCount, Count, decrementCount} =
+    useContext(RootStoreContext);
+
   return (
     <ScrollView>
       <Text
@@ -12,6 +18,13 @@ const HomeScreen = () => {
         }}>
         Home
       </Text>
+      <Text style={styles.count}>{count}</Text>
+      <Button title="Increase" onPress={() => increamentCount()} />
+      <Button
+        title="Decrease"
+        disabled={Count > 0 ? false : true}
+        onPress={() => decrementCount()}
+      />
       <CustomIcon name={CustomIconNames.Delivery} size={100} />
       <CustomIcon name={CustomIconNames.RestaurantPlate} size={100} />
       <CustomIcon name={CustomIconNames.AmazonPay} size={100} />
@@ -23,7 +36,7 @@ const HomeScreen = () => {
       <CustomIcon name={CustomIconNames.Pets} size={100} />
       <CustomIcon name={CustomIconNames.Professional} size={100} />
       <CustomIcon name={CustomIconNames.Religious} size={100} />
-      <SVGS.YelpLogo width={200} height={200} />
+      <SVGS.Logo width={200} height={200} />
       <Text>CAtegory SVGS</Text>
       <SVGS.Active width={100} height={100} />
       <SVGS.Automotive width={100} height={100} />
@@ -34,6 +47,14 @@ const HomeScreen = () => {
       <SVGS.Shopping width={100} height={100} />
     </ScrollView>
   );
-};
+});
 
-export default HomeScreen;
+const styles = StyleSheet.create({
+  count: {
+    textAlign: 'center',
+    fontFamily: PrimaryFonts.Bold,
+    fontSize: 40,
+  },
+});
+
+export {HomeScreen};

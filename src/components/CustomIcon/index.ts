@@ -1,2 +1,2 @@
 export * from './CustomIcon';
-export * from './CustomIconTypes';
+export * from './CustomIcon.types';

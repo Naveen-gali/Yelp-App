@@ -1,6 +1,6 @@
 import React from 'react';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-import {CustomIconType} from './CustomIconTypes';
+import {CustomIconType} from './CustomIcon.types';
 import {icomoonConfig} from '../../assets';
 
 const IcomoonIcon = createIconSetFromIcoMoon(icomoonConfig);
