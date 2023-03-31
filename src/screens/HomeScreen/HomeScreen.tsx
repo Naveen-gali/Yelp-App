@@ -35,7 +35,7 @@ const HomeScreen = () => {
       <CustomIcon name={CustomIconNames.Pets} size={100} />
       <CustomIcon name={CustomIconNames.Professional} size={100} />
       <CustomIcon name={CustomIconNames.Religious} size={100} />
-      <SVGS.YelpLogo width={200} height={200} />
+      <SVGS.Logo width={200} height={200} />
       <Text>CAtegory SVGS</Text>
       <SVGS.Active width={100} height={100} />
       <SVGS.Automotive width={100} height={100} />

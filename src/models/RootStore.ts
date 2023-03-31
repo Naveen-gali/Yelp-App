@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Instance, types} from 'mobx-state-tree';
+import {persist} from 'mst-persist';
 import {createContext} from 'react';
 
 const store = types
@@ -20,6 +22,16 @@ const store = types
     },
   }));
 
+const RootStore = store.create({
+  count: 0,
+});
+
+persist('RootStore', RootStore, {
+  storage: AsyncStorage,
+  jsonify: true,
+  whitelist: ['count'],
+});
+
 export type StoreType = Instance<typeof store>;
 export const RootStoreContext = createContext<StoreType>({} as StoreType);
-export {store};
+export {RootStore};
