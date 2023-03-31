@@ -5,7 +5,7 @@ import {PrimaryFonts, SVGS} from '../../assets';
 import {CustomIcon, CustomIconNames} from '../../components';
 import {RootStoreContext} from '../../models';
 
-const HomeScreen = () => {
+const HomeScreen = observer(() => {
   const {count, increamentCount, Count, decrementCount} =
     useContext(RootStoreContext);
 
@@ -46,7 +46,7 @@ const HomeScreen = () => {
       <SVGS.Shopping width={100} height={100} />
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   count: {
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(HomeScreen);
+export {HomeScreen};

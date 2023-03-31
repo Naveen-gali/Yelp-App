@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import {HomeScreen} from '../screens';
 
 export enum RouteName {
   Home = 'Home',
