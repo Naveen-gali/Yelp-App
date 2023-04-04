@@ -1,36 +1,63 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Instance, types} from 'mobx-state-tree';
+import {Instance, cast, toGenerator, types} from 'mobx-state-tree';
 import {persist} from 'mst-persist';
 import {createContext} from 'react';
+import {BusinessModel, ErrorModel} from './Business';
+import {BusinessService, BusinessServiceTypes} from '../services';
+import {AsyncTask, runTask} from 'mst-async-task';
 
 const store = types
   .model('RootStoreModel')
   .props({
-    count: types.number,
+    businesses: types.optional(types.array(BusinessModel), []),
+    error: types.optional(ErrorModel, {}),
+    getBusinessesTask: types.optional(AsyncTask, {}),
   })
   .views(self => ({
-    get Count(): number {
-      return self.count;
+    get BusinessesCount() {
+      return self.businesses.length;
     },
   }))
-  .actions(self => ({
-    increamentCount(payload: number = 1) {
-      self.count = self.count + payload;
-    },
-    decrementCount(payload: number = 1) {
-      self.count = self.count > 0 ? self.count - payload : 0;
-    },
-  }));
+  .actions(self => {
+    const getAllBusinesses = (
+      location: string,
+      showError?: boolean,
+      sort_by?: BusinessServiceTypes.SearchBusinessesSortBy,
+      limit?: number,
+      offset?: number,
+    ) =>
+      runTask(self.getBusinessesTask, function* () {
+        const response = yield* toGenerator(
+          BusinessService.getAllBusinesses(
+            location,
+            showError,
+            sort_by,
+            limit,
+            offset,
+          ),
+        );
+        if (response.stat !== 'fail') {
+          self.businesses = cast(response.businesses);
+        } else {
+          console.log('ERR SCREEN IN RS :_ ', response.show_error_screen);
+          self.error.description = response.description;
+          self.error.show_error_screen = response.show_error_screen;
+        }
+      });
+
+    return {getAllBusinesses};
+  });
 
 const RootStore = store.create({
-  count: 0,
+  businesses: [],
+  error: {},
 });
 
 const setupStore = () => {
   persist('RootStore', RootStore, {
     storage: AsyncStorage,
     jsonify: true,
-    whitelist: ['count'],
+    whitelist: [''],
   });
 };
 

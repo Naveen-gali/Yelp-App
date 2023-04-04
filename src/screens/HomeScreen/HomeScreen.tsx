@@ -1,58 +1,67 @@
 import {observer} from 'mobx-react-lite';
-import React, {useContext} from 'react';
-import {Button, ScrollView, StyleSheet, Text} from 'react-native';
-import {PrimaryFonts, SVGS} from '../../assets';
-import {CustomIcon, CustomIconNames} from '../../components';
+import React, {useContext, useEffect} from 'react';
+import {
+  ActivityIndicator,
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
 import {HomeScreenProps} from './HomeScreen.types';
+import {BusinessServiceTypes} from '../../services';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
-  const {count, increamentCount, Count, decrementCount} =
-    useContext(RootStoreContext);
+  const {
+    getAllBusinesses,
+    BusinessesCount,
+    error,
+    businesses,
+    getBusinessesTask,
+  } = useContext(RootStoreContext);
+
+  useEffect(() => {
+    getAllBusinesses(
+      'Indiana 1209jaoineoiance',
+      false,
+      BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
+      10,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ScrollView>
-      <Text
-        style={{
-          fontFamily: PrimaryFonts.SemiBold,
-        }}>
-        Home
-      </Text>
-      <Text style={styles.count}>{count}</Text>
-      <Button title="Increase" onPress={() => increamentCount()} />
-      <Button
-        title="Decrease"
-        disabled={Count > 0 ? false : true}
-        onPress={() => decrementCount()}
-      />
-      <CustomIcon name={CustomIconNames.Delivery} size={100} />
-      <CustomIcon name={CustomIconNames.RestaurantPlate} size={100} />
-      <CustomIcon name={CustomIconNames.AmazonPay} size={100} />
-      <CustomIcon name={CustomIconNames.Arts} size={100} />
-      <CustomIcon name={CustomIconNames.Education} size={100} />
-      <CustomIcon name={CustomIconNames.Events} size={100} />
-      <CustomIcon name={CustomIconNames.Finance} size={100} />
-      <CustomIcon name={CustomIconNames.Government} size={100} />
-      <CustomIcon name={CustomIconNames.Pets} size={100} />
-      <CustomIcon name={CustomIconNames.Professional} size={100} />
-      <CustomIcon name={CustomIconNames.Religious} size={100} />
-      <SVGS.Logo width={200} height={200} />
-      <Text>CAtegory SVGS</Text>
-      <SVGS.Active width={100} height={100} />
-      <SVGS.Automotive width={100} height={100} />
-      <SVGS.Barber width={100} height={100} />
-      <SVGS.HomeServices width={100} height={100} />
-      <SVGS.NightLife width={100} height={100} />
-      <SVGS.Restaurant width={100} height={100} />
-      <SVGS.Shopping width={100} height={100} />
+      <Text style={styles.businessCount}>{BusinessesCount}</Text>
+      <Text>{error.description}</Text>
+      <Text>{businesses.length}</Text>
+      {getBusinessesTask.status === 'pending' ? <ActivityIndicator /> : null}
+      {error.show_error_screen || error.description.length > 0 ? (
+        <Text>Error Screen</Text>
+      ) : (
+        <View>
+          <Button
+            title="Click"
+            onPress={() => {
+              getAllBusinesses(
+                'Indiana 1209jaoineoiance',
+                false,
+                BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
+                20,
+              );
+            }}
+          />
+        </View>
+      )}
     </ScrollView>
   );
 });
 
 const styles = StyleSheet.create({
-  count: {
-    textAlign: 'center',
-    fontFamily: PrimaryFonts.Bold,
+  businessCount: {
+    fontFamily: SecondaryFonts.Regular,
     fontSize: 40,
   },
 });

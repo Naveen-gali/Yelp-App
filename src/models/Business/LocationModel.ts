@@ -1,9 +1,9 @@
 import {SnapshotOut, types} from 'mobx-state-tree';
 
 const LocationModel = types.model('LocationModel').props({
-  address1: '',
-  address2: '',
-  address3: '',
+  address1: types.maybeNull(types.string),
+  address2: types.maybeNull(types.string),
+  address3: types.maybeNull(types.string),
   city: '',
   zip_code: '',
   country: '',
