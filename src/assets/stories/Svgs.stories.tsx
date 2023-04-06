@@ -1,9 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {SVGS} from '..';
-import {View} from 'react-native';
 import {StoryObj} from '@storybook/react-native';
 import {SvgProps} from 'react-native-svg';
+import {Decorator} from '../../../.storybook/decorators';
 
 const SvgWrapper = (props: {name: keyof typeof SVGS} & SvgProps) => {
   const {name, ...restProps} = props;
@@ -15,13 +14,7 @@ const SvgWrapper = (props: {name: keyof typeof SVGS} & SvgProps) => {
 const SvgIconsMeta = {
   title: 'Svgs',
   component: SvgWrapper,
-  decorators: [
-    (Story: any) => (
-      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
-        <Story />
-      </View>
-    ),
-  ],
+  decorators: [Decorator],
 };
 
 export default SvgIconsMeta;

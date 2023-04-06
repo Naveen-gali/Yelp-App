@@ -1,9 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {CustomIcon} from './CustomIcon';
-import {View} from 'react-native';
 import {CustomIconNames} from './CustomIcon.types';
 import {StoryObj} from '@storybook/react-native';
+import {Decorator} from '../../../.storybook/decorators';
 
 const MyCustomIconMeta = {
   title: 'MyCustomIcon',
@@ -12,13 +11,7 @@ const MyCustomIconMeta = {
     name: CustomIconNames.AmazonPay,
     size: 200,
   },
-  decorators: [
-    (Story: any) => (
-      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
-        <Story />
-      </View>
-    ),
-  ],
+  decorators: [Decorator],
 };
 
 export default MyCustomIconMeta;
