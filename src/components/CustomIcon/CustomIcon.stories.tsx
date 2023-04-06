@@ -24,7 +24,14 @@ export const Basic = {};
 export const CustomIconFromIcomoon: Story = {
   render: args => {
     const {color} = args;
-    return <CustomIcon name={args.name} color={color} size={args.size} />;
+    return (
+      <CustomIcon
+        name={args.name}
+        color={color}
+        size={args.size}
+        style={args.style}
+      />
+    );
   },
 
   args: {
@@ -52,6 +59,11 @@ export const AllIcons: Story = {
     },
     color: {
       control: {type: 'color'},
+    },
+    style: {
+      control: {
+        type: 'object',
+      },
     },
   },
   parameters: {
