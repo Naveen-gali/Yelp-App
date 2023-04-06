@@ -63,6 +63,16 @@
     "typescript": "^4.9.5"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./setupTests.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/?!(react-native)",
+      "jest-runner"
+    ],
+    "moduleNameMapper": {
+      "\\.svg": "<rootDir>/__mocks__/svgMock.ts"
+    }
   }
 }

@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Fonts Using Primary Fonts 1`] = `
+<Text
+  style={
+    [
+      {
+        "fontSize": 30,
+      },
+      {
+        "fontFamily": "Poppins-Bold",
+      },
+    ]
+  }
+>
+  Helllo  World
+</Text>
+`;
+
+exports[`Storyshots Fonts Using Secondary Fonts 1`] = `
+<Text
+  style={
+    [
+      {
+        "fontSize": 30,
+      },
+      {
+        "fontFamily": "RumRaisin-Regular",
+      },
+    ]
+  }
+>
+  Helllo  World
+</Text>
+`;
+
+exports[`Storyshots MyCustomIcon All Icons 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      [
+        {
+          "color": "#000000",
+          "fontSize": 200,
+        },
+        undefined,
+        {
+          "fontFamily": "icomoon",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`Storyshots MyCustomIcon Basic 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      [
+        {
+          "color": undefined,
+          "fontSize": 200,
+        },
+        undefined,
+        {
+          "fontFamily": "icomoon",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`Storyshots MyCustomIcon Custom Icon From Icomoon 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      [
+        {
+          "color": undefined,
+          "fontSize": 100,
+        },
+        undefined,
+        {
+          "fontFamily": "icomoon",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;
+
+exports[`Storyshots Svgs All Svgs 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <SvgMock
+    height={200}
+    width={200}
+  />
+</View>
+`;
