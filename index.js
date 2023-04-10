@@ -9,7 +9,7 @@ import Config from 'react-native-config';
 
 let RegisteredApp = App;
 RegisteredApp =
-  Config.SHOW_STORYBOOK !== false && __DEV__
+  Config.SHOW_STORYBOOK === true && __DEV__
     ? require('./.storybook').default
     : App;
 
