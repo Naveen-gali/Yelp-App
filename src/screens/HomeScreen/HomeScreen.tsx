@@ -1,10 +1,10 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext} from 'react';
 import {Button, ScrollView, StyleSheet, Text} from 'react-native';
-import {PrimaryFonts, SVGS} from '../../assets';
-import {CustomIcon, CustomIconNames} from '../../components';
+import {PrimaryFonts, SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
 import {HomeScreenProps} from './HomeScreen.types';
+import {Strings} from '../../i18n';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {count, increamentCount, Count, decrementCount} =
@@ -16,7 +16,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         style={{
           fontFamily: PrimaryFonts.SemiBold,
         }}>
-        Home
+        {Strings.home.Home}
       </Text>
       <Text style={styles.count}>{count}</Text>
       <Button title="Increase" onPress={() => increamentCount()} />
@@ -25,26 +25,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         disabled={Count > 0 ? false : true}
         onPress={() => decrementCount()}
       />
-      <CustomIcon name={CustomIconNames.Delivery} size={100} />
-      <CustomIcon name={CustomIconNames.RestaurantPlate} size={100} />
-      <CustomIcon name={CustomIconNames.AmazonPay} size={100} />
-      <CustomIcon name={CustomIconNames.Arts} size={100} />
-      <CustomIcon name={CustomIconNames.Education} size={100} />
-      <CustomIcon name={CustomIconNames.Events} size={100} />
-      <CustomIcon name={CustomIconNames.Finance} size={100} />
-      <CustomIcon name={CustomIconNames.Government} size={100} />
-      <CustomIcon name={CustomIconNames.Pets} size={100} />
-      <CustomIcon name={CustomIconNames.Professional} size={100} />
-      <CustomIcon name={CustomIconNames.Religious} size={100} />
-      <SVGS.Logo width={200} height={200} />
-      <Text>CAtegory SVGS</Text>
-      <SVGS.Active width={100} height={100} />
-      <SVGS.Automotive width={100} height={100} />
-      <SVGS.Barber width={100} height={100} />
-      <SVGS.HomeServices width={100} height={100} />
-      <SVGS.NightLife width={100} height={100} />
-      <SVGS.Restaurant width={100} height={100} />
-      <SVGS.Shopping width={100} height={100} />
+      <Text style={styles.welcomeText}>{Strings.home.Welcome}</Text>
     </ScrollView>
   );
 });
@@ -54,6 +35,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: PrimaryFonts.Bold,
     fontSize: 40,
+  },
+  welcomeText: {
+    textAlign: 'center',
+    fontSize: 60,
+    fontFamily: SecondaryFonts.Regular,
   },
 });
 
