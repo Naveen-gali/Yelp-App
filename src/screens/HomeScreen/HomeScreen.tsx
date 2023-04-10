@@ -16,7 +16,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         style={{
           fontFamily: PrimaryFonts.SemiBold,
         }}>
-        {Strings.home.Home}
+        {Strings.home.title}
       </Text>
       <Text style={styles.count}>{count}</Text>
       <Button title="Increase" onPress={() => increamentCount()} />
@@ -25,7 +25,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         disabled={Count > 0 ? false : true}
         onPress={() => decrementCount()}
       />
-      <Text style={styles.welcomeText}>{Strings.home.Welcome}</Text>
+      <Text style={styles.welcomeText}>{Strings.home.welcome}</Text>
     </ScrollView>
   );
 });

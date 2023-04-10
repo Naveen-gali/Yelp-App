@@ -1,6 +1,6 @@
 {
   "home": {
-    "Home": "Home",
-    "Welcome": "Welcome"
+    "title": "Home",
+    "welcome": "Welcome"
   }
 }
