@@ -39,10 +39,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         source={{
           uri: 'https://s3-media3.fl.yelpcdn.com/ephoto/B9oMfBlHwU_8oSe7blx_Lw/o.jpg',
         }}
-        style={{
-          height: verticalScale(200),
-          width: scale(200),
-        }}
+        style={styles.image}
         resizeMode="contain"
       />
     </ScrollView>
@@ -52,12 +49,16 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 const styles = StyleSheet.create({
   businessCount: {
     fontFamily: SecondaryFonts.Regular,
-    fontSize: 40,
+    fontSize: verticalScale(40),
   },
   welcomeText: {
     textAlign: 'center',
-    fontSize: 60,
+    fontSize: verticalScale(60),
     fontFamily: SecondaryFonts.Regular,
+  },
+  image: {
+    height: verticalScale(200),
+    width: scale(200),
   },
 });
 
