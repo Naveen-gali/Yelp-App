@@ -5,6 +5,7 @@ import {SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
 import {HomeScreenProps} from './HomeScreen.types';
 import {BusinessServiceTypes} from '../../services';
+import {Strings} from '../../i18n';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {businesses} = useContext(RootStoreContext);
@@ -24,7 +25,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <Text>{businesses.getBusinessesTask.error?.message}</Text>
       <View>
         <Button
-          title="Click"
+          title={Strings.button.title}
           onPress={() => {
             businesses.getAllBusinesses(
               'Indiana 1209jaoineoiance',
