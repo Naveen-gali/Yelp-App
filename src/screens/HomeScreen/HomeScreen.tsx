@@ -1,60 +1,40 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext, useEffect} from 'react';
-import {
-  ActivityIndicator,
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
-import {BusinessServiceTypes} from '../../services';
 import {HomeScreenProps} from './HomeScreen.types';
+import {BusinessServiceTypes} from '../../services';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
-  const {
-    getAllBusinesses,
-    BusinessesCount,
-    error,
-    businesses,
-    getBusinessesTask,
-  } = useContext(RootStoreContext);
+  const {businesses} = useContext(RootStoreContext);
 
   useEffect(() => {
-    getAllBusinesses(
+    businesses.getAllBusinesses(
       'Indiana 1209jaoineoiance',
-      false,
+      true,
       BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
       10,
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [businesses]);
 
   return (
     <ScrollView>
-      <Text style={styles.businessCount}>{BusinessesCount}</Text>
-      <Text>{error.description}</Text>
-      <Text>{businesses.length}</Text>
-      {getBusinessesTask.status === 'pending' ? <ActivityIndicator /> : null}
-      {error.show_error_screen || error.description.length > 0 ? (
-        <Text>Error Screen</Text>
-      ) : (
-        <View>
-          <Button
-            title="Click"
-            onPress={() => {
-              getAllBusinesses(
-                'Indiana 1209jaoineoiance',
-                false,
-                BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
-                20,
-              );
-            }}
-          />
-        </View>
-      )}
+      <Text style={styles.businessCount}>{businesses.BusinessesCount}</Text>
+      <Text>{businesses.getBusinessesTask.error?.message}</Text>
+      <View>
+        <Button
+          title="Click"
+          onPress={() => {
+            businesses.getAllBusinesses(
+              'Indiana 1209jaoineoiance',
+              false,
+              BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
+              20,
+            );
+          }}
+        />
+      </View>
     </ScrollView>
   );
 });

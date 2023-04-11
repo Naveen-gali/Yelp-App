@@ -17,7 +17,7 @@ type GetBusinessesResponseError = {
   description: string;
   field: string;
   instance: string;
-  show_error_screen: boolean;
+  showErrorScreen: boolean;
   stat: 'fail';
 };
 

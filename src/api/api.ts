@@ -26,6 +26,7 @@ export function Api<T>(
 ): Promise<T> {
   return YelpApi.request(params)
     .then(res => {
+      res.data.stat = 'ok';
       return res.data;
     })
     .catch(err => {
@@ -35,7 +36,7 @@ export function Api<T>(
             err.response.data.error.description ?? 'Try Again After SomeTime',
           )
         : null;
-      err.show_error_screen = !showError;
+      err.showErrorScreen = !showError;
       err.stat = 'fail';
       if (err.response) {
         err.description =
