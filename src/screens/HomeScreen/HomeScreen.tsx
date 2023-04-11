@@ -64,6 +64,11 @@ const styles = StyleSheet.create({
     fontFamily: SecondaryFonts.Regular,
     fontSize: 40,
   },
+  welcomeText: {
+    textAlign: 'center',
+    fontSize: 60,
+    fontFamily: SecondaryFonts.Regular,
+  },
 });
 
 export {HomeScreen};
