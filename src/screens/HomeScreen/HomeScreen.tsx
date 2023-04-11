@@ -10,14 +10,19 @@ import {Strings} from '../../i18n';
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {businesses} = useContext(RootStoreContext);
 
-  useEffect(() => {
+  const getBusinesses = (location?: string) => {
     businesses.getAllBusinesses(
-      'Indiana 1209jaoineoiance',
+      location ?? 'Indiana 1209jaoineoiance',
       false,
       BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
       10,
     );
-  }, [businesses]);
+  };
+
+  useEffect(() => {
+    getBusinesses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ScrollView>
@@ -26,14 +31,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <View>
         <Button
           title={Strings.button.title}
-          onPress={() => {
-            businesses.getAllBusinesses(
-              'Indiana 1209jaoineoiance',
-              false,
-              BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
-              20,
-            );
-          }}
+          onPress={() => getBusinesses('oin8921981n98')}
         />
       </View>
     </ScrollView>
