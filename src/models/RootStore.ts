@@ -2,35 +2,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Instance, types} from 'mobx-state-tree';
 import {persist} from 'mst-persist';
 import {createContext} from 'react';
+import {BusinessesModel} from './BusinessesModel';
 
-const store = types
-  .model('RootStoreModel')
-  .props({
-    count: types.number,
-  })
-  .views(self => ({
-    get Count(): number {
-      return self.count;
-    },
-  }))
-  .actions(self => ({
-    increamentCount(payload: number = 1) {
-      self.count = self.count + payload;
-    },
-    decrementCount(payload: number = 1) {
-      self.count = self.count > 0 ? self.count - payload : 0;
-    },
-  }));
+const store = types.model('RootStoreModel').props({
+  businesses: types.optional(BusinessesModel, {}),
+});
 
 const RootStore = store.create({
-  count: 0,
+  businesses: {
+    allBusinesses: [],
+  },
 });
 
 const setupStore = () => {
   persist('RootStore', RootStore, {
     storage: AsyncStorage,
     jsonify: true,
-    whitelist: ['count'],
+    whitelist: [''],
   });
 };
 

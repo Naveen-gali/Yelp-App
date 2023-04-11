@@ -4,22 +4,22 @@ import {CoordinatesModel} from './CoordinatesModel';
 import {LocationModel} from './LocationModel';
 
 const BusinessModel = types.model('BusinessModel').props({
-  id: '',
-  alias: '',
-  name: '',
-  image_url: '',
-  is_closed: false,
-  url: '',
-  review_count: 0,
+  id: types.optional(types.string, ''),
+  alias: types.optional(types.string, ''),
+  name: types.optional(types.string, ''),
+  image_url: types.optional(types.string, ''),
+  is_closed: types.optional(types.boolean, false),
+  url: types.optional(types.string, ''),
+  review_count: types.optional(types.number, 0),
   categories: types.array(CategoryModel),
-  rating: 0,
+  rating: types.optional(types.number, 0),
   coordinates: CoordinatesModel,
   transactions: types.array(types.string),
-  price: '',
+  price: types.optional(types.string, ''),
   location: LocationModel,
-  phone: '',
-  display_phone: '',
-  distance: 0,
+  phone: types.optional(types.string, ''),
+  display_phone: types.optional(types.string, ''),
+  distance: types.optional(types.number, 0),
 });
 
 export interface BusinessInterface extends SnapshotOut<typeof BusinessModel> {}

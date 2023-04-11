@@ -1,8 +1,8 @@
 import {SnapshotOut, types} from 'mobx-state-tree';
 
 const CoordinatesModel = types.model('CoordinatesModel').props({
-  latitude: 0,
-  longitude: 0,
+  latitude: types.maybeNull(types.number),
+  longitude: types.maybeNull(types.number),
 });
 
 export interface CoordinatesInterface

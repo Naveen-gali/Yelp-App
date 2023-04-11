@@ -1,10 +1,10 @@
 import {SnapshotOut, types} from 'mobx-state-tree';
 
 const MessagingModel = types.model('MessagingModel').props({
-  url: '',
-  use_case_text: '',
-  response_rate: 0,
-  response_time: 0,
+  url: types.optional(types.string, ''),
+  use_case_text: types.optional(types.string, ''),
+  response_rate: types.optional(types.number, 0),
+  response_time: types.optional(types.number, 0),
 });
 
 export interface MessagingInterface
