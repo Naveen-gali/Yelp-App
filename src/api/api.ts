@@ -1,6 +1,7 @@
 import axios, {AxiosRequestConfig} from 'axios';
 import {Alert} from 'react-native';
 import Config from 'react-native-config';
+import {Strings} from '../i18n';
 
 const YelpApi = axios.create({
   baseURL: Config.API_URL,
@@ -30,24 +31,19 @@ export function Api<T>(
       return res.data;
     })
     .catch(err => {
-      showError
-        ? Alert.alert(
-            'Error Occured',
-            err.response.data.error.description ?? 'Try Again After SomeTime',
-          )
-        : null;
-      err.showErrorScreen = !showError;
-      err.stat = 'fail';
+      let message = '';
       if (err.response) {
-        err.description =
-          err.response.data.error.description ?? 'SomwThing Weird Happened';
-        return err;
+        message =
+          err.response.data.error.description ?? Strings.error.responseError;
       } else if (err.request) {
-        err.description = 'Bad Network Error!';
-        return err.request.data.error;
+        message = Strings.error.requestError;
       } else {
-        err.description = 'SomeThing Happened!';
-        return err;
+        message = Strings.error.defaultError;
       }
+      showError ? Alert.alert(Strings.error.alertTitle, message) : null;
+      return {
+        message,
+        stat: 'fail',
+      };
     });
 }

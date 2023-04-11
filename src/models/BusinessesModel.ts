@@ -32,10 +32,10 @@ const BusinessesModel = types
             offset,
           ),
         );
-        console.log('response type :_ ', response.stat);
-
         if (response.stat === 'ok') {
           self.allBusinesses = cast(response.businesses);
+        } else {
+          throw response;
         }
       });
 

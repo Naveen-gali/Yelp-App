@@ -2,5 +2,11 @@
   "home": {
     "title": "Home",
     "welcome": "Welcome"
+  },
+  "error": {
+    "responseError": "SomeThing Weird Happened!",
+    "requestError": "Bad Network Error!",
+    "defaultError": "SomeThing Happened!",
+    "alertTitle": "Error Occured"
   }
 }

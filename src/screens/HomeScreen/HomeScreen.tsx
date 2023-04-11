@@ -12,7 +12,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   useEffect(() => {
     businesses.getAllBusinesses(
       'Indiana 1209jaoineoiance',
-      true,
+      false,
       BusinessServiceTypes.SearchBusinessesSortBy.Best_Match,
       10,
     );
