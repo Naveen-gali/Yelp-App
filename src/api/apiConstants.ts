@@ -1,5 +1,9 @@
 const BUSINESS_URL = '/v3/businesses';
 
-const SEARCH_BUSINESS = BUSINESS_URL + '/search';
+const ApiConstants = {
+  business: {
+    search: BUSINESS_URL + '/search',
+  },
+};
 
-export {SEARCH_BUSINESS};
+export {ApiConstants};

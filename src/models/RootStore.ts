@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Instance, cast, toGenerator, types} from 'mobx-state-tree';
+import {AsyncTask, runTask} from 'mst-async-task';
 import {persist} from 'mst-persist';
 import {createContext} from 'react';
-import {BusinessModel, ErrorModel} from './Business';
 import {BusinessService, BusinessServiceTypes} from '../services';
-import {AsyncTask, runTask} from 'mst-async-task';
+import {BusinessModel, ErrorModel} from './Business';
 
 const store = types
   .model('RootStoreModel')
@@ -39,7 +39,6 @@ const store = types
         if (response.stat !== 'fail') {
           self.businesses = cast(response.businesses);
         } else {
-          console.log('ERR SCREEN IN RS :_ ', response.show_error_screen);
           self.error.description = response.description;
           self.error.show_error_screen = response.show_error_screen;
         }

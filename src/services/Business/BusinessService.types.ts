@@ -13,10 +13,10 @@ type GetBusinessesResponseSuccess = {
 };
 
 type GetBusinessesResponseError = {
-  code: '';
-  description: '';
-  field: '';
-  instance: '';
+  code: string;
+  description: string;
+  field: string;
+  instance: string;
   show_error_screen: boolean;
   stat: 'fail';
 };

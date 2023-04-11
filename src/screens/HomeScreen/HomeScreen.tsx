@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import {SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
-import {HomeScreenProps} from './HomeScreen.types';
 import {BusinessServiceTypes} from '../../services';
+import {HomeScreenProps} from './HomeScreen.types';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {

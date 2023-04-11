@@ -10,6 +10,7 @@ YelpApi.interceptors.request.use(
   function (config) {
     config.params = {
       accept: 'application/json',
+      ...config.params,
     };
     config.headers.Authorization = `Bearer ${Config.TOKEN}`;
     return config;
@@ -31,29 +32,20 @@ export function Api<T>(
       showError
         ? Alert.alert(
             'Error Occured',
-            err.response.data.error.description
-              ? err.response.data.error.description
-              : 'Try Again After SomeTime',
+            err.response.data.error.description ?? 'Try Again After SomeTime',
           )
         : null;
-      console.log('ERR API :_ ', err.response);
-
+      err.show_error_screen = !showError;
+      err.stat = 'fail';
       if (err.response) {
-        err.description = err.response.data.error.description
-          ? err.response.data.error.description
-          : 'SomwThing Weird Happened';
-        err.show_error_screen = showError ? false : true;
-        err.stat = 'fail';
+        err.description =
+          err.response.data.error.description ?? 'SomwThing Weird Happened';
         return err;
       } else if (err.request) {
         err.description = 'Bad Network Error!';
-        err.show_error_screen = showError ? false : true;
-        err.stat = 'fail';
         return err.request.data.error;
       } else {
         err.description = 'SomeThing Happened!';
-        err.show_error_screen = showError ? false : true;
-        err.stat = 'fail';
         return err;
       }
     });
