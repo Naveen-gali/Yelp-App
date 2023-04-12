@@ -33,7 +33,7 @@ const BusinessesModel = types
           ),
         );
         if (response.stat === 'ok') {
-          self.allBusinesses = cast(response.businesses);
+          self.allBusinesses = cast(response.data.businesses);
         } else {
           throw response;
         }

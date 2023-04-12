@@ -1,6 +1,6 @@
 import {BusinessInterface} from '../../models';
 
-type GetBusinessesResponseSuccess = {
+type AllBusinesses = {
   businesses: BusinessInterface[];
   total: number;
   region: {
@@ -9,12 +9,6 @@ type GetBusinessesResponseSuccess = {
       longitude: number;
     };
   };
-  stat: 'ok';
-};
-
-type GetBusinessesResponseError = {
-  message: string;
-  stat: 'fail';
 };
 
 enum SearchBusinessesSortBy {
@@ -24,4 +18,4 @@ enum SearchBusinessesSortBy {
   distance = 'distance',
 }
 export {SearchBusinessesSortBy};
-export type {GetBusinessesResponseSuccess, GetBusinessesResponseError};
+export type {AllBusinesses};

@@ -6,9 +6,10 @@ import {RootStoreContext} from '../../models';
 import {HomeScreenProps} from './HomeScreen.types';
 import {BusinessServiceTypes} from '../../services';
 import {Strings} from '../../i18n';
+import {EventItem} from '../../components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
-  const {businesses} = useContext(RootStoreContext);
+  const {businesses, events} = useContext(RootStoreContext);
 
   const getBusinesses = (location?: string) => {
     businesses.getAllBusinesses(
@@ -19,8 +20,13 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     );
   };
 
+  const getEvents = (_location?: string) => {
+    events.getAllEvents();
+  };
+
   useEffect(() => {
     getBusinesses();
+    getEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,12 +34,22 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     <ScrollView>
       <Text style={styles.businessCount}>{businesses.BusinessesCount}</Text>
       <Text>{businesses.getBusinessesTask.error?.message}</Text>
+      <Text>{events.getEventDetailTask.error?.message}</Text>
+      <Text>{events.eventDetail.name}</Text>
+      {events.featuredEvent.name !== '' ? (
+        <Text>{events.featuredEvent.name}</Text>
+      ) : null}
       <View>
         <Button
           title={Strings.button.title}
-          onPress={() => getBusinesses('oin8921981n98')}
+          onPress={() => events.getFeaturedEvent('Texas')}
         />
       </View>
+      <Text>Events Count: {events.EventsCount}</Text>
+      <Text>{events.getEventsTask.error?.message}</Text>
+      {events.allEvents.map(e => (
+        <EventItem event={e} key={e.id} />
+      ))}
     </ScrollView>
   );
 });
