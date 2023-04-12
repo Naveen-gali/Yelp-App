@@ -1,7 +1,7 @@
 import {SnapshotOut, types} from 'mobx-state-tree';
 import {CategoryModel} from './CategoryModel';
 import {CoordinatesModel} from './CoordinatesModel';
-import {LocationModel} from '../Common/LocationModel';
+import {LocationModel} from '../Common';
 
 const BusinessModel = types.model('BusinessModel').props({
   id: types.optional(types.string, ''),
