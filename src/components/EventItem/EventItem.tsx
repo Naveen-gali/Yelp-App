@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {EventItemProps} from './EventItem.types';
 import {RootStoreContext} from '../../models';
+import {scale, verticalScale} from '../../utils';
 
 const EventItem = ({event}: EventItemProps) => {
   const {events} = useContext(RootStoreContext);
@@ -25,8 +26,8 @@ const EventItem = ({event}: EventItemProps) => {
 
 const styles = StyleSheet.create({
   image: {
-    height: 100,
-    width: 100,
+    height: verticalScale(100),
+    width: scale(100),
   },
 });
 
