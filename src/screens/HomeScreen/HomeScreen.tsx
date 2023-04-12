@@ -1,11 +1,12 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext, useEffect} from 'react';
-import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
 import {HomeScreenProps} from './HomeScreen.types';
 import {BusinessServiceTypes} from '../../services';
 import {Strings} from '../../i18n';
+import {scale, verticalScale} from '../../utils';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {businesses} = useContext(RootStoreContext);
@@ -34,6 +35,13 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
           onPress={() => getBusinesses('oin8921981n98')}
         />
       </View>
+      <Image
+        source={{
+          uri: 'https://s3-media3.fl.yelpcdn.com/ephoto/B9oMfBlHwU_8oSe7blx_Lw/o.jpg',
+        }}
+        style={styles.image}
+        resizeMode="contain"
+      />
     </ScrollView>
   );
 });
@@ -41,12 +49,16 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 const styles = StyleSheet.create({
   businessCount: {
     fontFamily: SecondaryFonts.Regular,
-    fontSize: 40,
+    fontSize: verticalScale(40),
   },
   welcomeText: {
     textAlign: 'center',
-    fontSize: 60,
+    fontSize: verticalScale(60),
     fontFamily: SecondaryFonts.Regular,
+  },
+  image: {
+    height: verticalScale(200),
+    width: scale(200),
   },
 });
 
