@@ -14,11 +14,5 @@ type AllEvents = {
   total: number;
 };
 
-// type GetEventsResponseSuccess = SuccessResponse<AllEventsResponse>;
-
-// type GetEventDetailsResponseSuccess = SuccessResponse<EventInterface>;
-
-// type GetFeaturedEventResponseSuccess = SuccessResponse<EventInterface>;
-
 export {EventsSortBy, EventsSortOn};
 export type {AllEvents};
