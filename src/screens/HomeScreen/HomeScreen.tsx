@@ -1,20 +1,12 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext, useEffect} from 'react';
-import {
-  Button,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SecondaryFonts} from '../../assets';
 import {RootStoreContext} from '../../models';
 import {HomeScreenProps} from './HomeScreen.types';
 import {BusinessServiceTypes} from '../../services';
 import {Strings} from '../../i18n';
-import {scale, verticalScale} from '../../utils';
+import {scale, verticalScale, platform} from '../../utils';
 import {useThemeColor} from '../../hooks';
 import {Pallete} from '../../theme';
 
@@ -49,7 +41,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         <Button
           title={Strings.button.title}
           onPress={() => getBusinesses('oin8921981n98')}
-          color={Platform.OS === 'ios' ? colors.text2 : colors.primary}
+          color={platform === 'ios' ? colors.text2 : colors.primary}
         />
       </View>
       <Image
@@ -78,7 +70,7 @@ const styles = StyleSheet.create({
     width: scale(200),
   },
   buttonContainer: {
-    marginHorizontal: 30,
+    marginHorizontal: scale(30),
     backgroundColor: Pallete.primary1,
   },
 });
