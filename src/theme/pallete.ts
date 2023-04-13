@@ -1,0 +1,16 @@
+export const Pallete = {
+  primary1: '#FF7C25',
+  primary2: '#ED7C56',
+  primary3: '#FEA971',
+  secondary1: '#6DB0B7',
+  secondary2: '#5ECBD5',
+  secondary3: '#507BA6',
+  card: '#3F5870',
+  background: '#FFF0D3',
+  success: '#5cb85c',
+  error: '#FF0000',
+  warning: '#f0ad4e',
+  transparent: ' #7FFFFFFF',
+  neutral: '#FFFFFF',
+  neutralBlack: '#000000',
+};

@@ -2,6 +2,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import RNBootsplash from 'react-native-bootsplash';
 import {PrimaryStackNavigator} from './PrimaryStack';
+import {useColorScheme} from 'react-native';
+import {DarkTheme, LightTheme} from '../theme';
 
 const RootNavigator = () => {
   const onNavigationContainerReady = () => {
@@ -11,8 +13,12 @@ const RootNavigator = () => {
     });
   };
 
+  const theme = useColorScheme();
+
   return (
-    <NavigationContainer onReady={onNavigationContainerReady}>
+    <NavigationContainer
+      onReady={onNavigationContainerReady}
+      theme={theme === 'dark' ? DarkTheme : LightTheme}>
       <PrimaryStackNavigator />
     </NavigationContainer>
   );

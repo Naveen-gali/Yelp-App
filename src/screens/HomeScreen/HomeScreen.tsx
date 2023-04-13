@@ -7,6 +7,8 @@ import {HomeScreenProps} from './HomeScreen.types';
 import {BusinessServiceTypes} from '../../services';
 import {Strings} from '../../i18n';
 import {scale, verticalScale} from '../../utils';
+import {useThemeColor} from '../../hooks';
+import {Pallete} from '../../theme';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {businesses} = useContext(RootStoreContext);
@@ -25,12 +27,19 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const {colors} = useThemeColor();
+
   return (
     <ScrollView>
-      <Text style={styles.businessCount}>{businesses.BusinessesCount}</Text>
-      <Text>{businesses.getBusinessesTask.error?.message}</Text>
-      <View>
+      <Text style={[styles.businessCount, {color: colors.text2}]}>
+        {businesses.BusinessesCount}
+      </Text>
+      <Text style={{color: Pallete.error}}>
+        {businesses.getBusinessesTask.error?.message}
+      </Text>
+      <View style={styles.buttonContainer}>
         <Button
+          color={colors.primary}
           title={Strings.button.title}
           onPress={() => getBusinesses('oin8921981n98')}
         />
@@ -59,6 +68,9 @@ const styles = StyleSheet.create({
   image: {
     height: verticalScale(200),
     width: scale(200),
+  },
+  buttonContainer: {
+    marginHorizontal: 30,
   },
 });
 
