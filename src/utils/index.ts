@@ -1,2 +1,2 @@
 export * from './ScalingUtils';
-export * from './PaltformUtil';
+export * from './Platform';
