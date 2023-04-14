@@ -42,8 +42,6 @@ const EventsModel = types
         );
         if (response.stat === 'ok') {
           self.allEvents = cast(response.data.events);
-        } else {
-          throw response;
         }
       });
 
@@ -55,8 +53,6 @@ const EventsModel = types
 
         if (response.stat === 'ok') {
           self.eventDetail = cast(response.data);
-        } else {
-          throw response;
         }
       });
 
@@ -67,8 +63,6 @@ const EventsModel = types
         );
         if (response.stat === 'ok') {
           self.featuredEvent = cast(response.data);
-        } else {
-          throw response;
         }
       });
 

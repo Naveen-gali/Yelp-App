@@ -45,10 +45,10 @@ export function Api<T>(
         message = Strings.error.defaultError;
       }
       showError ? Alert.alert(Strings.error.alertTitle, message) : null;
-      return {
+      throw {
         message,
         stat: 'fail',
-        error: err.response.data.error ?? null,
+        error: err.response?.data.error ?? null,
       };
     });
 }

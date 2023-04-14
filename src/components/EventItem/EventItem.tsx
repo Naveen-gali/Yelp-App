@@ -1,25 +1,20 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {EventItemProps} from './EventItem.types';
-import {RootStoreContext} from '../../models';
+import {PrimaryFonts} from '../../assets';
+import {Constants} from '../../constants';
 import {scale, verticalScale} from '../../utils';
+import {EventItemProps} from './EventItem.types';
 
-const EventItem = ({event}: EventItemProps) => {
-  const {events} = useContext(RootStoreContext);
-
+const EventItem = ({name, imageUrl, onPress}: EventItemProps) => {
   return (
-    <TouchableOpacity onPress={() => events.getEventDetails(event.id, false)}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Image
         source={{
-          uri:
-            event.image_url === ''
-              ? 'https://s3-media3.fl.yelpcdn.com/ephoto/B9oMfBlHwU_8oSe7blx_Lw/o.jpg'
-              : event.image_url,
+          uri: imageUrl === '' ? Constants.DefaultImageUrl : imageUrl,
         }}
         style={styles.image}
       />
-      <Text>{event.id}</Text>
-      <Text>{event.name}</Text>
+      <Text style={styles.eventName}>{name}</Text>
     </TouchableOpacity>
   );
 };
@@ -28,6 +23,12 @@ const styles = StyleSheet.create({
   image: {
     height: verticalScale(100),
     width: scale(100),
+  },
+  eventName: {
+    fontFamily: PrimaryFonts.Medium,
+  },
+  container: {
+    marginVertical: verticalScale(10),
   },
 });
 

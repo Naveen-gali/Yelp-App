@@ -1,5 +1,7 @@
-import {EventInterface} from '../../models';
+import {GestureResponderEvent} from 'react-native';
 
 export type EventItemProps = {
-  event: EventInterface;
+  name: string;
+  onPress: (event: GestureResponderEvent) => void;
+  imageUrl?: string;
 };

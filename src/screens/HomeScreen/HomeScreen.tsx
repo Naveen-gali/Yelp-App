@@ -53,6 +53,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <Text style={{color: Pallete.primary2}}>
         {businesses.getBusinessesTask.error?.message}
       </Text>
+      <Text>{events.getEventDetailTask.error?.message}</Text>
       <View style={styles.buttonContainer}>
         <Button
           title={Strings.button.title}
@@ -63,7 +64,12 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <Text>Events Count: {events.EventsCount}</Text>
       <Text>{events.getEventsTask.error?.message}</Text>
       {events.allEvents.map(e => (
-        <EventItem event={e} key={e.id} />
+        <EventItem
+          name={e.name}
+          imageUrl={e.image_url}
+          onPress={() => events.getEventDetails(e.id, false)}
+          key={e.id}
+        />
       ))}
     </ScrollView>
   );
