@@ -2,12 +2,14 @@ import {observer} from 'mobx-react-lite';
 import React, {useContext, useEffect} from 'react';
 import {Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SecondaryFonts} from '../../assets';
-import {RootStoreContext} from '../../models';
-import {HomeScreenProps} from './HomeScreen.types';
-import {BusinessServiceTypes} from '../../services';
+import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {EventItem} from '../../components';
-import {scale, verticalScale} from '../../utils';
+import {RootStoreContext} from '../../models';
+import {BusinessServiceTypes} from '../../services';
+import {Pallete} from '../../theme';
+import {isIos, scale, verticalScale} from '../../utils';
+import {HomeScreenProps} from './HomeScreen.types';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {businesses, events} = useContext(RootStoreContext);
@@ -31,19 +33,37 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const {colors} = useThemeColor();
+
   return (
     <ScrollView>
-      <Text style={styles.businessCount}>{businesses.BusinessesCount}</Text>
+      <Text
+        style={[
+          styles.businessCount,
+          {
+            color: colors.text,
+          },
+        ]}>
+        {businesses.BusinessesCount}
+      </Text>
       <Text>{businesses.getBusinessesTask.error?.message}</Text>
       <Text>{events.getEventDetailTask.error?.message}</Text>
       <Text>{events.eventDetail.name}</Text>
       {events.featuredEvent.name !== '' ? (
         <Text>{events.featuredEvent.name}</Text>
       ) : null}
+
+      <Text style={[styles.businessCount, {color: colors.text}]}>
+        {businesses.BusinessesCount}
+      </Text>
+      <Text style={{color: Pallete.primary2}}>
+        {businesses.getBusinessesTask.error?.message}
+      </Text>
       <View>
         <Button
           title={Strings.button.title}
           onPress={() => events.getFeaturedEvent('Texas')}
+          color={isIos ? colors.text2 : colors.primary}
         />
       </View>
       <Text>Events Count: {events.EventsCount}</Text>
@@ -75,6 +95,10 @@ const styles = StyleSheet.create({
   image: {
     height: verticalScale(200),
     width: scale(200),
+  },
+  buttonContainer: {
+    marginHorizontal: scale(30),
+    backgroundColor: Pallete.primary1,
   },
 });
 
