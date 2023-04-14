@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react-lite';
 import React, {useContext, useEffect} from 'react';
-import {Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SecondaryFonts} from '../../assets';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
@@ -46,20 +46,14 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         ]}>
         {businesses.BusinessesCount}
       </Text>
-      <Text>{businesses.getBusinessesTask.error?.message}</Text>
-      <Text>{events.getEventDetailTask.error?.message}</Text>
       <Text>{events.eventDetail.name}</Text>
       {events.featuredEvent.name !== '' ? (
         <Text>{events.featuredEvent.name}</Text>
       ) : null}
-
-      <Text style={[styles.businessCount, {color: colors.text}]}>
-        {businesses.BusinessesCount}
-      </Text>
       <Text style={{color: Pallete.primary2}}>
         {businesses.getBusinessesTask.error?.message}
       </Text>
-      <View>
+      <View style={styles.buttonContainer}>
         <Button
           title={Strings.button.title}
           onPress={() => events.getFeaturedEvent('Texas')}
@@ -71,13 +65,6 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       {events.allEvents.map(e => (
         <EventItem event={e} key={e.id} />
       ))}
-      <Image
-        source={{
-          uri: 'https://s3-media3.fl.yelpcdn.com/ephoto/B9oMfBlHwU_8oSe7blx_Lw/o.jpg',
-        }}
-        style={styles.image}
-        resizeMode="contain"
-      />
     </ScrollView>
   );
 });
@@ -99,6 +86,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginHorizontal: scale(30),
     backgroundColor: Pallete.primary1,
+    marginBottom: verticalScale(20),
   },
 });
 
