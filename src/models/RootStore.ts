@@ -1,8 +1,7 @@
 import {Instance, types} from 'mobx-state-tree';
 import {createContext} from 'react';
+import {mstPersist} from '../utils';
 import {BusinessesModel} from './BusinessesModel';
-import persist from 'mst-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {EventsModel} from './EventsModel';
 
 const store = types.model('RootStoreModel').props({
@@ -20,12 +19,12 @@ const RootStore = store.create({
 });
 
 const setupStore = () => {
-  persist('RootStore', RootStore.events, {
-    storage: AsyncStorage,
-    jsonify: true,
-    whitelist: ['allEvents', 'eventDetail', 'featuredEvent'],
-    blacklist: ['getEventsTask', 'getEventDetailTask', 'getFeaturedEventTask'],
-  });
+  mstPersist(
+    'RootStore',
+    RootStore.events,
+    ['allEvents', 'eventDetail', 'featuredEvent'],
+    ['getEventsTask', 'getEventDetailTask', 'getFeaturedEventTask'],
+  );
 };
 
 export type StoreType = Instance<typeof store>;
