@@ -8,7 +8,12 @@ import {EventItem} from '../../components';
 import {RootStoreContext} from '../../models';
 import {BusinessServiceTypes} from '../../services';
 import {Pallete} from '../../theme';
-import {isIos, scale, verticalScale} from '../../utils';
+import {
+  getItemsFromAsyncStorage,
+  isIos,
+  scale,
+  verticalScale,
+} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
@@ -24,7 +29,13 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   };
 
   const getEvents = (_location?: string) => {
-    events.getAllEvents();
+    getItemsFromAsyncStorage('RootStore').then(res => {
+      if (res?.allEvents.length > 0) {
+        return;
+      } else {
+        events.getAllEvents();
+      }
+    });
   };
 
   useEffect(() => {
