@@ -1,18 +1,18 @@
 ### What does this PR do?
 
-Please describe the changes in this pull request and how they improve the project.
+<!-- Please describe the changes in this pull request and how they improve the project. -->
 
 ### Related Issues
 
-Please list any related issues that are being fixed or addressed with this pull request.
+<!-- Please list any related issues that are being fixed or addressed with this pull request. -->
 
 ### How to test
 
-Please describe how the changes can be tested to verify that they work as intended.
+<!-- Please describe how the changes can be tested to verify that they work as intended. -->
 
 ### Screenshots
 
-If applicable, please provide any screenshots or images that demonstrate the changes made in this pull request.
+<!-- If applicable, please provide any screenshots or images that demonstrate the changes made in this pull request. -->
 
 ### Checklist
 
@@ -24,7 +24,7 @@ If applicable, please provide any screenshots or images that demonstrate the cha
 
 ### Additional Notes
 
-If there is anything else that you would like to add, please do so here.
+<!-- If there is anything else that you would like to add, please do so here. -->
 
 ### Packages Added (if any)
 
