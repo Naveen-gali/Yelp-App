@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Carousel} from '../../../components';
 import {Dimensions, Image, StyleSheet, View} from 'react-native';
-import {scale, verticalScale} from '../../../utils';
+import {verticalScale} from '../../../utils';
 import Dots from 'react-native-dots-pagination';
 import {CarouselDataItem} from './CarouselDataItem/CarouselDataItem';
 import {Pallete} from '../../../theme';
@@ -27,10 +27,8 @@ const SearchCarousel = () => {
       <Carousel
         data={SearchCarouselData}
         renderItem={SearchCarouselRenderItem}
-        width={scale(width)}
+        width={width}
         height={verticalScale(250)}
-        pagingEnabled
-        autoPlay={true}
         onProgressChange={(_e, a) => setCurrentSlideIndex(Math.floor(a))}
       />
       <View style={styles.dotsContainer}>
