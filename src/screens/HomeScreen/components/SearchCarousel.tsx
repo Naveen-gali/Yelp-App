@@ -1,41 +1,41 @@
 import React, {useState} from 'react';
 import {Carousel} from '../../../components';
-import CustomData from '../../../assets/data/CarouselData.json';
 import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import {scale, verticalScale} from '../../../utils';
 import Dots from 'react-native-dots-pagination';
 import {CarouselDataItem} from './CarouselDataItem/CarouselDataItem';
 import {Pallete} from '../../../theme';
+import {SearchCarouselData} from '../../../assets/data';
+
+export const SearchCarouselRenderItem = ({index, item}: any) => (
+  <View style={styles.renderItem} key={index}>
+    <Image
+      source={{uri: item.image}}
+      style={styles.image}
+      resizeMode="stretch"
+    />
+    <CarouselDataItem name={item.name} buttonText={item.buttonText} />
+  </View>
+);
 
 const SearchCarousel = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const width = Dimensions.get('window').width;
 
-  const renderItem = ({index, item}: any) => (
-    <View style={styles.renderItem} key={index}>
-      <Image
-        source={{uri: item.image}}
-        style={styles.image}
-        resizeMode="stretch"
-      />
-      <CarouselDataItem name={item.name} buttonText={item.buttonText} />
-    </View>
-  );
   return (
     <View>
       <Carousel
-        data={CustomData}
-        renderItem={renderItem}
+        data={SearchCarouselData}
+        renderItem={SearchCarouselRenderItem}
         width={scale(width)}
         height={verticalScale(250)}
         pagingEnabled
-        scrollAnimationDuration={1000}
         autoPlay={true}
         onProgressChange={(_e, a) => setCurrentSlideIndex(Math.floor(a))}
       />
       <View style={styles.dotsContainer}>
         <Dots
-          length={CustomData.length}
+          length={SearchCarouselData.length}
           active={currentSlideIndex}
           activeColor={Pallete.neutral200}
           passiveColor={Pallete.neutral500}

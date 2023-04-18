@@ -1,2 +1,2 @@
-import CarouselData from './CarouselData.json';
-export {CarouselData};
+import SearchCarouselData from './SearchCarouselData.json';
+export {SearchCarouselData};
