@@ -1,4 +1,4 @@
-export type CarouselDataItemProps = {
+export type SearchCarouselItemProps = {
   name: string;
   buttonText: string;
   image: string;

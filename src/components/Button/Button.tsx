@@ -45,13 +45,11 @@ export const Button = (props: ButtonProps) => {
         },
       ];
     }
-    return null;
+    return {};
   };
 
   const getDisabledBtnStyle = () => {
-    if (!disabled) {
-      return;
-    } else if (mode === 'text') {
+    if (!disabled || mode === 'text') {
       return null;
     } else if (mode === 'default') {
       return {backgroundColor: colors.disabled};
@@ -61,10 +59,18 @@ export const Button = (props: ButtonProps) => {
   };
 
   const getDisabledLabelStyle = () => {
-    if (mode === 'default') {
-      return;
-    } else {
+    //TODO: Convert it to a callback or memo
+    if (disabled && mode !== 'default') {
       return {color: colors.disabled};
+    }
+    return null;
+  };
+
+  const getTextStyle = () => {
+    if (mode === 'default') {
+      return {color: colors.text2};
+    } else {
+      return {color: colors.text};
     }
   };
 
@@ -74,10 +80,8 @@ export const Button = (props: ButtonProps) => {
         name={name}
         style={[
           styles.icon,
-          {
-            color: mode === 'default' ? colors.text2 : colors.text,
-          },
-          disabled ? getDisabledLabelStyle() : null,
+          getTextStyle(),
+          getDisabledLabelStyle(),
           iconStyle,
         ]}
       />
@@ -89,14 +93,8 @@ export const Button = (props: ButtonProps) => {
       <Text
         style={[
           styles.text,
-          {
-            backgroundColor: colors.transparent,
-          },
-          mode !== 'default' ? {color: colors.onPrimary} : null,
-          {
-            color: mode === 'default' ? colors.text2 : colors.text,
-          },
-          disabled ? getDisabledLabelStyle() : null,
+          getTextStyle(),
+          getDisabledLabelStyle(),
           textStyle,
         ]}
         lineBreakMode="tail"

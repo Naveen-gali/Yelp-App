@@ -5,10 +5,10 @@ import {SearchCarouselData} from '../../../assets/data';
 import {Carousel} from '../../../components';
 import {Pallete} from '../../../theme';
 import {getWidth, verticalScale} from '../../../utils';
-import {CarouselDataItem} from './CarouselDataItem/CarouselDataItem';
+import {SearchCarouselItem} from './SearchCarouselItem';
 
 export const SearchCarouselRenderItem = ({index, item}: any) => (
-  <CarouselDataItem
+  <SearchCarouselItem
     name={item.name}
     buttonText={item.buttonText}
     image={item.image}

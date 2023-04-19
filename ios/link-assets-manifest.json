@@ -2,28 +2,24 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/src/OpenSans-Bold.ttf",
+      "sha1": "c23ede86996d8239865bcd04c806e3789aaa0b94"
+    },
+    {
+      "path": "src/assets/fonts/src/OpenSans-Regular.ttf",
+      "sha1": "9a19a459ca7bca15d2de8269b80411f2b4a71ccf"
+    },
+    {
+      "path": "src/assets/fonts/src/OpenSans-SemiBold.ttf",
+      "sha1": "30fcdd8f737e6a86abda2d643d2f23c5286c4663"
+    },
+    {
       "path": "src/assets/fonts/src/Poppins-Bold.ttf",
       "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
     },
     {
-      "path": "src/assets/fonts/src/Poppins-Light.ttf",
-      "sha1": "e247a92158e112f8bf7b638c8d95381d66b00dbb"
-    },
-    {
       "path": "src/assets/fonts/src/Poppins-Medium.ttf",
       "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
-    },
-    {
-      "path": "src/assets/fonts/src/Poppins-Regular.ttf",
-      "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
-    },
-    {
-      "path": "src/assets/fonts/src/Poppins-SemiBold.ttf",
-      "sha1": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d"
-    },
-    {
-      "path": "src/assets/fonts/src/RumRaisin-Regular.ttf",
-      "sha1": "285371c7af359dc7d6779281b54b2f1a89e187d8"
     },
     {
       "path": "src/assets/fonts/src/icomoon.ttf",
