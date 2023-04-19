@@ -1,11 +1,11 @@
-import React from 'react';
 import {StoryObj} from '@storybook/react-native';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {Image} from 'react-native';
 import {Decorator} from '../../../.storybook/decorators';
+import {SearchCarouselData} from '../../assets/data';
+import {getWidth} from '../../utils';
 import {Carousel} from './Carousel';
 import {CarouselProps} from './Carousel.types';
-import {SearchCarouselData} from '../../assets/data';
-import {SearchCarouselRenderItem} from '../../screens/HomeScreen/components';
 
 const MyCarousel = {
   title: 'Carousel',
@@ -20,15 +20,15 @@ type Story = StoryObj<CarouselProps>;
 export const DefaultCarousel: Story = {
   args: {
     data: SearchCarouselData,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width / 2,
+    width: getWidth('window'),
+    height: getWidth('window') / 2,
     renderItem: ({index, item}) => {
       return (
         <Image
           source={{uri: item.image}}
           style={{
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').width,
+            width: getWidth('window'),
+            height: getWidth('window'),
           }}
           key={index}
         />
@@ -47,35 +47,3 @@ export const DefaultCarousel: Story = {
     },
   },
 };
-
-export const SearchCarousel: Story = {
-  args: {
-    data: SearchCarouselData,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width / 2,
-    renderItem: ({index, item}) => {
-      return (
-        <View style={styles.searchCarouselContainer}>
-          <SearchCarouselRenderItem item={item} index={index} />
-        </View>
-      );
-    },
-  },
-  argTypes: {
-    autoPlay: {
-      control: 'boolean',
-    },
-    scrollAnimationDuration: {
-      control: 'number',
-    },
-    pagingEnabled: {
-      control: 'boolean',
-    },
-  },
-};
-
-const styles = StyleSheet.create({
-  searchCarouselContainer: {
-    marginTop: 200,
-  },
-});

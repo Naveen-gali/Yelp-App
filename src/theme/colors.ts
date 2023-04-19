@@ -19,6 +19,8 @@ const LightTheme = {
     notification: DefaultTheme.colors.notification,
     border: DefaultTheme.colors.border,
     disabled: Pallete.neutral400,
+    transparent: Pallete.transparent,
+    loader: Pallete.neutral100,
   },
 };
 
@@ -41,6 +43,8 @@ const DarkTheme = {
     notification: DefaultTheme.colors.notification,
     border: DefaultTheme.colors.border,
     disabled: Pallete.neutral400,
+    transparent: Pallete.transparent,
+    loader: Pallete.neutral100,
   },
 };
 

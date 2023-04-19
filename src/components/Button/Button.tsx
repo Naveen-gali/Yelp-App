@@ -11,6 +11,8 @@ import {useThemeColor} from '../../hooks';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const Button = (props: ButtonProps) => {
+  const {colors} = useThemeColor();
+
   const {
     children,
     mode,
@@ -22,33 +24,38 @@ export const Button = (props: ButtonProps) => {
     icon,
     iconRight,
     iconStyle,
-    loaderColor,
+    loaderColor = colors.loader,
     ...restProps
   } = props;
 
-  const {colors} = useThemeColor();
-
   const getStyle = () => {
-    if (mode === 'default') {
-      return;
-    } else if (mode === 'outlined') {
+    if (mode === 'outlined') {
       return [
-        styles.outlied,
+        styles.outlined,
         {
           borderColor: colors.primary,
+          backgroundColor: colors.transparent,
         },
       ];
     } else if (mode === 'text') {
-      return styles.textType;
+      return [
+        styles.textType,
+        {
+          backgroundColor: colors.transparent,
+        },
+      ];
     }
+    return null;
   };
 
   const getDisabledBtnStyle = () => {
-    if (disabled && mode === 'text') {
+    if (!disabled) {
+      return;
+    } else if (mode === 'text') {
       return null;
-    } else if (disabled && mode === 'default') {
+    } else if (mode === 'default') {
       return {backgroundColor: colors.disabled};
-    } else if (disabled && mode === 'outlined') {
+    } else if (mode === 'outlined') {
       return {borderColor: colors.disabled};
     }
   };
@@ -57,9 +64,47 @@ export const Button = (props: ButtonProps) => {
     if (mode === 'default') {
       return;
     } else {
-      return {color: 'grey'};
+      return {color: colors.disabled};
     }
   };
+
+  function renderIcon(name: string) {
+    return (
+      <Icon
+        name={name}
+        style={[
+          styles.icon,
+          {
+            color: mode === 'default' ? colors.text2 : colors.text,
+          },
+          disabled ? getDisabledLabelStyle() : null,
+          iconStyle,
+        ]}
+      />
+    );
+  }
+
+  function renderText() {
+    return (
+      <Text
+        style={[
+          styles.text,
+          {
+            backgroundColor: colors.transparent,
+          },
+          mode !== 'default' ? {color: colors.onPrimary} : null,
+          {
+            color: mode === 'default' ? colors.text2 : colors.text,
+          },
+          disabled ? getDisabledLabelStyle() : null,
+          textStyle,
+        ]}
+        lineBreakMode="tail"
+        numberOfLines={1}>
+        {children}
+      </Text>
+    );
+  }
 
   return (
     <TouchableOpacity
@@ -82,33 +127,8 @@ export const Button = (props: ButtonProps) => {
         <ActivityIndicator size="small" color={loaderColor} />
       ) : (
         <>
-          {icon ? (
-            <Icon
-              name={icon}
-              style={[
-                styles.icon,
-                {
-                  color: mode === 'default' ? colors.text2 : colors.text,
-                },
-                disabled ? getDisabledLabelStyle() : null,
-                iconStyle,
-              ]}
-            />
-          ) : null}
-          <Text
-            style={[
-              styles.text,
-              mode !== 'default' ? {color: colors.onPrimary} : null,
-              {
-                color: mode === 'default' ? colors.text2 : colors.text,
-              },
-              disabled ? getDisabledLabelStyle() : null,
-              textStyle,
-            ]}
-            lineBreakMode="tail"
-            numberOfLines={1}>
-            {children}
-          </Text>
+          {icon ? renderIcon(icon) : null}
+          {renderText()}
         </>
       )}
     </TouchableOpacity>
@@ -124,18 +144,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    backgroundColor: undefined,
     alignSelf: 'center',
     fontSize: verticalScale(20),
   },
-  outlied: {
+  outlined: {
     borderWidth: scale(1),
-    backgroundColor: undefined,
   },
   textType: {
-    padding: scale(0),
-    borderWidth: scale(0),
-    backgroundColor: undefined,
+    padding: 0,
+    borderWidth: 0,
   },
   icon: {
     marginHorizontal: scale(3),

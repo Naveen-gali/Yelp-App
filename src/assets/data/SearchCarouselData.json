@@ -3,18 +3,18 @@
     "name": "Get that perfect fit",
     "image": "https://s3-media0.fl.yelpcdn.com/educatorphoto/GYdiDg2Q9tLladq7jQ6FVw/o.jpg",
     "buttonText": "Sewing Alterations",
-    "category": ""
+    "category": "sewingalterations"
   },
   {
     "name": "Spring into those\n summer projects",
     "image": "https://s3-media0.fl.yelpcdn.com/educatorphoto/7y1aUfNiM3WINjlAkUKjWw/o.jpg",
     "buttonText": "Contractors",
-    "category": ""
+    "category": "contractors"
   },
   {
     "name": "Show off your lawn\n this spring",
     "image": "https://s3-media0.fl.yelpcdn.com/educatorphoto/rMQ-LdQ3Aiq-WdMNOmQq2w/o.jpg",
     "buttonText": "Landscapers",
-    "category": ""
+    "category": "landscapearchitects"
   }
 ]
