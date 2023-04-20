@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -58,13 +58,12 @@ export const Button = (props: ButtonProps) => {
     }
   };
 
-  const getDisabledLabelStyle = () => {
-    //TODO: Convert it to a callback or memo
+  const disabledLabelStyle = useMemo(() => {
     if (disabled && mode !== 'default') {
       return {color: colors.disabled};
     }
     return null;
-  };
+  }, [colors.disabled, disabled, mode]);
 
   const getTextStyle = () => {
     if (mode === 'default') {
@@ -78,12 +77,7 @@ export const Button = (props: ButtonProps) => {
     return (
       <Icon
         name={name}
-        style={[
-          styles.icon,
-          getTextStyle(),
-          getDisabledLabelStyle(),
-          iconStyle,
-        ]}
+        style={[styles.icon, getTextStyle(), disabledLabelStyle, iconStyle]}
       />
     );
   }
@@ -91,12 +85,7 @@ export const Button = (props: ButtonProps) => {
   function renderText() {
     return (
       <Text
-        style={[
-          styles.text,
-          getTextStyle(),
-          getDisabledLabelStyle(),
-          textStyle,
-        ]}
+        style={[styles.text, getTextStyle(), disabledLabelStyle, textStyle]}
         lineBreakMode="tail"
         numberOfLines={1}>
         {children}
