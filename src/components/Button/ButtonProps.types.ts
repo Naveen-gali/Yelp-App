@@ -5,9 +5,10 @@ import {
   TextStyle,
   TouchableOpacityProps,
 } from 'react-native';
+import {CustomIconNames} from '../CustomIcon';
 
 export type ButtonIconProps = {
-  icon?: string;
+  icon?: CustomIconNames;
   iconRight?: boolean;
   iconStyle?: StyleProp<TextStyle>;
 };

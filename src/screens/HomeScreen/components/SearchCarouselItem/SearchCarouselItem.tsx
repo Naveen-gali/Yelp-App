@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {Button} from '../../../../components';
+import {Button, CustomIconNames} from '../../../../components';
 import {getWidth, scale, verticalScale} from '../../../../utils';
 import {SearchCarouselItemProps} from './SearchCarouselItem.types';
 import {useThemeColor} from '../../../../hooks';
@@ -23,7 +23,7 @@ const SearchCarouselItem = (props: SearchCarouselItemProps) => {
           <Button
             mode="default"
             onPress={() => {}}
-            icon="search"
+            icon={CustomIconNames.Search}
             iconStyle={[{color: colors.text2}, fontStyles.b1_Medium]}
             style={styles.button}
             textStyle={fontStyles.b1_Medium}>

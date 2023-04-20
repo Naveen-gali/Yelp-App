@@ -8,7 +8,7 @@ import {
 import {ButtonProps} from './ButtonProps.types';
 import {scale, verticalScale} from '../../utils';
 import {useThemeColor} from '../../hooks';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {CustomIcon, CustomIconNames} from '../CustomIcon';
 
 export const Button = (props: ButtonProps) => {
   const {colors} = useThemeColor();
@@ -28,7 +28,7 @@ export const Button = (props: ButtonProps) => {
     ...restProps
   } = props;
 
-  const getStyle = () => {
+  const getStyle = useMemo(() => {
     if (mode === 'outlined') {
       return [
         styles.outlined,
@@ -45,10 +45,10 @@ export const Button = (props: ButtonProps) => {
         },
       ];
     }
-    return {};
-  };
+    return null;
+  }, [colors.primary, colors.transparent, mode]);
 
-  const getDisabledBtnStyle = () => {
+  const getDisabledBtnStyle = useMemo(() => {
     if (!disabled || mode === 'text') {
       return null;
     } else if (mode === 'default') {
@@ -56,7 +56,7 @@ export const Button = (props: ButtonProps) => {
     } else if (mode === 'outlined') {
       return {borderColor: colors.disabled};
     }
-  };
+  }, [colors.disabled, disabled, mode]);
 
   const disabledLabelStyle = useMemo(() => {
     if (disabled && mode !== 'default') {
@@ -65,19 +65,19 @@ export const Button = (props: ButtonProps) => {
     return null;
   }, [colors.disabled, disabled, mode]);
 
-  const getTextStyle = () => {
+  const getTextStyle = useMemo(() => {
     if (mode === 'default') {
       return {color: colors.text2};
     } else {
       return {color: colors.text};
     }
-  };
+  }, [colors.text, colors.text2, mode]);
 
-  function renderIcon(name: string) {
+  function renderIcon(name: CustomIconNames) {
     return (
-      <Icon
+      <CustomIcon
         name={name}
-        style={[styles.icon, getTextStyle(), disabledLabelStyle, iconStyle]}
+        style={[styles.icon, getTextStyle, disabledLabelStyle, iconStyle]}
       />
     );
   }
@@ -85,7 +85,7 @@ export const Button = (props: ButtonProps) => {
   function renderText() {
     return (
       <Text
-        style={[styles.text, getTextStyle(), disabledLabelStyle, textStyle]}
+        style={[styles.text, getTextStyle, disabledLabelStyle, textStyle]}
         lineBreakMode="tail"
         numberOfLines={1}>
         {children}
@@ -102,8 +102,8 @@ export const Button = (props: ButtonProps) => {
             backgroundColor: colors.primary,
           },
         ],
-        getStyle(),
-        getDisabledBtnStyle(),
+        getStyle,
+        getDisabledBtnStyle,
         iconRight ? styles.rightIcon : null,
         style,
       ]}
