@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Dots from 'react-native-dots-pagination';
-import {SearchCarouselData} from '../../../assets/data';
-import {Carousel} from '../../../components';
-import {Pallete} from '../../../theme';
-import {getWidth, verticalScale} from '../../../utils';
+import {SearchCarouselData} from '../../../../assets/data';
+import {Carousel} from '../../../../components';
+import {Pallete} from '../../../../theme';
+import {getWidth, verticalScale} from '../../../../utils';
 import {SearchCarouselItem} from './SearchCarouselItem';
 
 export const SearchCarouselRenderItem = ({index, item}: any) => (

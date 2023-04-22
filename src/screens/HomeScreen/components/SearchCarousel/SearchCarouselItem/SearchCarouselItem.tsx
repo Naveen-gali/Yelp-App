@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {Button, CustomIconNames} from '../../../../components';
-import {getWidth, scale, verticalScale} from '../../../../utils';
+import {Button, CustomIconNames} from '../../../../../components';
+import {getWidth, scale, verticalScale} from '../../../../../utils';
 import {SearchCarouselItemProps} from './SearchCarouselItem.types';
-import {useThemeColor} from '../../../../hooks';
-import {fontStyles} from '../../../../constants';
+import {useThemeColor} from '../../../../../hooks';
+import {fontStyles} from '../../../../../constants';
 
 const SearchCarouselItem = (props: SearchCarouselItemProps) => {
   const {colors} = useThemeColor();
