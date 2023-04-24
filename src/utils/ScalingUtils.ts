@@ -7,8 +7,8 @@ const [usableWidth, usableHeight] =
 const baseWidth = 390;
 const baseHeight = 680;
 
-const scale = (size: number) => (usableWidth / baseWidth) * size;
+const horizontalScale = (size: number) => (usableWidth / baseWidth) * size;
 
 const verticalScale = (size: number) => (usableHeight / baseHeight) * size;
 
-export {scale, verticalScale};
+export {horizontalScale, verticalScale};

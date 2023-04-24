@@ -1,7 +1,11 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {Button, CustomIconNames} from '../../../../../components';
-import {DeviceUtils, scale, verticalScale} from '../../../../../utils';
+import {
+  DeviceUtils,
+  horizontalScale,
+  verticalScale,
+} from '../../../../../utils';
 import {SearchCarouselItemProps} from './SearchCarouselItem.types';
 import {useThemeColor} from '../../../../../hooks';
 import {fontStyles} from '../../../../../constants';
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
   overflowContainer: {
     position: 'absolute',
     alignItems: 'flex-start',
-    marginLeft: scale(15),
+    marginLeft: horizontalScale(15),
   },
   image: {
     width: DeviceUtils.getDeviceWidth(),
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(15),
   },
   button: {
-    padding: scale(10),
+    padding: horizontalScale(10),
   },
 });
 

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ButtonProps} from './Button.types';
-import {scale, verticalScale} from '../../utils';
+import {horizontalScale, verticalScale} from '../../utils';
 import {useThemeColor} from '../../hooks';
 import {CustomIcon, CustomIconNames} from '../CustomIcon';
 
@@ -126,7 +126,7 @@ export const Button = (props: ButtonProps) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    borderRadius: scale(10),
+    borderRadius: horizontalScale(10),
     paddingVertical: verticalScale(10),
     flexDirection: 'row',
     alignItems: 'center',
@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
     fontSize: verticalScale(20),
   },
   outlined: {
-    borderWidth: scale(1),
+    borderWidth: horizontalScale(1),
   },
   textType: {
     padding: 0,
     borderWidth: 0,
   },
   icon: {
-    marginHorizontal: scale(3),
+    marginHorizontal: horizontalScale(3),
     fontSize: verticalScale(20),
   },
   rightIcon: {
