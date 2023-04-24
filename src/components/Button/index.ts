@@ -1,2 +1,2 @@
 export * from './Button';
-export * from './ButtonProps.types';
+export * from './Button.types';

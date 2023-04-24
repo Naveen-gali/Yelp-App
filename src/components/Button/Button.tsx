@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {ButtonProps} from './ButtonProps.types';
+import {ButtonProps} from './Button.types';
 import {scale, verticalScale} from '../../utils';
 import {useThemeColor} from '../../hooks';
 import {CustomIcon, CustomIconNames} from '../CustomIcon';
