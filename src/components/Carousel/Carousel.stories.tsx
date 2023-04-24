@@ -3,7 +3,7 @@ import React from 'react';
 import {Image} from 'react-native';
 import {Decorator} from '../../../.storybook/decorators';
 import {SearchCarouselData} from '../../assets/data';
-import {getWidth} from '../../utils';
+import {DeviceUtils} from '../../utils';
 import {Carousel} from './Carousel';
 import {CarouselProps} from './Carousel.types';
 
@@ -20,15 +20,15 @@ type Story = StoryObj<CarouselProps>;
 export const DefaultCarousel: Story = {
   args: {
     data: SearchCarouselData,
-    width: getWidth('window'),
-    height: getWidth('window') / 2,
+    width: DeviceUtils.getDeviceWidth(),
+    height: DeviceUtils.getDeviceWidth() / 2,
     renderItem: ({index, item}) => {
       return (
         <Image
           source={{uri: item.image}}
           style={{
-            width: getWidth('window'),
-            height: getWidth('window'),
+            width: DeviceUtils.getDeviceWidth(),
+            height: DeviceUtils.getDeviceWidth(),
           }}
           key={index}
         />

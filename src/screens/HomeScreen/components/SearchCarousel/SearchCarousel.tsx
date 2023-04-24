@@ -1,24 +1,30 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Dots from 'react-native-dots-pagination';
-import {SearchCarouselData} from '../../../../assets/data';
 import {Carousel} from '../../../../components';
 import {Pallete} from '../../../../theme';
-import {getWidth, verticalScale} from '../../../../utils';
+import {verticalScale, DeviceUtils} from '../../../../utils';
 import {SearchCarouselItem} from './SearchCarouselItem';
+import {SearchCarouselData} from '../../../../assets/data';
 
-export const SearchCarouselRenderItem = ({index, item}: any) => (
-  <SearchCarouselItem
-    name={item.name}
-    buttonText={item.buttonText}
-    image={item.image}
-    key={index}
-  />
-);
+export const SearchCarouselRenderItem = ({index, item}: any) => {
+  const locale = DeviceUtils.locale;
+
+  return (
+    <SearchCarouselItem
+      name={
+        item.name[locale] !== undefined ? item.name[locale] : item.name.en_US
+      }
+      buttonText={item.buttonText}
+      image={item.image}
+      key={index}
+    />
+  );
+};
 
 const SearchCarousel = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const width = getWidth('window');
+  const width = DeviceUtils.getDeviceWidth();
 
   return (
     <View>
@@ -45,7 +51,7 @@ const styles = StyleSheet.create({
   dotsContainer: {
     position: 'absolute',
     bottom: verticalScale(10),
-    width: getWidth('window'),
+    width: DeviceUtils.getDeviceWidth(),
     alignItems: 'center',
     justifyContent: 'center',
   },
