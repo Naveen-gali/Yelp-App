@@ -13,7 +13,7 @@ const getDeviceWidth = (dim: 'window' | 'screen' = 'window') =>
   Dimensions.get(dim).width;
 
 const getDeviceHeight = (dim: 'window' | 'screen' = 'window') =>
-  Dimensions.get(dim).width;
+  Dimensions.get(dim).height;
 
 export const DeviceUtils = {
   locale,

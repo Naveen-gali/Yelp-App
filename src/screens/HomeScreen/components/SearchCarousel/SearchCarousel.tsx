@@ -5,7 +5,7 @@ import {Carousel} from '../../../../components';
 import {Pallete} from '../../../../theme';
 import {verticalScale, DeviceUtils} from '../../../../utils';
 import {SearchCarouselItem} from './SearchCarouselItem';
-import {SearchCarouselData} from '../../../../assets/data';
+import {SearchCarouselType} from './SearchCarousel.types';
 
 export const SearchCarouselRenderItem = ({index, item}: any) => {
   const locale = DeviceUtils.locale;
@@ -22,14 +22,15 @@ export const SearchCarouselRenderItem = ({index, item}: any) => {
   );
 };
 
-const SearchCarousel = () => {
+const SearchCarousel = (props: SearchCarouselType) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const width = DeviceUtils.getDeviceWidth();
+  const {carouselData} = props;
 
   return (
     <View>
       <Carousel
-        data={SearchCarouselData}
+        data={carouselData}
         renderItem={SearchCarouselRenderItem}
         width={width}
         height={verticalScale(250)}
@@ -37,7 +38,7 @@ const SearchCarousel = () => {
       />
       <View style={styles.dotsContainer}>
         <Dots
-          length={SearchCarouselData.length}
+          length={carouselData.length}
           active={currentSlideIndex}
           activeColor={Pallete.neutral200}
           passiveColor={Pallete.neutral500}
