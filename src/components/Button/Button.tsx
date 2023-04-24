@@ -73,16 +73,16 @@ export const Button = (props: ButtonProps) => {
     }
   }, [colors.text, colors.text2, mode]);
 
-  function renderIcon(name: CustomIconNames) {
+  const renderIcon = (name: CustomIconNames) => {
     return (
       <CustomIcon
         name={name}
         style={[styles.icon, getTextStyle, disabledLabelStyle, iconStyle]}
       />
     );
-  }
+  };
 
-  function renderText() {
+  const renderText = () => {
     return (
       <Text
         style={[styles.text, getTextStyle, disabledLabelStyle, textStyle]}
@@ -91,22 +91,24 @@ export const Button = (props: ButtonProps) => {
         {children}
       </Text>
     );
-  }
+  };
+
+  const ButtonStyles = [
+    [
+      styles.buttonContainer,
+      {
+        backgroundColor: colors.primary,
+      },
+    ],
+    getStyle,
+    getDisabledBtnStyle,
+    iconRight ? styles.rightIcon : null,
+    style,
+  ];
 
   return (
     <TouchableOpacity
-      style={[
-        [
-          styles.buttonContainer,
-          {
-            backgroundColor: colors.primary,
-          },
-        ],
-        getStyle,
-        getDisabledBtnStyle,
-        iconRight ? styles.rightIcon : null,
-        style,
-      ]}
+      style={ButtonStyles}
       disabled={disabled || isLoading}
       onPress={onPress}
       {...restProps}>
