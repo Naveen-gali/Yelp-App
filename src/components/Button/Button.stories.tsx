@@ -2,6 +2,7 @@ import {StoryObj} from '@storybook/react-native';
 import {Decorator} from '../../../.storybook/decorators';
 import {Button} from './Button';
 import type {ButtonProps} from './ButtonProps.types';
+import {CustomIconNames} from '../CustomIcon';
 
 const MyButton = {
   title: 'Button',
@@ -17,7 +18,7 @@ export const CustomButton: Story = {
   args: {
     children: 'Text Here',
     mode: 'default',
-    icon: 'search',
+    icon: CustomIconNames.Search,
     style: {padding: 10, flex: 0, width: 200},
   },
   argTypes: {
@@ -62,6 +63,12 @@ export const CustomButton: Story = {
     isLoading: {
       control: {
         type: 'boolean',
+      },
+    },
+    icon: {
+      options: Object.values(CustomIconNames),
+      control: {
+        type: 'select',
       },
     },
   },
