@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {useThemeColor} from '../../hooks';
 import {SearchCarouselService} from '../../services';
-import {Pallete} from '../../theme';
 import {DeviceUtils} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, SearchCarousel} from './components';
@@ -38,7 +37,13 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   const renderContent = () => {
     if (isLoading) {
       return (
-        <View style={styles.loaderView}>
+        <View
+          style={[
+            styles.loaderView,
+            {
+              backgroundColor: colors.loaderBackground,
+            },
+          ]}>
           <ActivityIndicator size={'large'} color={colors.primary} />
         </View>
       );
@@ -59,7 +64,6 @@ const styles = StyleSheet.create({
     height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Pallete.neutral300,
   },
 });
 

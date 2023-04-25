@@ -1,4 +1,4 @@
-export const Pallete = {
+export const Palette = {
   primary2: '#fb4c4d',
   primary1: '#de0b05',
   primaryBackground: '#fff3f1',
