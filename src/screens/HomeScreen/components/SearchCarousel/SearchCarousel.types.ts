@@ -1,10 +1,10 @@
 import Animated from 'react-native-reanimated';
-import {localizedLanguagesStrings} from '../../../../i18n';
+import {LocalizedLanguages} from '../../../../i18n';
 
 export type CarouselDataItem = {
-  name: localizedLanguagesStrings;
+  name: LocalizedLanguages;
   image: string;
-  buttonText: localizedLanguagesStrings;
+  buttonText: LocalizedLanguages;
   category: string;
 };
 

@@ -16,8 +16,8 @@ export const SearchCarouselRenderItem = ({
 }: SearchCarouselRenderItemProps) => {
   return (
     <SearchCarouselItem
-      name={ItemLocaleUtils.localizedName(item)}
-      buttonText={ItemLocaleUtils.localizedButtonText(item)}
+      name={ItemLocaleUtils.localizedText(item.name)}
+      buttonText={ItemLocaleUtils.localizedText(item.buttonText)}
       image={item.image}
       key={index}
     />

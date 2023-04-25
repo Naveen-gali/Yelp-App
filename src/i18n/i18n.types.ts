@@ -1,4 +1,4 @@
-export type localizedLanguagesStrings = {
+export type LocalizedLanguages = {
   en: string;
   ar: string;
 };

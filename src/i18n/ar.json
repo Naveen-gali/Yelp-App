@@ -4,9 +4,9 @@
     "welcome": "أهلًا وسهلًا"
   },
   "error": {
-    "responseError": "SomeThing Weird Happened!",
-    "requestError": "Bad Network Error!",
-    "defaultError": "SomeThing Happened!",
-    "alertTitle": "Error Occured"
+    "responseError": "حدث شيء غريب!",
+    "requestError": "خطأ شبكة تالفة!",
+    "defaultError": "شيء ما حصل!",
+    "alertTitle": "حدث خطأ"
   }
 }
