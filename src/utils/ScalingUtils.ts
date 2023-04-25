@@ -1,15 +1,14 @@
 import {Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
-const [shortDimension, longDimension] =
+const [usableWidth, usableHeight] =
   width < height ? [width, height] : [height, width];
 
-const testDeviceWidth = 390;
-const testDeviceHeight = 680;
+const baseWidth = 390;
+const baseHeight = 680;
 
-const scale = (size: number) => (shortDimension / testDeviceWidth) * size;
+const horizontalScale = (size: number) => (usableWidth / baseWidth) * size;
 
-const verticalScale = (size: number) =>
-  (longDimension / testDeviceHeight) * size;
+const verticalScale = (size: number) => (usableHeight / baseHeight) * size;
 
-export {scale, verticalScale};
+export {horizontalScale, verticalScale};

@@ -1,4 +1,4 @@
-export const Pallete = {
+export const Palette = {
   primary2: '#fb4c4d',
   primary1: '#de0b05',
   primaryBackground: '#fff3f1',
@@ -13,7 +13,7 @@ export const Pallete = {
   successBackground: '#e7fdd7',
   background: '#FFFFFF',
   success: '#5cb85c',
-  transparent: ' #7FFFFFFF',
+  transparent: '#ffffff00',
   neutral100: '#F7F7F7',
   neutral200: '#f0f0f0',
   neutral300: '#EBEBEB',
