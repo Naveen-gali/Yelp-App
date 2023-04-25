@@ -3,9 +3,11 @@ import {Instance, types} from 'mobx-state-tree';
 import {persist} from 'mst-persist';
 import {createContext} from 'react';
 import {BusinessesModel} from './BusinessesModel';
+import {SettingsModel} from './Settings';
 
 const store = types.model('RootStoreModel').props({
   businesses: types.optional(BusinessesModel, {}),
+  settings: types.optional(SettingsModel, {}),
 });
 
 const RootStore = store.create({
@@ -15,10 +17,10 @@ const RootStore = store.create({
 });
 
 const setupStore = () => {
-  persist('RootStore', RootStore, {
+  persist('Settings', RootStore.settings, {
     storage: AsyncStorage,
     jsonify: true,
-    whitelist: [''],
+    whitelist: ['theme', 'language'],
   });
 };
 
