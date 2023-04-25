@@ -3,21 +3,19 @@ import {StyleSheet, View} from 'react-native';
 import Dots from 'react-native-dots-pagination';
 import {Carousel} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
-import {DeviceUtils, ItemLocaleUtils, verticalScale} from '../../../../utils';
-import {
-  SearchCarouselRenderItemProps,
-  SearchCarouselType,
-} from './SearchCarousel.types';
+import {DeviceUtils, LocaleUtils, verticalScale} from '../../../../utils';
+import {CarouselDataItem, SearchCarouselType} from './SearchCarousel.types';
 import {SearchCarouselItem} from './SearchCarouselItem';
+import {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/typescript/types';
 
 export const SearchCarouselRenderItem = ({
   index,
   item,
-}: SearchCarouselRenderItemProps) => {
+}: CarouselRenderItemInfo<CarouselDataItem>) => {
   return (
     <SearchCarouselItem
-      name={ItemLocaleUtils.localizedText(item.name)}
-      buttonText={ItemLocaleUtils.localizedText(item.buttonText)}
+      name={LocaleUtils.localizedText(item.name)}
+      buttonText={LocaleUtils.localizedText(item.buttonText)}
       image={item.image}
       key={index}
     />

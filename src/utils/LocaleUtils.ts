@@ -7,6 +7,6 @@ const localizedText = (data: LocalizedLanguages) => {
   return itemName;
 };
 
-export const ItemLocaleUtils = {
+export const LocaleUtils = {
   localizedText,
 };
