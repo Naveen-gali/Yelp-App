@@ -3,9 +3,6 @@
     "title": "وطن",
     "welcome": "أهلًا وسهلًا"
   },
-  "button": {
-    "title": "Click"
-  },
   "error": {
     "responseError": "SomeThing Weird Happened!",
     "requestError": "Bad Network Error!",

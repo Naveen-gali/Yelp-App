@@ -8,7 +8,7 @@ import {
 import {CustomIconNames} from '../CustomIcon';
 
 export type ButtonIconProps = {
-  icon: CustomIconNames;
+  icon?: CustomIconNames;
   iconRight?: boolean;
   iconStyle?: StyleProp<TextStyle>;
 };

@@ -19,7 +19,7 @@ export const CustomButton: Story = {
     children: 'Text Here',
     mode: 'default',
     icon: CustomIconNames.Search,
-    style: {padding: 10, flex: 0, width: 200},
+    style: {padding: 10, flex: 0, marginHorizontal: 40, paddingHorizontal: 30},
   },
   argTypes: {
     children: {

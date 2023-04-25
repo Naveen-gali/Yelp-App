@@ -8,7 +8,7 @@ import {
 import {ButtonProps} from './Button.types';
 import {horizontalScale, verticalScale} from '../../utils';
 import {useThemeColor} from '../../hooks';
-import {CustomIcon, CustomIconNames} from '../CustomIcon';
+import {CustomIcon} from '../CustomIcon';
 
 export const Button = (props: ButtonProps) => {
   const {colors} = useThemeColor();
@@ -73,12 +73,18 @@ export const Button = (props: ButtonProps) => {
     }
   }, [colors.text, colors.text2, mode]);
 
-  const renderIcon = (name: CustomIconNames) => {
+  const renderIcon = () => {
     if (icon) {
       return (
         <CustomIcon
-          name={name}
-          style={[styles.icon, getTextStyle, disabledLabelStyle, iconStyle]}
+          name={icon}
+          style={[
+            styles.icon,
+            getTextStyle,
+            disabledLabelStyle,
+            isLoading ? styles.hidden : styles.show,
+            iconStyle,
+          ]}
         />
       );
     }
@@ -88,7 +94,13 @@ export const Button = (props: ButtonProps) => {
   const renderText = () => {
     return (
       <Text
-        style={[styles.text, getTextStyle, disabledLabelStyle, textStyle]}
+        style={[
+          styles.text,
+          getTextStyle,
+          disabledLabelStyle,
+          isLoading ? styles.hidden : styles.show,
+          textStyle,
+        ]}
         lineBreakMode="tail"
         numberOfLines={1}>
         {children}
@@ -111,7 +123,13 @@ export const Button = (props: ButtonProps) => {
 
   const renderLoader = () => {
     if (isLoading) {
-      return <ActivityIndicator size="small" color={loaderColor} />;
+      return (
+        <ActivityIndicator
+          size="small"
+          color={loaderColor}
+          style={styles.loader}
+        />
+      );
     }
     return null;
   };
@@ -124,7 +142,7 @@ export const Button = (props: ButtonProps) => {
       {...restProps}>
       <>
         {renderLoader()}
-        {renderIcon(icon)}
+        {renderIcon()}
         {renderText()}
       </>
     </TouchableOpacity>
@@ -163,5 +181,14 @@ const styles = StyleSheet.create({
   textWrapperStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  loader: {
+    position: 'absolute',
+  },
+  hidden: {
+    opacity: 0,
+  },
+  show: {
+    opacity: 1,
   },
 });
