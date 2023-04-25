@@ -21,6 +21,8 @@ const LightTheme = {
     disabled: Pallete.neutral400,
     transparent: Pallete.transparent,
     loader: Pallete.neutral100,
+    activeDots: Pallete.neutral200,
+    passiveDots: Pallete.neutral500,
   },
 };
 
@@ -45,6 +47,8 @@ const DarkTheme = {
     disabled: Pallete.neutral400,
     transparent: Pallete.transparent,
     loader: Pallete.neutral100,
+    activeDots: Pallete.neutral200,
+    passiveDots: Pallete.neutral500,
   },
 };
 

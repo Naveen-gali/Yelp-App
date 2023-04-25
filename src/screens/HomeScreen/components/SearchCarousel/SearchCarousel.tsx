@@ -2,20 +2,22 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Dots from 'react-native-dots-pagination';
 import {Carousel} from '../../../../components';
-import {Pallete} from '../../../../theme';
-import {verticalScale, DeviceUtils} from '../../../../utils';
+import {useThemeColor} from '../../../../hooks';
+import {DeviceUtils, ItemLocaleUtils, verticalScale} from '../../../../utils';
+import {
+  SearchCarouselRenderItemProps,
+  SearchCarouselType,
+} from './SearchCarousel.types';
 import {SearchCarouselItem} from './SearchCarouselItem';
-import {SearchCarouselType} from './SearchCarousel.types';
 
-export const SearchCarouselRenderItem = ({index, item}: any) => {
-  const locale = DeviceUtils.locale;
-
+export const SearchCarouselRenderItem = ({
+  index,
+  item,
+}: SearchCarouselRenderItemProps) => {
   return (
     <SearchCarouselItem
-      name={
-        item.name[locale] !== undefined ? item.name[locale] : item.name.en_US
-      }
-      buttonText={item.buttonText}
+      name={ItemLocaleUtils.localizedName(item)}
+      buttonText={ItemLocaleUtils.localizedButtonText(item)}
       image={item.image}
       key={index}
     />
@@ -24,11 +26,13 @@ export const SearchCarouselRenderItem = ({index, item}: any) => {
 
 const SearchCarousel = (props: SearchCarouselType) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const width = DeviceUtils.getDeviceWidth();
+  const width = DeviceUtils.getDeviceWindowWidth;
   const {carouselData} = props;
 
+  const {colors} = useThemeColor();
+
   return (
-    <View>
+    <>
       <Carousel
         data={carouselData}
         renderItem={SearchCarouselRenderItem}
@@ -40,11 +44,11 @@ const SearchCarousel = (props: SearchCarouselType) => {
         <Dots
           length={carouselData.length}
           active={currentSlideIndex}
-          activeColor={Pallete.neutral200}
-          passiveColor={Pallete.neutral500}
+          activeColor={colors.activeDots}
+          passiveColor={colors.passiveDots}
         />
       </View>
-    </View>
+    </>
   );
 };
 
@@ -52,7 +56,7 @@ const styles = StyleSheet.create({
   dotsContainer: {
     position: 'absolute',
     bottom: verticalScale(10),
-    width: DeviceUtils.getDeviceWidth(),
+    width: DeviceUtils.getDeviceWindowWidth,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -74,12 +74,15 @@ export const Button = (props: ButtonProps) => {
   }, [colors.text, colors.text2, mode]);
 
   const renderIcon = (name: CustomIconNames) => {
-    return (
-      <CustomIcon
-        name={name}
-        style={[styles.icon, getTextStyle, disabledLabelStyle, iconStyle]}
-      />
-    );
+    if (icon) {
+      return (
+        <CustomIcon
+          name={name}
+          style={[styles.icon, getTextStyle, disabledLabelStyle, iconStyle]}
+        />
+      );
+    }
+    return null;
   };
 
   const renderText = () => {
@@ -106,20 +109,24 @@ export const Button = (props: ButtonProps) => {
     style,
   ];
 
+  const renderLoader = () => {
+    if (isLoading) {
+      return <ActivityIndicator size="small" color={loaderColor} />;
+    }
+    return null;
+  };
+
   return (
     <TouchableOpacity
       style={ButtonStyles}
       disabled={disabled || isLoading}
       onPress={onPress}
       {...restProps}>
-      {isLoading ? (
-        <ActivityIndicator size="small" color={loaderColor} />
-      ) : (
-        <>
-          {icon ? renderIcon(icon) : null}
-          {renderText()}
-        </>
-      )}
+      <>
+        {renderLoader()}
+        {renderIcon(icon)}
+        {renderText()}
+      </>
     </TouchableOpacity>
   );
 };

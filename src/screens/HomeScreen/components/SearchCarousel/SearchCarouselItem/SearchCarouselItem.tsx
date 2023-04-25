@@ -23,17 +23,15 @@ const SearchCarouselItem = (props: SearchCarouselItemProps) => {
         <Text style={[{color: colors.text2}, fontStyles.h1_Bold]}>
           {props.name}
         </Text>
-        <View style={styles.buttonContainer}>
-          <Button
-            mode="default"
-            onPress={() => {}}
-            icon={CustomIconNames.Search}
-            iconStyle={[{color: colors.text2}, fontStyles.b1_Medium]}
-            style={styles.button}
-            textStyle={fontStyles.b1_Medium}>
-            {props.buttonText}
-          </Button>
-        </View>
+        <Button
+          mode="default"
+          onPress={() => {}}
+          icon={CustomIconNames.Search}
+          iconStyle={[{color: colors.text2}, fontStyles.b1_Medium]}
+          style={styles.button}
+          textStyle={fontStyles.b1_Medium}>
+          {props.buttonText}
+        </Button>
       </View>
     </View>
   );
@@ -47,14 +45,12 @@ const styles = StyleSheet.create({
     marginLeft: horizontalScale(15),
   },
   image: {
-    width: DeviceUtils.getDeviceWidth(),
+    width: DeviceUtils.getDeviceWindowWidth,
     height: verticalScale(250),
-  },
-  buttonContainer: {
-    marginTop: verticalScale(15),
   },
   button: {
     padding: horizontalScale(10),
+    marginTop: verticalScale(10),
   },
 });
 

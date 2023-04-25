@@ -5,21 +5,23 @@ const isAndroid = Platform.OS === 'android';
 const isIos = Platform.OS === 'ios';
 const isPlatform = (T: PlatformType) => Platform.OS === T;
 
-const locale = isIos
+const locale: string = isIos
   ? NativeModules.SettingsManager.settings.AppleLocale
   : NativeModules.I18nManager.localeIdentifier;
 
-const getDeviceWidth = (dim: 'window' | 'screen' = 'window') =>
-  Dimensions.get(dim).width;
+const getDeviceWindowWidth = Dimensions.get('window').width;
+const getDeviceWindowHeight = Dimensions.get('window').height;
 
-const getDeviceHeight = (dim: 'window' | 'screen' = 'window') =>
-  Dimensions.get(dim).height;
+const getDeviceScreenWidth = Dimensions.get('screen').width;
+const getDeviceScreenHeight = Dimensions.get('screen').height;
 
 export const DeviceUtils = {
   locale,
   isIos,
   isAndroid,
   isPlatform,
-  getDeviceHeight,
-  getDeviceWidth,
+  getDeviceScreenHeight,
+  getDeviceScreenWidth,
+  getDeviceWindowHeight,
+  getDeviceWindowWidth,
 };

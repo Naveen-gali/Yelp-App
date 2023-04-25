@@ -1,15 +1,13 @@
-type searchCarouselName = {
-  en_US: string;
-  ar_US: string;
-};
+import {localizedLanguagesStrings} from '../../i18n';
 
-export type SearchCarouselDataType = {
-  name: searchCarouselName;
+type SearchCarouselDataType = {
+  name: localizedLanguagesStrings;
   image: string;
-  buttonText: string;
+  buttonText: localizedLanguagesStrings;
   category: string;
 };
 
+// TODO: Update after events api to SuccessResponse<> kind
 export type SearchCarouselDataSuccessResponse = {
   stat: 'ok';
   data: SearchCarouselDataType[];

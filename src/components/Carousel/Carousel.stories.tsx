@@ -20,15 +20,15 @@ type Story = StoryObj<CarouselProps>;
 export const DefaultCarousel: Story = {
   args: {
     data: SearchCarouselData,
-    width: DeviceUtils.getDeviceWidth(),
-    height: DeviceUtils.getDeviceWidth() / 2,
+    width: DeviceUtils.getDeviceWindowWidth,
+    height: DeviceUtils.getDeviceWindowWidth / 2,
     renderItem: ({index, item}) => {
       return (
         <Image
           source={{uri: item.image}}
           style={{
-            width: DeviceUtils.getDeviceWidth(),
-            height: DeviceUtils.getDeviceWidth(),
+            width: DeviceUtils.getDeviceWindowWidth,
+            height: DeviceUtils.getDeviceWindowWidth,
           }}
           key={index}
         />

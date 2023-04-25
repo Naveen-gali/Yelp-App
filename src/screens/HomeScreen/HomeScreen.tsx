@@ -7,23 +7,21 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {HomeScreenProps} from './HomeScreen.types';
-import {SearchCarousel} from './components';
-import {SearchCarouselService} from '../../services';
-import type {SearchCarouselServiceTypes} from '../../services';
 import {useThemeColor} from '../../hooks';
-import {DeviceUtils} from '../../utils';
+import {SearchCarouselService} from '../../services';
 import {Pallete} from '../../theme';
+import {DeviceUtils} from '../../utils';
+import {HomeScreenProps} from './HomeScreen.types';
+import {CarouselDataItem, SearchCarousel} from './components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const [searchCarouselData, setSearchCarouselData] =
-    useState<SearchCarouselServiceTypes.SearchCarouselDataType[]>();
+    useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
 
   const getSearchCarouselData = () => {
     setIsLoading(true);
     SearchCarouselService.getSearchCarouselData().then(res => {
-      setIsLoading(false);
       if (res.stat === 'ok') {
         setSearchCarouselData(res.data);
         setIsLoading(false);
@@ -45,13 +43,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         </View>
       );
     } else {
-      return (
-        <SearchCarousel
-          carouselData={
-            searchCarouselData !== undefined ? searchCarouselData : []
-          }
-        />
-      );
+      return <SearchCarousel carouselData={searchCarouselData ?? []} />;
     }
   };
 
@@ -64,7 +56,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 
 const styles = StyleSheet.create({
   loaderView: {
-    height: DeviceUtils.getDeviceHeight(),
+    height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Pallete.neutral300,
