@@ -1,2 +1,3 @@
 export * from './ScalingUtils';
-export * from './Platform';
+export * from './DeviceUtils';
+export * from './LocaleUtils';

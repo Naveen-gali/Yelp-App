@@ -2,5 +2,11 @@
   "home": {
     "title": "وطن",
     "welcome": "أهلًا وسهلًا"
+  },
+  "error": {
+    "responseError": "حدث شيء غريب!",
+    "requestError": "خطأ شبكة تالفة!",
+    "defaultError": "شيء ما حصل!",
+    "alertTitle": "حدث خطأ"
   }
 }
