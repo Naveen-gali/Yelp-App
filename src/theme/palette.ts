@@ -23,4 +23,5 @@ export const Palette = {
   neutral700: '#6E7072',
   neutral800: '#2D2E2F',
   neutral900: '#000000',
+  error: '#FF0000',
 };

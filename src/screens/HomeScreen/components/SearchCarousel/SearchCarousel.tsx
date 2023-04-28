@@ -53,7 +53,7 @@ const SearchCarousel = (props: SearchCarouselType) => {
 const styles = StyleSheet.create({
   dotsContainer: {
     position: 'absolute',
-    bottom: verticalScale(10),
+    bottom: verticalScale(35),
     width: DeviceUtils.getDeviceWindowWidth,
     alignItems: 'center',
     justifyContent: 'center',

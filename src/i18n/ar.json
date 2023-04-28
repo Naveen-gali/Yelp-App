@@ -8,5 +8,11 @@
     "requestError": "خطأ شبكة تالفة!",
     "defaultError": "شيء ما حصل!",
     "alertTitle": "حدث خطأ"
+  },
+  "input": {
+    "default_error": "حدث خطأ!"
+  },
+  "searchbar": {
+    "placeholder": "ابحث عن برجر ، توصيل ، حلاق .."
   }
 }

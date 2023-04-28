@@ -7,9 +7,11 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {SearchBar} from '../../components';
 import {useThemeColor} from '../../hooks';
+import {Strings} from '../../i18n';
 import {SearchCarouselService} from '../../services';
-import {DeviceUtils} from '../../utils';
+import {DeviceUtils, horizontalScale, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, SearchCarousel} from './components';
 
@@ -34,6 +36,17 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 
   const {colors} = useThemeColor();
 
+  const renderSearchBar = () => {
+    return (
+      <SearchBar
+        onChangeText={() => {}}
+        style={[styles.searchbar, {backgroundColor: colors.loader}]}
+        placeholder={Strings.searchbar.placeholder}
+        inputStyle={styles.input}
+      />
+    );
+  };
+
   const renderContent = () => {
     if (isLoading) {
       return (
@@ -48,22 +61,50 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         </View>
       );
     } else {
-      return <SearchCarousel carouselData={searchCarouselData ?? []} />;
+      return (
+        <>
+          <SearchCarousel carouselData={searchCarouselData ?? []} />
+          {renderSearchBar()}
+        </>
+      );
     }
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.rootContainer}>
       <ScrollView>{renderContent()}</ScrollView>
     </SafeAreaView>
   );
 });
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    height: '100%',
+  },
   loaderView: {
     height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  searchbar: {
+    position: 'absolute',
+    marginHorizontal: horizontalScale(17),
+    padding: horizontalScale(10),
+    width: horizontalScale(360),
+    borderRadius: horizontalScale(6),
+    bottom: verticalScale(-25),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: verticalScale(4),
+    },
+    shadowOpacity: verticalScale(0.3),
+    shadowRadius: verticalScale(4.65),
+    // TODO: Ask about elevation in hori or verti scale
+    elevation: 8,
+  },
+  input: {
+    borderBottomWidth: horizontalScale(0),
   },
 });
 

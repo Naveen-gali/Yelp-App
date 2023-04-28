@@ -24,6 +24,7 @@ const LightTheme = {
     activeDots: Palette.neutral200,
     passiveDots: Palette.neutral500,
     loaderBackground: Palette.neutral300,
+    placeholder: Palette.neutral700,
   },
 };
 
@@ -51,6 +52,7 @@ const DarkTheme = {
     activeDots: Palette.neutral200,
     passiveDots: Palette.neutral500,
     loaderBackground: Palette.neutral300,
+    placeholder: Palette.neutral700,
   },
 };
 
