@@ -73,7 +73,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 
   return (
     <SafeAreaView style={styles.rootContainer}>
-      <StatusBar translucent={true} backgroundColor={'#ffffff00'} />
+      <StatusBar translucent={true} backgroundColor={colors.transparent} />
       <ScrollView contentContainerStyle={styles.scrollViewContentStyle}>
         {renderContent()}
       </ScrollView>
