@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {setupStore, RootStoreContext, RootStore} from './models';
-import {RootNavigator} from './navigation';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {RootStore, RootStoreContext, setupStore} from './models';
+import {RootNavigator} from './navigation';
 
 function App(): JSX.Element {
   useEffect(() => {

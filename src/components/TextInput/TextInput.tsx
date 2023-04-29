@@ -97,7 +97,7 @@ export const TextInput = (props: TextInputProps) => {
   };
 
   const onBlurHandler = (e: string) => {
-    if (e.length === 0 || value?.length === 0) {
+    if (e?.length === 0 || value?.length === 0) {
       moveLabelDown();
     }
   };

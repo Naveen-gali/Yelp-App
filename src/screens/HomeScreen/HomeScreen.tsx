@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
@@ -62,17 +63,20 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       );
     } else {
       return (
-        <>
+        <View>
           <SearchCarousel carouselData={searchCarouselData ?? []} />
           {renderSearchBar()}
-        </>
+        </View>
       );
     }
   };
 
   return (
     <SafeAreaView style={styles.rootContainer}>
-      <ScrollView>{renderContent()}</ScrollView>
+      <StatusBar translucent={true} backgroundColor={'#ffffff00'} />
+      <ScrollView contentContainerStyle={styles.scrollViewContentStyle}>
+        {renderContent()}
+      </ScrollView>
     </SafeAreaView>
   );
 });
@@ -85,6 +89,10 @@ const styles = StyleSheet.create({
     height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  scrollViewContentStyle: {
+    // TODO: Ask about scaling.
+    flexGrow: 1,
   },
   searchbar: {
     position: 'absolute',
@@ -102,6 +110,7 @@ const styles = StyleSheet.create({
     shadowRadius: verticalScale(4.65),
     // TODO: Ask about elevation in hori or verti scale
     elevation: 8,
+    zIndex: 2,
   },
   input: {
     borderBottomWidth: horizontalScale(0),
