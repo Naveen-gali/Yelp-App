@@ -6,3 +6,5 @@ export const Strings = new LocalizedStrings<typeof en>({
   'en-US': en,
   ar: ar,
 });
+
+export * from './i18n.types';

@@ -14,6 +14,9 @@ const PrimaryStackNavigator = () => {
       <PrimaryStack.Screen
         name={PrimaryStackRoute.Home}
         component={HomeScreen}
+        options={{
+          headerShown: false,
+        }}
       />
     </PrimaryStack.Navigator>
   );
