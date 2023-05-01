@@ -30,7 +30,7 @@ const SearchCarousel = (props: SearchCarouselType) => {
   const {colors} = useThemeColor();
 
   return (
-    <>
+    <View>
       <Carousel
         data={carouselData}
         renderItem={SearchCarouselRenderItem}
@@ -46,7 +46,7 @@ const SearchCarousel = (props: SearchCarouselType) => {
           passiveColor={colors.passiveDots}
         />
       </View>
-    </>
+    </View>
   );
 };
 

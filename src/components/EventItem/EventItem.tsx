@@ -1,8 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {PrimaryFonts} from '../../assets';
-import {Constants} from '../../constants';
-import {scale, verticalScale} from '../../utils';
+import {Constants, fontStyles} from '../../constants';
+import {horizontalScale, verticalScale} from '../../utils';
 import {EventItemProps} from './EventItem.types';
 
 const EventItem = ({name, imageUrl, onPress}: EventItemProps) => {
@@ -14,7 +13,7 @@ const EventItem = ({name, imageUrl, onPress}: EventItemProps) => {
         }}
         style={styles.image}
       />
-      <Text style={styles.eventName}>{name}</Text>
+      <Text style={[fontStyles.b1_Text_Bold]}>{name}</Text>
     </TouchableOpacity>
   );
 };
@@ -22,10 +21,7 @@ const EventItem = ({name, imageUrl, onPress}: EventItemProps) => {
 const styles = StyleSheet.create({
   image: {
     height: verticalScale(100),
-    width: scale(100),
-  },
-  eventName: {
-    fontFamily: PrimaryFonts.Medium,
+    width: horizontalScale(100),
   },
   container: {
     marginVertical: verticalScale(10),
