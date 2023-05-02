@@ -41,7 +41,10 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     return (
       <SearchBar
         onChangeText={() => {}}
-        style={[styles.searchbar, {backgroundColor: colors.loader}]}
+        style={[
+          styles.searchbar,
+          {backgroundColor: colors.loader, shadowColor: colors.searchbarShadow},
+        ]}
         placeholder={Strings.searchbar.placeholder}
         inputStyle={styles.input}
       />
@@ -91,7 +94,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollViewContentStyle: {
-    // TODO: Ask about scaling.
     flexGrow: 1,
   },
   searchbar: {
@@ -101,14 +103,12 @@ const styles = StyleSheet.create({
     width: horizontalScale(360),
     borderRadius: horizontalScale(6),
     bottom: verticalScale(-25),
-    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: verticalScale(4),
     },
     shadowOpacity: verticalScale(0.3),
     shadowRadius: verticalScale(4.65),
-    // TODO: Ask about elevation in hori or verti scale
     elevation: 8,
     zIndex: 2,
   },

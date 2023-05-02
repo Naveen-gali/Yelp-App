@@ -1,9 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {
   Animated,
   TextInput as InputField,
+  NativeSyntheticEvent,
   StyleSheet,
   Text,
+  TextInputFocusEventData,
   View,
 } from 'react-native';
 import {fontStyles} from '../../constants';
@@ -37,7 +39,7 @@ export const TextInput = (props: TextInputProps) => {
   const [focused, setFocused] = useState(false);
   const {colors} = useThemeColor();
 
-  const getStyle = () => {
+  const getStyle = useMemo(() => {
     if (mode === 'default') {
       return;
     } else if (mode === 'outline') {
@@ -45,9 +47,9 @@ export const TextInput = (props: TextInputProps) => {
     } else if (mode === 'border-less') {
       return styles.borderLess;
     }
-  };
+  }, [mode]);
 
-  const getDisabledStyle = () => {
+  const getDisabledStyle = useMemo(() => {
     if (mode === 'outline' && editable === false) {
       return [
         styles.outlineDisable,
@@ -59,7 +61,7 @@ export const TextInput = (props: TextInputProps) => {
     } else if (mode === 'default' && editable === false) {
       return [styles.defaultDisable, {borderBottomColor: colors.placeholder}];
     }
-  };
+  }, [colors.disabled, colors.placeholder, editable, mode]);
 
   const floatingLabel = useRef(new Animated.Value(0)).current;
 
@@ -103,62 +105,69 @@ export const TextInput = (props: TextInputProps) => {
   };
 
   const renderAnimatedLabel = () => {
-    return (
-      <Animated.View
-        style={[
-          animation,
-          styles.animatedLabel,
-          mode === 'outline'
-            ? {
-                backgroundColor: colors.background,
-              }
-            : null,
-        ]}>
-        {label ? (
-          <Label
-            style={[
-              {
-                backgroundColor:
-                  editable === false && mode === 'outline'
-                    ? colors.disabled
-                    : colors.background,
-                color: colors.text,
-              },
-              fontStyles.b3_Text_Italic,
-              focused ? [fontStyles.b3_Text_SemiBold, labelStyle] : null,
-            ]}
-            label={label}
-          />
-        ) : null}
-      </Animated.View>
-    );
+    const animatedLabelStyle = [
+      animation,
+      styles.animatedLabel,
+      mode === 'outline'
+        ? {
+            backgroundColor: colors.background,
+          }
+        : null,
+    ];
+
+    const renderLabelStyle = [
+      {
+        backgroundColor:
+          editable === false && mode === 'outline'
+            ? colors.disabled
+            : colors.background,
+        color: colors.text,
+      },
+      fontStyles.b3_Text_Italic,
+      focused ? [fontStyles.b3_Text_SemiBold, labelStyle] : null,
+    ];
+
+    if (label) {
+      return (
+        <Animated.View style={animatedLabelStyle}>
+          <Label style={renderLabelStyle} label={label} />
+        </Animated.View>
+      );
+    }
+    return null;
   };
+
+  const onFocus = () => {
+    onFocusHandler();
+    setFocused(true);
+  };
+
+  const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    onBlurHandler(e.nativeEvent.text);
+    setFocused(false);
+  };
+
+  const TextInputStyles = [
+    styles.input,
+    {
+      borderBottomColor: colors.text,
+      color: colors.text,
+    },
+    getStyle,
+    focused && mode !== 'border-less'
+      ? [styles.focused, {borderBottomColor: colors.border}]
+      : null,
+    error ? styles.error : null,
+    getDisabledStyle,
+    inputStyle,
+  ];
 
   const renderInputField = () => {
     return (
       <InputField
-        style={[
-          styles.input,
-          {
-            borderBottomColor: colors.text,
-            color: colors.text,
-          },
-          getStyle(),
-          focused && mode !== 'border-less'
-            ? [styles.focused, {borderBottomColor: colors.border}]
-            : null,
-          error ? styles.error : null,
-          getDisabledStyle(),
-          inputStyle,
-        ]}
-        onFocus={() => {
-          onFocusHandler();
-          setFocused(true);
-        }}
-        onBlur={e => {
-          onBlurHandler(e.nativeEvent.text);
-          setFocused(false);
-        }}
+        style={TextInputStyles}
+        onFocus={onFocus}
+        onBlur={onBlur}
         placeholder={placeholder}
         editable={editable}
         onChangeText={onChangeText}
@@ -223,7 +232,7 @@ const styles = StyleSheet.create({
     width: horizontalScale(100),
   },
   focused: {
-    borderBottomWidth: 2,
+    borderBottomWidth: verticalScale(2),
   },
   hint: {
     marginTop: verticalScale(5),
@@ -238,14 +247,13 @@ const styles = StyleSheet.create({
     marginLeft: horizontalScale(5),
   },
   outline: {
-    borderWidth: 1,
+    borderWidth: verticalScale(1),
   },
   outlineDisable: {
-    // TODO: This Horizon or vertical
-    borderWidth: 1,
+    borderWidth: verticalScale(1),
   },
   defaultDisable: {
-    borderBottomWidth: 3,
+    borderBottomWidth: verticalScale(3),
   },
   borderLess: {
     borderBottomWidth: 0,

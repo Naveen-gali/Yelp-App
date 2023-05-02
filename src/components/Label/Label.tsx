@@ -1,10 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, TextProps} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {verticalScale} from '../../utils';
-
-export type LabelProps = TextProps & {
-  label?: string;
-};
+import {LabelProps} from './Label.types';
 
 export const Label = (props: LabelProps) => {
   const {style, label, ...restProps} = props;
