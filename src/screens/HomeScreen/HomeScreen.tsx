@@ -11,7 +11,7 @@ import {useThemeColor} from '../../hooks';
 import {SearchCarouselService} from '../../services';
 import {DeviceUtils} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
-import {CarouselDataItem, SearchCarousel} from './components';
+import {CarouselDataItem, CategorySection, SearchCarousel} from './components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const [searchCarouselData, setSearchCarouselData] =
@@ -48,7 +48,12 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         </View>
       );
     } else {
-      return <SearchCarousel carouselData={searchCarouselData ?? []} />;
+      return (
+        <>
+          <SearchCarousel carouselData={searchCarouselData ?? []} />
+          <CategorySection />
+        </>
+      );
     }
   };
 

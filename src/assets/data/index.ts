@@ -1,2 +1,3 @@
 import SearchCarouselData from './SearchCarouselData.json';
-export {SearchCarouselData};
+import FeaturedCategoriesData from './FeaturedCategoriesData.json';
+export {SearchCarouselData, FeaturedCategoriesData};
