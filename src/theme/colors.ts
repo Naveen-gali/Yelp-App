@@ -26,6 +26,7 @@ const LightTheme = {
     loaderBackground: Palette.neutral300,
     placeholder: Palette.neutral700,
     searchbarShadow: Palette.neutral900,
+    error: Palette.error,
   },
 };
 
@@ -55,6 +56,7 @@ const DarkTheme = {
     loaderBackground: Palette.neutral300,
     placeholder: Palette.neutral700,
     searchbarShadow: Palette.neutral900,
+    error: Palette.error,
   },
 };
 

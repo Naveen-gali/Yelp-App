@@ -11,7 +11,6 @@ import {
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
-import {Palette} from '../../theme';
 import {Label} from '../Label';
 import {TextInputProps} from './TextInput.types';
 import {horizontalScale, verticalScale} from '../../utils';
@@ -157,7 +156,7 @@ export const TextInput = (props: TextInputProps) => {
     focused && mode !== 'border-less'
       ? [styles.focused, {borderBottomColor: colors.border}]
       : null,
-    error ? styles.error : null,
+    error ? {borderColor: colors.error} : null,
     getDisabledStyle,
     inputStyle,
   ];
@@ -191,12 +190,7 @@ export const TextInput = (props: TextInputProps) => {
       );
     } else if (error) {
       return (
-        <Text
-          style={[
-            styles.errorMessage,
-            {color: Palette.error},
-            errorMessageStyle,
-          ]}>
+        <Text style={[{color: colors.error}, errorMessageStyle]}>
           {errorMessage ?? Strings.input.default_error}
         </Text>
       );
@@ -238,11 +232,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     marginLeft: horizontalScale(5),
   },
-  error: {
-    borderColor: Palette.error,
-  },
   errorMessage: {
-    color: Palette.error,
     marginTop: verticalScale(5),
     marginLeft: horizontalScale(5),
   },
