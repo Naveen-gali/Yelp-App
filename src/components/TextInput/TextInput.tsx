@@ -197,7 +197,7 @@ export const TextInput = (props: TextInputProps) => {
             {color: Palette.error},
             errorMessageStyle,
           ]}>
-          {errorMessage ? errorMessage : Strings.input.default_error}
+          {errorMessage ?? Strings.input.default_error}
         </Text>
       );
     }
@@ -209,10 +209,10 @@ export const TextInput = (props: TextInputProps) => {
     return (
       <View style={[styles.container, style]}>
         <View style={styles.inputContainer}>
-          {left ? left : null}
+          {left ?? null}
           {renderAnimatedLabel()}
           {renderInputField()}
-          {right ? right : null}
+          {right ?? null}
         </View>
         {renderHintAndError()}
       </View>
