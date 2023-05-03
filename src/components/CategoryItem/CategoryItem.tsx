@@ -18,7 +18,8 @@ const CategoryItem = (props: CategoryItemProps) => {
         height={50}
         style={[styles.icon, iconStyle]}
       />
-      <Text style={(fontStyles.b3_Text_Regular, {color: colors.text})}>
+      <Text
+        style={[styles.text, fontStyles.b4_Text_Regular, {color: colors.text}]}>
         {LocaleUtils.localizedText(title)}
       </Text>
     </TouchableOpacity>
@@ -27,13 +28,17 @@ const CategoryItem = (props: CategoryItemProps) => {
 
 const styles = StyleSheet.create({
   iconContainer: {
-    marginHorizontal: horizontalScale(20),
+    flex: 1,
+    marginHorizontal: horizontalScale(14),
     marginVertical: verticalScale(20),
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
     marginBottom: verticalScale(4),
+  },
+  text: {
+    textAlign: 'center',
   },
 });
 

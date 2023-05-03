@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   overflowContainer: {
     position: 'absolute',
     alignItems: 'flex-start',
-    marginLeft: horizontalScale(15),
+    marginLeft: horizontalScale(14),
   },
   image: {
     width: DeviceUtils.getDeviceWindowWidth,
