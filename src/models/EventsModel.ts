@@ -40,9 +40,7 @@ const EventsModel = types
             sortBy,
           ),
         );
-        if (response.stat === 'ok') {
-          self.allEvents = cast(response.data.events);
-        }
+        self.allEvents = cast(response.data.events);
       });
 
     const getEventDetails = (eventId: string, showError?: boolean) =>
@@ -50,10 +48,7 @@ const EventsModel = types
         const response = yield* toGenerator(
           EventsService.getEventDetails(eventId, showError),
         );
-
-        if (response.stat === 'ok') {
-          self.eventDetail = cast(response.data);
-        }
+        self.eventDetail = cast(response.data);
       });
 
     const getFeaturedEvent = (location: string, showError?: boolean) =>
@@ -61,9 +56,7 @@ const EventsModel = types
         const response = yield* toGenerator(
           EventsService.getFeaturedEvent(location, showError),
         );
-        if (response.stat === 'ok') {
-          self.featuredEvent = cast(response.data);
-        }
+        self.featuredEvent = cast(response.data);
       });
 
     return {getAllEvents, getEventDetails, getFeaturedEvent};

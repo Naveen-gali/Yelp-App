@@ -2,7 +2,7 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {Alert} from 'react-native';
 import Config from 'react-native-config';
 import {Strings} from '../i18n';
-import {ErrorResponse, SuccessResponse} from './api.types';
+import {SuccessResponse} from './api.types';
 
 const YelpApi = axios.create({
   baseURL: Config.API_URL,
@@ -22,10 +22,7 @@ YelpApi.interceptors.request.use(
   },
 );
 
-export function Api<T>(
-  params: AxiosRequestConfig,
-  showError: boolean = true,
-): Promise<SuccessResponse<T> | ErrorResponse> {
+export function Api<T>(params: AxiosRequestConfig, showError: boolean = true) {
   return YelpApi.request(params)
     .then(result => {
       const response: SuccessResponse<T> = {
