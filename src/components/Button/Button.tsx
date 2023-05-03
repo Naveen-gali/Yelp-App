@@ -9,6 +9,7 @@ import {ButtonProps} from './Button.types';
 import {horizontalScale, verticalScale} from '../../utils';
 import {useThemeColor} from '../../hooks';
 import {CustomIcon} from '../CustomIcon';
+import {fontStyles} from '../../constants';
 
 export const Button = (props: ButtonProps) => {
   const {colors} = useThemeColor();
@@ -83,6 +84,7 @@ export const Button = (props: ButtonProps) => {
             getTextStyle,
             disabledLabelStyle,
             isLoading ? styles.hidden : styles.show,
+            fontStyles.b1_Text_Regular,
             iconStyle,
           ]}
         />
@@ -99,6 +101,7 @@ export const Button = (props: ButtonProps) => {
           getTextStyle,
           disabledLabelStyle,
           isLoading ? styles.hidden : styles.show,
+          fontStyles.b1_Text_Regular,
           textStyle,
         ]}
         lineBreakMode="tail"
@@ -159,7 +162,6 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: 'center',
-    fontSize: verticalScale(20),
   },
   outlined: {
     borderWidth: horizontalScale(1),
@@ -170,7 +172,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginHorizontal: horizontalScale(3),
-    fontSize: verticalScale(20),
   },
   rightIcon: {
     flexDirection: 'row-reverse',

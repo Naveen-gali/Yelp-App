@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react-lite';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -7,13 +7,16 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {EventItem} from '../../components';
 import {useThemeColor} from '../../hooks';
+import {RootStoreContext} from '../../models';
 import {SearchCarouselService} from '../../services';
-import {DeviceUtils} from '../../utils';
+import {DeviceUtils, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, SearchCarousel} from './components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
+  const {events} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -28,11 +31,38 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     });
   };
 
+  const getEvents = (_location?: string) => {
+    if (!events.allEvents.length) {
+      events.getAllEvents(_location);
+    }
+  };
+
   useEffect(() => {
+    getEvents();
     getSearchCarouselData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {colors} = useThemeColor();
+
+  const renderMainContent = () => {
+    return (
+      <>
+        <SearchCarousel carouselData={searchCarouselData ?? []} />
+        {events.allEvents.map((e, index) => {
+          return (
+            <EventItem
+              name={e.name}
+              imageUrl={e.image_url}
+              onPress={() => {}}
+              style={styles.eventItem}
+              key={index}
+            />
+          );
+        })}
+      </>
+    );
+  };
 
   const renderContent = () => {
     if (isLoading) {
@@ -48,7 +78,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         </View>
       );
     } else {
-      return <SearchCarousel carouselData={searchCarouselData ?? []} />;
+      return renderMainContent();
     }
   };
 
@@ -64,6 +94,9 @@ const styles = StyleSheet.create({
     height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  eventItem: {
+    marginVertical: verticalScale(10),
   },
 });
 

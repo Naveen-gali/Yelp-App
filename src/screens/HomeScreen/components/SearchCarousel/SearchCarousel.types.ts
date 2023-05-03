@@ -1,3 +1,4 @@
+import {StyleProp, ViewStyle} from 'react-native';
 import {LocalizedLanguages} from '../../../../i18n';
 
 export type CarouselDataItem = {
@@ -7,6 +8,7 @@ export type CarouselDataItem = {
   category: string;
 };
 
-export type SearchCarouselType = {
+export type SearchCarouselProps = {
   carouselData: CarouselDataItem[];
+  style?: StyleProp<ViewStyle>;
 };
