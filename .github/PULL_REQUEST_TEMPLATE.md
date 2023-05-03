@@ -14,13 +14,18 @@
 
 <!-- If applicable, please provide any screenshots or images that demonstrate the changes made in this pull request. -->
 
+| Android ScreenShot | Ios ScreenShot |
+| :----------------: | :------------: |
+|                    |                |
+
 ### Checklist
 
+- [ ] I have addressed all the requirements.
 - [ ] I have tested this code in both IOS and Android.
-- [ ] I have attached the necessary ScreenShots or Screen Recordings.
-- [ ] I have tested this code locally and verified that it works as intended.
 - [ ] I have checked the code for formatting, syntax, and other best practices.
 - [ ] I have ensured that my changes do not break any existing functionality.
+- [ ] I have attached the necessary ScreenShots or Screen Recordings.
+- [ ] I have self reviewed the PR.
 
 ### Additional Notes
 
