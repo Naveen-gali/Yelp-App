@@ -32,9 +32,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   };
 
   const getEvents = (_location?: string) => {
-    if (events.allEvents.length > 0) {
-      return;
-    } else {
+    if (!events.allEvents.length) {
       events.getAllEvents(_location);
     }
   };
