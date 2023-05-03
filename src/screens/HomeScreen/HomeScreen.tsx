@@ -11,7 +11,7 @@ import {EventItem} from '../../components';
 import {useThemeColor} from '../../hooks';
 import {RootStoreContext} from '../../models';
 import {SearchCarouselService} from '../../services';
-import {DeviceUtils, getItemsFromAsyncStorage} from '../../utils';
+import {DeviceUtils, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, SearchCarousel} from './components';
 
@@ -32,13 +32,11 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   };
 
   const getEvents = (_location?: string) => {
-    getItemsFromAsyncStorage('RootStore').then(res => {
-      if (res?.allEvents.length > 0) {
-        return;
-      } else {
-        events.getAllEvents(_location);
-      }
-    });
+    if (events.allEvents.length > 0) {
+      return;
+    } else {
+      events.getAllEvents(_location);
+    }
   };
 
   useEffect(() => {
@@ -53,12 +51,14 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     return (
       <>
         <SearchCarousel carouselData={searchCarouselData ?? []} />
-        {events.allEvents.map(e => {
+        {events.allEvents.map((e, index) => {
           return (
             <EventItem
               name={e.name}
               imageUrl={e.image_url}
               onPress={() => {}}
+              style={styles.eventItem}
+              key={index}
             />
           );
         })}
@@ -96,6 +96,9 @@ const styles = StyleSheet.create({
     height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  eventItem: {
+    marginVertical: verticalScale(10),
   },
 });
 

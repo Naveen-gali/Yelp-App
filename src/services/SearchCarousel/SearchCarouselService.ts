@@ -10,7 +10,7 @@ const getSearchCarouselData =
             stat: 'ok',
             data: SearchCarouselData,
           }),
-        3000,
+        30,
       );
     });
   };

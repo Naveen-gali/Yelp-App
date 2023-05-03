@@ -19,7 +19,7 @@ const RootStore = store.create({
 });
 
 const setupStore = () => {
-  mstPersist(
+  return mstPersist(
     'RootStore',
     RootStore.events,
     ['allEvents', 'eventDetail', 'featuredEvent'],
