@@ -1,9 +1,5 @@
 import {Api, ApiConstants} from '../../api';
-import {
-  GetBusinessesResponseError,
-  GetBusinessesResponseSuccess,
-  SearchBusinessesSortBy,
-} from './BusinessService.types';
+import {AllBusinesses, SearchBusinessesSortBy} from './BusinessService.types';
 
 function getAllBusinesses(
   location: string,
@@ -12,7 +8,7 @@ function getAllBusinesses(
   limit: number = 20,
   offset: number = 10,
 ) {
-  return Api<GetBusinessesResponseSuccess | GetBusinessesResponseError>(
+  return Api<AllBusinesses>(
     {
       url: ApiConstants.business.search,
       method: 'get',

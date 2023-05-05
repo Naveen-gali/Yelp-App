@@ -4,7 +4,7 @@ import Dots from 'react-native-dots-pagination';
 import {Carousel} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
 import {DeviceUtils, LocaleUtils, verticalScale} from '../../../../utils';
-import {CarouselDataItem, SearchCarouselType} from './SearchCarousel.types';
+import {CarouselDataItem, SearchCarouselProps} from './SearchCarousel.types';
 import {SearchCarouselItem} from './SearchCarouselItem';
 import {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/typescript/types';
 
@@ -22,15 +22,15 @@ export const SearchCarouselRenderItem = ({
   );
 };
 
-const SearchCarousel = (props: SearchCarouselType) => {
+const SearchCarousel = (props: SearchCarouselProps) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const width = DeviceUtils.getDeviceWindowWidth;
-  const {carouselData} = props;
+  const {carouselData, style} = props;
 
   const {colors} = useThemeColor();
 
   return (
-    <>
+    <View style={style}>
       <Carousel
         data={carouselData}
         renderItem={SearchCarouselRenderItem}
@@ -46,7 +46,7 @@ const SearchCarousel = (props: SearchCarouselType) => {
           passiveColor={colors.passiveDots}
         />
       </View>
-    </>
+    </View>
   );
 };
 

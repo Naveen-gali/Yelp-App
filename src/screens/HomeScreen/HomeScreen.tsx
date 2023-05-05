@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react-lite';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -8,15 +8,17 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {SearchBar} from '../../components';
+import {EventItem, SearchBar} from '../../components';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
+import {RootStoreContext} from '../../models';
 import {SearchCarouselService} from '../../services';
 import {DeviceUtils, horizontalScale, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, SearchCarousel} from './components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
+  const {events} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -31,23 +33,61 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     });
   };
 
+  const getEvents = (_location?: string) => {
+    if (!events.allEvents.length) {
+      events.getAllEvents(_location);
+    }
+  };
+
   useEffect(() => {
+    getEvents();
     getSearchCarouselData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {colors} = useThemeColor();
 
   const renderSearchBar = () => {
     return (
-      <SearchBar
-        onChangeText={() => {}}
-        style={[
-          styles.searchbar,
-          {backgroundColor: colors.loader, shadowColor: colors.searchbarShadow},
-        ]}
-        placeholder={Strings.searchbar.placeholder}
-        inputStyle={styles.input}
-      />
+      <View>
+        <SearchBar
+          onChangeText={() => {}}
+          style={[
+            styles.searchbar,
+            {
+              backgroundColor: colors.loader,
+              shadowColor: colors.searchbarShadow,
+            },
+          ]}
+          placeholder={Strings.searchbar.placeholder}
+          inputStyle={styles.input}
+        />
+      </View>
+    );
+  };
+
+  const renderMainContent = () => {
+    return (
+      <View>
+        <SearchCarousel carouselData={searchCarouselData ?? []} />
+        {renderSearchBar()}
+        <View
+          style={{
+            marginTop: verticalScale(50),
+          }}>
+          {events.allEvents.map((e, index) => {
+            return (
+              <EventItem
+                name={e.name}
+                imageUrl={e.image_url}
+                onPress={() => {}}
+                style={styles.eventItem}
+                key={index}
+              />
+            );
+          })}
+        </View>
+      </View>
     );
   };
 
@@ -65,12 +105,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         </View>
       );
     } else {
-      return (
-        <View>
-          <SearchCarousel carouselData={searchCarouselData ?? []} />
-          {renderSearchBar()}
-        </View>
-      );
+      return renderMainContent();
     }
   };
 
@@ -114,6 +149,9 @@ const styles = StyleSheet.create({
   },
   input: {
     borderBottomWidth: horizontalScale(0),
+  },
+  eventItem: {
+    marginVertical: verticalScale(10),
   },
 });
 

@@ -32,11 +32,7 @@ const BusinessesModel = types
             offset,
           ),
         );
-        if (response.stat === 'ok') {
-          self.allBusinesses = cast(response.businesses);
-        } else {
-          throw response;
-        }
+        self.allBusinesses = cast(response.data.businesses);
       });
 
     return {getAllBusinesses};
