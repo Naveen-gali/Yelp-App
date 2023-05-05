@@ -73,7 +73,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         {renderSearchBar()}
         <View
           style={{
-            marginTop: verticalScale(50),
+            marginTop: verticalScale(30),
           }}>
           {events.allEvents.map((e, index) => {
             return (
