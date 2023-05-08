@@ -18,4 +18,10 @@ export enum CustomIconNames {
   Education = 'education',
   Pets = 'pets',
   Search = 'search',
+  Profile = 'person-circle-outline',
+  Image = 'image',
+  Star = 'star',
+  Camera = 'camera',
+  Check = 'checkmark-circle-sharp',
+  Business = 'business-sharp',
 }

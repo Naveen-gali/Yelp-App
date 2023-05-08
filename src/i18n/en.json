@@ -3,13 +3,14 @@
     "title": "Home",
     "welcome": "Welcome"
   },
-  "button": {
-    "title": "Featured Event in Texas"
-  },
   "error": {
     "responseError": "Something Weird Happened!",
     "requestError": "Bad Network Error!",
     "defaultError": "Something Happened!",
     "alertTitle": "Error Occured"
+  },
+  "profile": {
+    "name": "Naveen G.",
+    "location": "San Francisco, CA"
   }
 }

@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Add Review",
+    "icon": "Star"
+  },
+  {
+    "label": "Add Photo",
+    "icon": "Camera"
+  },
+  {
+    "label": "Check-In",
+    "icon": "Check"
+  },
+  {
+    "label": "Add Business",
+    "icon": "Business"
+  }
+]

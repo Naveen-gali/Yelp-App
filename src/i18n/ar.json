@@ -8,5 +8,9 @@
     "requestError": "خطأ شبكة تالفة!",
     "defaultError": "شيء ما حصل!",
     "alertTitle": "حدث خطأ"
+  },
+  "profile": {
+    "name": "نافين ج.",
+    "location": "سان فرانسيسكو، كاليفورنيا"
   }
 }
