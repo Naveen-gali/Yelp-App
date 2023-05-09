@@ -1,3 +1,5 @@
+import {CustomIconNames} from '../../../../components';
+
 export type ProfileActionProps = {
-  icon: string;
+  icon: keyof typeof CustomIconNames;
 };
