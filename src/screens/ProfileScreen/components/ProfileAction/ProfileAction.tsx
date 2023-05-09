@@ -1,19 +1,18 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
-import {CustomIcon, CustomIconNames} from '../../../../components';
+import {CustomIcon} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
-import {ProfileActionProps} from './ProfileAction.types';
 import {verticalScale} from '../../../../utils';
+import {ProfileActionsDataItemType} from '../../../../assets';
 
-const ProfileAction = (props: ProfileActionProps) => {
+const ProfileAction = (props: ProfileActionsDataItemType) => {
   const {icon} = props;
   const {colors} = useThemeColor();
-  const cIcon = CustomIconNames[icon];
 
   return (
     <TouchableOpacity
       style={[styles.container, {backgroundColor: colors.passiveDots}]}>
-      <CustomIcon name={cIcon} size={verticalScale(20)} />
+      <CustomIcon name={icon} size={verticalScale(20)} />
     </TouchableOpacity>
   );
 };

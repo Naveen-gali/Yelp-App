@@ -1,8 +1,16 @@
-import SearchCarouselData from './SearchCarouselData.json';
-import StatsData from './StatsData.json';
-import ProfileActionsData from './ProfileActionsData.json';
-import ExperiencesData from './ExperiencesData.json';
-import MoreSettings from './MoreSettings.json';
+import {
+  ExperiencesDataType,
+  MoreSettingsType,
+  ProfileActionsDataType,
+  StatsDataType,
+} from './Assets.types';
+
+const SearchCarouselData = require('./SearchCarouselData.json');
+const StatsData: StatsDataType = require('./StatsData.json');
+const ProfileActionsData: ProfileActionsDataType = require('./ProfileActionsData.json');
+const ExperiencesData: ExperiencesDataType = require('./ExperiencesData.json');
+const MoreSettings: MoreSettingsType = require('./MoreSettings.json');
+
 export {
   SearchCarouselData,
   StatsData,
@@ -10,3 +18,5 @@ export {
   ExperiencesData,
   MoreSettings,
 };
+
+export * from './Assets.types';

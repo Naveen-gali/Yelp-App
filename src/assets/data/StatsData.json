@@ -1,5 +1,5 @@
 [
-  {"icon": "Profile", "count": 10},
-  {"icon": "Star", "count": 7},
-  {"icon": "Image", "count": 2}
+  {"icon": "person-circle-outline", "count": 10},
+  {"icon": "star", "count": 7},
+  {"icon": "image", "count": 2}
 ]

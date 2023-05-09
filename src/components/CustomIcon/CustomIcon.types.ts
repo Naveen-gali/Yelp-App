@@ -22,7 +22,7 @@ export enum CustomIconNames {
   Image = 'image',
   Star = 'star',
   Camera = 'camera',
-  Check = 'checkmark-circle-sharp',
+  CheckMark = 'checkmark-circle-sharp',
   Business = 'business-sharp',
   Heart = 'heart',
   Messages = 'mail-sharp',

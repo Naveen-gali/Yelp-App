@@ -1,18 +1,18 @@
 [
   {
     "label": "Add Review",
-    "icon": "Star"
+    "icon": "star"
   },
   {
     "label": "Add Photo",
-    "icon": "Camera"
+    "icon": "camera"
   },
   {
     "label": "Check-In",
-    "icon": "Check"
+    "icon": "checkmark-circle-sharp"
   },
   {
     "label": "Add Business",
-    "icon": "Business"
+    "icon": "business-sharp"
   }
 ]

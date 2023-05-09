@@ -3,10 +3,10 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {Constants, fontStyles} from '../../../constants';
 import {useThemeColor} from '../../../hooks';
 import {Strings} from '../../../i18n';
-import {CustomIcon, CustomIconNames} from '../../../components';
-import {ProfileActionsData, StatsData} from '../../../assets';
+import {CustomIcon} from '../../../components';
 import {verticalScale} from '../../../utils';
 import ProfileAction from './ProfileAction/ProfileAction';
+import {ProfileActionsData, StatsData} from '../../../assets';
 
 const ProfileHeader = () => {
   const {colors} = useThemeColor();
@@ -24,11 +24,7 @@ const ProfileHeader = () => {
       <View style={styles.statsContainer}>
         {StatsData.map((s, index) => (
           <View style={styles.statItem} key={index}>
-            {/* TODO: Ask about the error in below line */}
-            <CustomIcon
-              name={CustomIconNames[s.icon]}
-              size={verticalScale(16)}
-            />
+            <CustomIcon name={s.icon} size={verticalScale(16)} />
             <Text style={styles.statCount}>{s.count}</Text>
           </View>
         ))}

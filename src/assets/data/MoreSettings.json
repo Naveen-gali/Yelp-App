@@ -4,48 +4,48 @@
       "en": "Your Preferences",
       "ar": "تفضيلاتك"
     },
-    "image": "Heart"
+    "icon": "heart"
   },
   {
     "label": {
       "en": "Check-Ins",
       "ar": "تسجيلات الوصول"
     },
-    "image": "Check"
+    "icon": "checkmark-circle-sharp"
   },
   {
     "label": {
       "en": "Added businesses",
       "ar": "الشركات المضافة"
     },
-    "image": "Business"
+    "icon": "business-sharp"
   },
   {
     "label": {
       "en": "Messages",
       "ar": "رسائل"
     },
-    "image": "Messages"
+    "icon": "mail-sharp"
   },
   {
     "label": {
       "en": "My Activity",
       "ar": "نشاطي"
     },
-    "image": "Pulse"
+    "icon": "pulse"
   },
   {
     "label": {
       "en": "Reservations",
       "ar": "التحفظات"
     },
-    "image": "Calendar"
+    "icon": "calendar"
   },
   {
     "label": {
       "en": "More About Naveen",
       "ar": "المزيد عن نافين"
     },
-    "image": "Profile"
+    "icon": "person-circle-outline"
   }
 ]

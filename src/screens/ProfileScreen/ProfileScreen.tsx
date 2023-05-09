@@ -13,9 +13,9 @@ import ExperienceCard from './components/ExperienceCard/ExperienceCard';
 import {fontStyles} from '../../constants';
 import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
-import {ExperiencesData, MoreSettings} from '../../assets';
-import {Button, CustomIcon, CustomIconNames} from '../../components';
+import {Button, CustomIcon} from '../../components';
 import {useThemeColor} from '../../hooks';
+import {ExperiencesData, MoreSettings} from '../../assets';
 
 const ProfileScreen = () => {
   const {colors} = useThemeColor();
@@ -56,11 +56,7 @@ const ProfileScreen = () => {
         ListHeaderComponentStyle={styles.listHeader}
         renderItem={({item}) => (
           <TouchableOpacity style={styles.moreSetting}>
-            {/* TODO: HERE As well */}
-            <CustomIcon
-              name={CustomIconNames[item.image]}
-              size={verticalScale(25)}
-            />
+            <CustomIcon name={item.icon} size={verticalScale(25)} />
             <Text style={[fontStyles.b2_Text_Regular, styles.settingsText]}>
               {LocaleUtils.localizedText(item.label)}
             </Text>
