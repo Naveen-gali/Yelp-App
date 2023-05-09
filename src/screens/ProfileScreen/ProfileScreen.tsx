@@ -45,15 +45,6 @@ const ProfileScreen = () => {
     );
   };
 
-  //   <View style={styles.moreSetting}>
-  // {/* TODO: HERE As well */}
-  // <CustomIcon
-  //   name={CustomIconNames[m.image]}
-  //   size={verticalScale(25)}
-  // />
-  // <Text>{LocaleUtils.localizedText(m.label)}</Text>
-  // </View>
-
   const horizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
@@ -94,6 +85,7 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: horizontalScale(12),
+    marginTop: verticalScale(15),
   },
   experiencesSection: {
     marginTop: verticalScale(15),
