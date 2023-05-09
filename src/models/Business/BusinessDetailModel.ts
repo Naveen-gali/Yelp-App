@@ -3,7 +3,7 @@ import {AttributesModel} from './AttributesModel';
 import {CategoryModel} from './CategoryModel';
 import {CoordinatesModel} from './CoordinatesModel';
 import {HoursModel} from './HoursModel';
-import {LocationModel} from './LocationModel';
+import {LocationModel} from '../Common';
 import {MessagingModel} from './MessagingModel';
 import {PhotoDetailsModel} from './PhotoDetailsModel';
 import {SpecialHoursModel} from './SpecialHoursModel';

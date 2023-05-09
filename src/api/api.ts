@@ -2,6 +2,7 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {Alert} from 'react-native';
 import Config from 'react-native-config';
 import {Strings} from '../i18n';
+import {SuccessResponse} from './api.types';
 
 const YelpApi = axios.create({
   baseURL: Config.API_URL,
@@ -21,14 +22,14 @@ YelpApi.interceptors.request.use(
   },
 );
 
-export function Api<T>(
-  params: AxiosRequestConfig,
-  showError: boolean = true,
-): Promise<T> {
+export function Api<T>(params: AxiosRequestConfig, showError: boolean = true) {
   return YelpApi.request(params)
-    .then(res => {
-      res.data.stat = 'ok';
-      return res.data;
+    .then(result => {
+      const response: SuccessResponse<T> = {
+        stat: 'ok',
+        data: result.data,
+      };
+      return response;
     })
     .catch(err => {
       let message = '';
@@ -41,9 +42,10 @@ export function Api<T>(
         message = Strings.error.defaultError;
       }
       showError ? Alert.alert(Strings.error.alertTitle, message) : null;
-      return {
+      throw {
         message,
         stat: 'fail',
+        error: err.response?.data.error ?? null,
       };
     });
 }

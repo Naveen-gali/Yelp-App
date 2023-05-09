@@ -3,10 +3,13 @@
     "title": "Home",
     "welcome": "Welcome"
   },
+  "button": {
+    "title": "Featured Event in Texas"
+  },
   "error": {
-    "responseError": "SomeThing Weird Happened!",
+    "responseError": "Something Weird Happened!",
     "requestError": "Bad Network Error!",
-    "defaultError": "SomeThing Happened!",
+    "defaultError": "Something Happened!",
     "alertTitle": "Error Occured"
   }
 }
