@@ -24,4 +24,8 @@ export enum CustomIconNames {
   Camera = 'camera',
   Check = 'checkmark-circle-sharp',
   Business = 'business-sharp',
+  Heart = 'heart',
+  Messages = 'mail-sharp',
+  Calendar = 'calendar',
+  Pulse = 'pulse',
 }

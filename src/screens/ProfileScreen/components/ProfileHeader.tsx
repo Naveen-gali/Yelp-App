@@ -23,12 +23,11 @@ const ProfileHeader = () => {
       </Text>
       <View style={styles.statsContainer}>
         {StatsData.map((s, index) => (
-          <View style={styles.statItem}>
+          <View style={styles.statItem} key={index}>
             {/* TODO: Ask about the error in below line */}
             <CustomIcon
               name={CustomIconNames[s.icon]}
               size={verticalScale(16)}
-              key={index}
             />
             <Text style={styles.statCount}>{s.count}</Text>
           </View>

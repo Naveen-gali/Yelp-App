@@ -10,7 +10,7 @@ const LightTheme = {
     onSecondary: Palette.neutral800,
     primaryIcons: Palette.primary2,
     secondaryIcons: Palette.secondary2,
-    card: Palette.neutral200,
+    card: Palette.neutral100,
     text: Palette.neutral800,
     text2: Palette.neutral100,
     background: Palette.background,
@@ -24,6 +24,7 @@ const LightTheme = {
     activeDots: Palette.neutral200,
     passiveDots: Palette.neutral500,
     loaderBackground: Palette.neutral300,
+    buttonBorder: Palette.neutral900,
   },
 };
 
@@ -37,7 +38,7 @@ const DarkTheme = {
     onSecondary: Palette.neutral800,
     primaryIcons: Palette.primary2,
     secondaryIcons: Palette.secondary2,
-    card: Palette.neutral200,
+    card: Palette.neutral100,
     text: Palette.neutral800,
     text2: Palette.neutral100,
     background: Palette.background,
@@ -51,6 +52,7 @@ const DarkTheme = {
     activeDots: Palette.neutral200,
     passiveDots: Palette.neutral500,
     loaderBackground: Palette.neutral300,
+    buttonBorder: Palette.neutral900,
   },
 };
 

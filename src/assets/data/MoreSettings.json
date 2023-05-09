@@ -1,0 +1,51 @@
+[
+  {
+    "label": {
+      "en": "Your Preferences",
+      "ar": "تفضيلاتك"
+    },
+    "image": "Heart"
+  },
+  {
+    "label": {
+      "en": "Check-Ins",
+      "ar": "تسجيلات الوصول"
+    },
+    "image": "Check"
+  },
+  {
+    "label": {
+      "en": "Added businesses",
+      "ar": "الشركات المضافة"
+    },
+    "image": "Business"
+  },
+  {
+    "label": {
+      "en": "Messages",
+      "ar": "رسائل"
+    },
+    "image": "Messages"
+  },
+  {
+    "label": {
+      "en": "My Activity",
+      "ar": "نشاطي"
+    },
+    "image": "Pulse"
+  },
+  {
+    "label": {
+      "en": "Reservations",
+      "ar": "التحفظات"
+    },
+    "image": "Calendar"
+  },
+  {
+    "label": {
+      "en": "More About Naveen",
+      "ar": "المزيد عن نافين"
+    },
+    "image": "Profile"
+  }
+]

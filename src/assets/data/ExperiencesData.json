@@ -1,0 +1,23 @@
+[
+  {
+    "title": {
+      "en": "Avas Flowers",
+      "ar": "أزهار أفاس"
+    },
+    "logo": "https://s3-media0.fl.yelpcdn.com/bphoto/1zTfcVJ7j5XA0hWqEOMDlw/ls.jpg"
+  },
+  {
+    "title": {
+      "en": "Via 313 Pizza",
+      "ar": "فيا 313 بيتزا"
+    },
+    "logo": "https://s3-media0.fl.yelpcdn.com/bphoto/C9RJdldHSRvYVvxmlkLCog/ls.jpg"
+  },
+  {
+    "title": {
+      "en": "Biryani Pot",
+      "ar": "وعاء برياني"
+    },
+    "logo": "https://s3-media0.fl.yelpcdn.com/bphoto/stwkf6mOOfdkqd6SreCz6g/ls.jpg"
+  }
+]
