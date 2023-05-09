@@ -4,7 +4,7 @@ import {Constants, fontStyles} from '../../../constants';
 import {useThemeColor} from '../../../hooks';
 import {Strings} from '../../../i18n';
 import {CustomIcon} from '../../../components';
-import {verticalScale} from '../../../utils';
+import {horizontalScale, verticalScale} from '../../../utils';
 import ProfileAction from './ProfileAction/ProfileAction';
 import {ProfileActionsData, StatsData} from '../../../assets';
 
@@ -33,7 +33,7 @@ const ProfileHeader = () => {
         {ProfileActionsData.map((s, index) => {
           return (
             <View style={styles.profileAction} key={index}>
-              <ProfileAction icon={s.icon} />
+              <ProfileAction icon={s.icon} label={s.label} />
               <Text style={styles.label}>{s.label}</Text>
             </View>
           );
@@ -57,12 +57,12 @@ const styles = StyleSheet.create({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 15,
+    padding: verticalScale(15),
   },
   statItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: horizontalScale(10),
   },
   profileActionsRow: {
     width: '100%',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statCount: {
-    paddingHorizontal: 5,
+    paddingHorizontal: horizontalScale(5),
   },
 });
 
