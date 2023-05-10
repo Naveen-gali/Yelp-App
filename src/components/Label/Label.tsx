@@ -1,12 +1,22 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {verticalScale} from '../../utils';
 import {LabelProps} from './Label.types';
+import {fontStyles} from '../../constants';
+import {useThemeColor} from '../../hooks';
 
 export const Label = (props: LabelProps) => {
   const {style, label, ...restProps} = props;
+
+  const {colors} = useThemeColor();
   return (
-    <Text style={[styles.label, style]} {...restProps}>
+    <Text
+      style={[
+        styles.label,
+        fontStyles.b1_Text_Regular,
+        {color: colors.text},
+        style,
+      ]}
+      {...restProps}>
       {label}
     </Text>
   );
@@ -14,7 +24,6 @@ export const Label = (props: LabelProps) => {
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: verticalScale(15),
     flexWrap: 'wrap',
   },
 });

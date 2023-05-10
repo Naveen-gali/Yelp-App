@@ -39,26 +39,29 @@ export const TextInput = (props: TextInputProps) => {
   const {colors} = useThemeColor();
 
   const getStyle = useMemo(() => {
-    if (mode === 'default') {
-      return;
-    } else if (mode === 'outline') {
+    if (mode === 'outline') {
       return styles.outline;
     } else if (mode === 'border-less') {
       return styles.borderLess;
     }
+    return;
   }, [mode]);
 
   const getDisabledStyle = useMemo(() => {
-    if (mode === 'outline' && editable === false) {
-      return [
-        styles.outlineDisable,
-        {
-          borderColor: colors.placeholder,
-          backgroundColor: colors.disabled,
-        },
-      ];
-    } else if (mode === 'default' && editable === false) {
-      return [styles.defaultDisable, {borderBottomColor: colors.placeholder}];
+    if (!editable) {
+      if (mode === 'outline') {
+        return [
+          styles.outlineDisable,
+          {
+            borderColor: colors.placeholder,
+            backgroundColor: colors.disabled,
+          },
+        ];
+      } else if (mode === 'default') {
+        return [styles.defaultDisable, {borderBottomColor: colors.placeholder}];
+      }
+    } else {
+      return;
     }
   }, [colors.disabled, colors.placeholder, editable, mode]);
 
@@ -117,9 +120,7 @@ export const TextInput = (props: TextInputProps) => {
     const renderLabelStyle = [
       {
         backgroundColor:
-          editable === false && mode === 'outline'
-            ? colors.disabled
-            : colors.background,
+          !editable && mode === 'outline' ? colors.disabled : colors.background,
         color: colors.text,
       },
       fontStyles.b3_Text_Italic,
@@ -139,11 +140,13 @@ export const TextInput = (props: TextInputProps) => {
   const onFocus = () => {
     onFocusHandler();
     setFocused(true);
+    restProps.onFocus;
   };
 
   const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     onBlurHandler(e.nativeEvent.text);
     setFocused(false);
+    restProps.onBlur;
   };
 
   const TextInputStyles = [
@@ -152,6 +155,7 @@ export const TextInput = (props: TextInputProps) => {
       borderBottomColor: colors.text,
       color: colors.text,
     },
+    fontStyles.b1_Text_Regular,
     getStyle,
     focused && mode !== 'border-less'
       ? [styles.focused, {borderBottomColor: colors.border}]
@@ -201,7 +205,7 @@ export const TextInput = (props: TextInputProps) => {
 
   const renderContent = () => {
     return (
-      <View style={[styles.container, style]}>
+      <View style={[style]}>
         <View style={styles.inputContainer}>
           {left ?? null}
           {renderAnimatedLabel()}
@@ -221,7 +225,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: verticalScale(9),
     borderRadius: verticalScale(3),
-    fontSize: verticalScale(15),
     borderBottomWidth: verticalScale(2),
     width: horizontalScale(100),
   },
@@ -253,10 +256,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginHorizontal: horizontalScale(7),
   },
-  container: {},
   animatedLabel: {
-    top: 5,
-    left: 15,
+    top: verticalScale(5),
+    left: horizontalScale(15),
     zIndex: 10000,
     overflow: 'hidden',
     position: 'absolute',
