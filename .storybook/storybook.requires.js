@@ -6,51 +6,51 @@ import {
   addParameters,
   addArgsEnhancer,
   clearDecorators,
-} from "@storybook/react-native";
+} from '@storybook/react-native';
 
 global.STORIES = [
   {
-    titlePrefix: "",
-    directory: "./src/components",
-    files: "**/*.stories.?(ts|tsx|js|jsx)",
+    titlePrefix: '',
+    directory: './src/components',
+    files: '**/*.stories.?(ts|tsx|js|jsx)',
     importPathMatcher:
-      "^\\.[\\\\/](?:src\\/components(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$",
+      '^\\.[\\\\/](?:src\\/components(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$',
   },
   {
-    titlePrefix: "",
-    directory: "./src/assets",
-    files: "**/*.stories.?(ts|tsx|js|jsx)",
+    titlePrefix: '',
+    directory: './src/assets',
+    files: '**/*.stories.?(ts|tsx|js|jsx)',
     importPathMatcher:
-      "^\\.[\\\\/](?:src\\/assets(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$",
+      '^\\.[\\\\/](?:src\\/assets(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$',
   },
   {
-    titlePrefix: "",
-    directory: "./src/screens",
-    files: "**/*.stories.?(ts|tsx|js|jsx)",
+    titlePrefix: '',
+    directory: './src/screens',
+    files: '**/*.stories.?(ts|tsx|js|jsx)',
     importPathMatcher:
-      "^\\.[\\\\/](?:src\\/screens(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$",
+      '^\\.[\\\\/](?:src\\/screens(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$',
   },
 ];
 
-import "@storybook/addon-ondevice-controls/register";
-import "@storybook/addon-ondevice-actions/register";
+import '@storybook/addon-ondevice-controls/register';
+import '@storybook/addon-ondevice-actions/register';
 
-import { argsEnhancers } from "@storybook/addon-actions/dist/modern/preset/addArgs";
+import {argsEnhancers} from '@storybook/addon-actions/dist/modern/preset/addArgs';
 
 try {
-  argsEnhancers.forEach((enhancer) => addArgsEnhancer(enhancer));
+  argsEnhancers.forEach(enhancer => addArgsEnhancer(enhancer));
 } catch {}
 
 const getStories = () => {
   return {
-    "./src/components/Button/Button.stories.tsx": require("../src/components/Button/Button.stories.tsx"),
-    "./src/components/Carousel/Carousel.stories.tsx": require("../src/components/Carousel/Carousel.stories.tsx"),
-    "./src/components/CustomIcon/CustomIcon.stories.tsx": require("../src/components/CustomIcon/CustomIcon.stories.tsx"),
-    "./src/components/SearchBar/SearchBar.stories.tsx": require("../src/components/SearchBar/SearchBar.stories.tsx"),
-    "./src/components/TextInput/TextInput.stories.tsx": require("../src/components/TextInput/TextInput.stories.tsx"),
-    "./src/assets/stories/Fonts.stories.tsx": require("../src/assets/stories/Fonts.stories.tsx"),
-    "./src/assets/stories/Svgs.stories.tsx": require("../src/assets/stories/Svgs.stories.tsx"),
-    "./src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx": require("../src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx"),
+    './src/components/Button/Button.stories.tsx': require('../src/components/Button/Button.stories.tsx'),
+    './src/components/Carousel/Carousel.stories.tsx': require('../src/components/Carousel/Carousel.stories.tsx'),
+    './src/components/CustomIcon/CustomIcon.stories.tsx': require('../src/components/CustomIcon/CustomIcon.stories.tsx'),
+    './src/components/SearchBar/SearchBar.stories.tsx': require('../src/components/SearchBar/SearchBar.stories.tsx'),
+    './src/components/TextInput/TextInput.stories.tsx': require('../src/components/TextInput/TextInput.stories.tsx'),
+    './src/assets/stories/Fonts.stories.tsx': require('../src/assets/stories/Fonts.stories.tsx'),
+    './src/assets/stories/Svgs.stories.tsx': require('../src/assets/stories/Svgs.stories.tsx'),
+    './src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx': require('../src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx'),
   };
 };
 
