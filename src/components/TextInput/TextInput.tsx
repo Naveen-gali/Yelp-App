@@ -72,13 +72,15 @@ export const TextInput = (props: TextInputProps) => {
     outputRange: [4, -15],
   });
 
-  const animation = {
-    transform: [
-      {
-        translateY: yInterpolate,
-      },
-    ],
-  };
+  const animation = useMemo(() => {
+    return {
+      transform: [
+        {
+          translateY: yInterpolate,
+        },
+      ],
+    };
+  }, [yInterpolate]);
 
   const moveLabelTop = () => {
     Animated.timing(floatingLabel, {
@@ -96,18 +98,8 @@ export const TextInput = (props: TextInputProps) => {
     }).start();
   };
 
-  const onFocusHandler = () => {
-    moveLabelTop();
-  };
-
-  const onBlurHandler = (e: string) => {
-    if (e?.length === 0 || value?.length === 0) {
-      moveLabelDown();
-    }
-  };
-
-  const renderAnimatedLabel = () => {
-    const animatedLabelStyle = [
+  const animatedLabelStyle = useMemo(() => {
+    return [
       animation,
       styles.animatedLabel,
       mode === 'outline'
@@ -116,8 +108,10 @@ export const TextInput = (props: TextInputProps) => {
           }
         : null,
     ];
+  }, [animation, colors.background, mode]);
 
-    const renderLabelStyle = [
+  const renderLabelStyle = useMemo(() => {
+    return [
       {
         backgroundColor:
           !editable && mode === 'outline' ? colors.disabled : colors.background,
@@ -126,7 +120,17 @@ export const TextInput = (props: TextInputProps) => {
       fontStyles.b3_Text_Italic,
       focused ? [fontStyles.b3_Text_SemiBold, labelStyle] : null,
     ];
+  }, [
+    colors.background,
+    colors.disabled,
+    colors.text,
+    editable,
+    focused,
+    labelStyle,
+    mode,
+  ]);
 
+  const renderAnimatedLabel = () => {
     if (label) {
       return (
         <Animated.View style={animatedLabelStyle}>
@@ -138,13 +142,15 @@ export const TextInput = (props: TextInputProps) => {
   };
 
   const onFocus = () => {
-    onFocusHandler();
+    moveLabelTop();
     setFocused(true);
     restProps.onFocus;
   };
 
   const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    onBlurHandler(e.nativeEvent.text);
+    if (e.nativeEvent.text?.length === 0 || value?.length === 0) {
+      moveLabelDown();
+    }
     setFocused(false);
     restProps.onBlur;
   };
