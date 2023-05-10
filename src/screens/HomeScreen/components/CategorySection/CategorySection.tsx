@@ -3,16 +3,30 @@ import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import {FeaturedCategoriesData} from '../../../../assets/data';
 import {CategoryItem} from '../../../../components';
 import {horizontalScale} from '../../../../utils';
-import {CategorySectionItem} from './CategorySection.types';
+import {
+  CategorySectionItem,
+  CategorySectionProps,
+} from './CategorySection.types';
 
-const CategorySection = () => {
+const CategorySection = (props: CategorySectionProps) => {
+  const {navigation} = props;
   const horizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
 
-  const renderItem = (props: ListRenderItemInfo<CategorySectionItem>) => {
-    const {item, index} = props;
-    return <CategoryItem key={index} icon={item.logo} title={item.title} />;
+  const renderItem = (
+    renderItemprops: ListRenderItemInfo<CategorySectionItem>,
+  ) => {
+    const {item, index} = renderItemprops;
+    return (
+      <CategoryItem
+        key={index}
+        icon={item.logo}
+        title={item.title}
+        navigation={navigation}
+        alias={item.alias}
+      />
+    );
   };
 
   return (

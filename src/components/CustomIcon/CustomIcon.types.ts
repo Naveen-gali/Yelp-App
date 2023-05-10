@@ -18,4 +18,9 @@ export enum CustomIconNames {
   Education = 'education',
   Pets = 'pets',
   Search = 'search',
+  Verified = 'verified-check-mark',
+  Everything = 'everything',
+  CoolDrinkGlass = 'cool-drink-glass',
+  CoffeeCup = 'coffee-cup',
+  GasPump = 'gas-pump',
 }

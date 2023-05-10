@@ -1,0 +1,86 @@
+[
+  {
+    "title": {
+      "en": "Hot New Businesses",
+      "ar": ""
+    },
+    "icon": "flame-sharp"
+  },
+  {
+    "title": {
+      "en": "Delivery",
+      "ar": ""
+    },
+    "icon": "delivery"
+  },
+  {
+    "title": {
+      "en": "Deals",
+      "ar": ""
+    },
+    "icon": "pricetag-sharp"
+  },
+  {
+    "title": {
+      "en": "Check-In Offers",
+      "ar": ""
+    },
+    "icon": "verified-check-mark"
+  },
+  {
+    "title": {
+      "en": "Restaurants",
+      "ar": ""
+    },
+    "icon": "fast-food"
+  },
+  {
+    "title": {
+      "en": "Bars",
+      "ar": ""
+    },
+    "icon": "cool-drink-glass"
+  },
+  {
+    "title": {
+      "en": "Nightlife",
+      "ar": ""
+    },
+    "icon": "cool-drink-glass"
+  },
+  {
+    "title": {
+      "en": "Coffee & Tea",
+      "ar": ""
+    },
+    "icon": "coffee-cup"
+  },
+  {
+    "title": {
+      "en": "Gas Stations",
+      "ar": ""
+    },
+    "icon": "gas-pump"
+  },
+  {
+    "title": {
+      "en": "Drugstores",
+      "ar": ""
+    },
+    "icon": "bag-add"
+  },
+  {
+    "title": {
+      "en": "Shopping",
+      "ar": ""
+    },
+    "icon": "bag-handle"
+  },
+  {
+    "title": {
+      "en": "Everything",
+      "ar": ""
+    },
+    "icon": "everything"
+  }
+]

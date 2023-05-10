@@ -1,3 +1,6 @@
 import SearchCarouselData from './SearchCarouselData.json';
 import FeaturedCategoriesData from './FeaturedCategoriesData.json';
-export {SearchCarouselData, FeaturedCategoriesData};
+import {PopularCategoriesDataType} from './Assets.types';
+// import PopulatCategoriesData from './PopularCategoriesData.json';
+const PopularCategoriesData: PopularCategoriesDataType = require('../../assets/data/PopularCategoriesData.json');
+export {SearchCarouselData, FeaturedCategoriesData, PopularCategoriesData};
