@@ -88,5 +88,11 @@
     "moduleNameMapper": {
       "\\.svg": "<rootDir>/__mocks__/svgMock.ts"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   }
 }
