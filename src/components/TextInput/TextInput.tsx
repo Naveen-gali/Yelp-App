@@ -11,9 +11,9 @@ import {
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
+import {horizontalScale, verticalScale} from '../../utils';
 import {Label} from '../Label';
 import {TextInputProps} from './TextInput.types';
-import {horizontalScale, verticalScale} from '../../utils';
 
 export const TextInput = (props: TextInputProps) => {
   const {

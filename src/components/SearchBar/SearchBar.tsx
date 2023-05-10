@@ -2,11 +2,11 @@ import debounce from 'lodash.debounce';
 import React, {useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 import {fontStyles} from '../../constants';
+import {useThemeColor} from '../../hooks';
 import {horizontalScale, verticalScale} from '../../utils';
 import {CustomIcon, CustomIconNames} from '../CustomIcon';
 import {TextInput} from '../TextInput';
 import {SearchBarProps} from './SearchBar.types';
-import {useThemeColor} from '../../hooks';
 
 export const SearchBar: React.FunctionComponent<SearchBarProps> = props => {
   const {style, onChangeText, ...restProps} = props;

@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {LabelProps} from './Label.types';
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
+import {LabelProps} from './Label.types';
 
 export const Label = (props: LabelProps) => {
   const {style, label, ...restProps} = props;
