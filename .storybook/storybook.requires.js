@@ -44,11 +44,12 @@ try {
 const getStories = () => {
   return {
     './src/components/Button/Button.stories.tsx': require('../src/components/Button/Button.stories.tsx'),
+    './src/components/Card/Card.stories.tsx': require('../src/components/Card/Card.stories.tsx'),
     './src/components/Carousel/Carousel.stories.tsx': require('../src/components/Carousel/Carousel.stories.tsx'),
-    './src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx': require('../src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx'),
     './src/components/CustomIcon/CustomIcon.stories.tsx': require('../src/components/CustomIcon/CustomIcon.stories.tsx'),
     './src/assets/stories/Fonts.stories.tsx': require('../src/assets/stories/Fonts.stories.tsx'),
     './src/assets/stories/Svgs.stories.tsx': require('../src/assets/stories/Svgs.stories.tsx'),
+    './src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx': require('../src/screens/HomeScreen/components/SearchCarousel/SearchCarousel.stories.tsx'),
   };
 };
 
