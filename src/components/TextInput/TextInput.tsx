@@ -177,7 +177,7 @@ export const TextInput = (props: TextInputProps) => {
     mode,
   ]);
 
-  const animatedLabel = () => {
+  const renderAnimatedLabel = () => {
     if (label) {
       return (
         <Animated.View style={animatedLabelStyle}>
@@ -188,7 +188,7 @@ export const TextInput = (props: TextInputProps) => {
     return null;
   };
 
-  const inputField = () => {
+  const renderInputField = () => {
     return (
       <InputField
         style={TextInputStyles}
@@ -202,7 +202,7 @@ export const TextInput = (props: TextInputProps) => {
     );
   };
 
-  const hintAndError = () => {
+  const renderHintAndError = () => {
     if (hint && !error) {
       return (
         <Text
@@ -230,11 +230,11 @@ export const TextInput = (props: TextInputProps) => {
     <View style={[style]}>
       <View style={styles.inputContainer}>
         {left ?? null}
-        {animatedLabel()}
-        {inputField()}
+        {renderAnimatedLabel()}
+        {renderInputField()}
         {right ?? null}
       </View>
-      {hintAndError()}
+      {renderHintAndError()}
     </View>
   );
 };

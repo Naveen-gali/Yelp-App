@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     shadowOpacity: verticalScale(0.3),
     shadowRadius: verticalScale(4.65),
     elevation: 8,
-    zIndex: 2,
   },
   input: {
     borderBottomWidth: horizontalScale(0),
