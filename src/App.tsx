@@ -18,7 +18,7 @@ function App(): JSX.Element {
     });
   });
 
-  const content = () => {
+  const renderContent = () => {
     if (isSettingStore) {
       return <View style={styles.container} />;
     } else {
@@ -32,7 +32,7 @@ function App(): JSX.Element {
     }
   };
 
-  return content();
+  return renderContent();
 }
 
 const styles = StyleSheet.create({

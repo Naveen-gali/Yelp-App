@@ -3,7 +3,6 @@ import React, {useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
-import {horizontalScale, verticalScale} from '../../utils';
 import {CustomIcon, CustomIconNames} from '../CustomIcon';
 import {TextInput} from '../TextInput';
 import {SearchBarProps} from './SearchBar.types';
@@ -37,7 +36,5 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = props => {
 const styles = StyleSheet.create({
   icon: {
     alignSelf: 'center',
-    marginHorizontal: horizontalScale(2),
-    paddingVertical: verticalScale(10),
   },
 });
