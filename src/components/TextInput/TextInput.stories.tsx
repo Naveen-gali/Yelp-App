@@ -79,5 +79,11 @@ export const CustomTextInput: Story = {
     onEndEditing: {
       action: 'onEndEditing',
     },
+    onFocus: {
+      action: 'onFocus',
+    },
+    onBlur: {
+      action: 'onBlur',
+    },
   },
 };

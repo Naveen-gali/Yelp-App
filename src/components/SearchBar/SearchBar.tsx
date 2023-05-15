@@ -9,7 +9,7 @@ import {TextInput} from '../TextInput';
 import {SearchBarProps} from './SearchBar.types';
 
 export const SearchBar: React.FunctionComponent<SearchBarProps> = props => {
-  const {style, onChangeText, ...restProps} = props;
+  const {onChangeText, ...restProps} = props;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceSearch = useCallback(debounce(onChangeText, 500), []);
@@ -25,7 +25,6 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = props => {
 
   return (
     <TextInput
-      style={style}
       autoCapitalize="none"
       onChangeText={debounceSearch}
       autoCorrect={false}

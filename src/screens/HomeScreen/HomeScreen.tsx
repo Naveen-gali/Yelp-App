@@ -49,20 +49,18 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 
   const renderSearchBar = () => {
     return (
-      <View>
-        <SearchBar
-          onChangeText={() => {}}
-          style={[
-            styles.searchbar,
-            {
-              backgroundColor: colors.loader,
-              shadowColor: colors.searchbarShadow,
-            },
-          ]}
-          placeholder={Strings.searchbar.placeholder}
-          inputStyle={styles.input}
-        />
-      </View>
+      <SearchBar
+        onChangeText={() => {}}
+        style={[
+          styles.searchbar,
+          {
+            backgroundColor: colors.loader,
+            shadowColor: colors.shadow,
+          },
+        ]}
+        placeholder={Strings.searchbar.placeholder}
+        inputStyle={styles.input}
+      />
     );
   };
 
@@ -71,10 +69,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <View>
         <SearchCarousel carouselData={searchCarouselData ?? []} />
         {renderSearchBar()}
-        <View
-          style={{
-            marginTop: verticalScale(30),
-          }}>
+        <View>
           {events.allEvents.map((e, index) => {
             return (
               <EventItem
@@ -132,12 +127,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   searchbar: {
-    position: 'absolute',
     marginHorizontal: horizontalScale(17),
     padding: horizontalScale(10),
     width: horizontalScale(360),
     borderRadius: horizontalScale(6),
-    bottom: verticalScale(-25),
+    marginTop: verticalScale(-25),
     shadowOffset: {
       width: 0,
       height: verticalScale(4),

@@ -5,6 +5,7 @@ import {
   NativeSyntheticEvent,
   StyleSheet,
   Text,
+  TextInputEndEditingEventData,
   TextInputFocusEventData,
   View,
 } from 'react-native';
@@ -33,6 +34,8 @@ export const TextInput = (props: TextInputProps) => {
     left,
     right,
     value,
+    onFocus,
+    onEndEditing,
     ...restProps
   } = props;
   const [focused, setFocused] = useState(false);
@@ -58,7 +61,7 @@ export const TextInput = (props: TextInputProps) => {
           },
         ];
       } else if (mode === 'default') {
-        return [styles.defaultDisable, {borderBottomColor: colors.placeholder}];
+        return [{borderBottomColor: colors.placeholder}];
       }
     } else {
       return;
@@ -98,6 +101,50 @@ export const TextInput = (props: TextInputProps) => {
     }).start();
   };
 
+  const onFocusHandler = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    moveLabelTop();
+    setFocused(true);
+    onFocus?.(e);
+  };
+
+  const onEndEditingHandler = (
+    e: NativeSyntheticEvent<TextInputEndEditingEventData>,
+  ) => {
+    if (e.nativeEvent.text?.length === 0 || value?.length === 0) {
+      moveLabelDown();
+    }
+    setFocused(false);
+    onEndEditing?.(e);
+  };
+
+  const TextInputStyles = useMemo(() => {
+    return [
+      styles.input,
+      {
+        borderBottomColor: colors.text,
+        color: colors.text,
+      },
+      fontStyles.b1_Text_Regular,
+      getStyle,
+      focused && mode !== 'border-less'
+        ? [styles.focused, {borderBottomColor: colors.border}]
+        : null,
+      error ? {borderColor: colors.error} : null,
+      getDisabledStyle,
+      inputStyle,
+    ];
+  }, [
+    colors.border,
+    colors.error,
+    colors.text,
+    error,
+    focused,
+    getDisabledStyle,
+    getStyle,
+    inputStyle,
+    mode,
+  ]);
+
   const animatedLabelStyle = useMemo(() => {
     return [
       animation,
@@ -110,7 +157,7 @@ export const TextInput = (props: TextInputProps) => {
     ];
   }, [animation, colors.background, mode]);
 
-  const renderLabelStyle = useMemo(() => {
+  const showLabelStyle = useMemo(() => {
     return [
       {
         backgroundColor:
@@ -130,62 +177,32 @@ export const TextInput = (props: TextInputProps) => {
     mode,
   ]);
 
-  const renderAnimatedLabel = () => {
+  const animatedLabel = () => {
     if (label) {
       return (
         <Animated.View style={animatedLabelStyle}>
-          <Label style={renderLabelStyle} label={label} />
+          <Label style={showLabelStyle} label={label} />
         </Animated.View>
       );
     }
     return null;
   };
 
-  const onFocus = () => {
-    moveLabelTop();
-    setFocused(true);
-    restProps.onFocus;
-  };
-
-  const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (e.nativeEvent.text?.length === 0 || value?.length === 0) {
-      moveLabelDown();
-    }
-    setFocused(false);
-    restProps.onBlur;
-  };
-
-  const TextInputStyles = [
-    styles.input,
-    {
-      borderBottomColor: colors.text,
-      color: colors.text,
-    },
-    fontStyles.b1_Text_Regular,
-    getStyle,
-    focused && mode !== 'border-less'
-      ? [styles.focused, {borderBottomColor: colors.border}]
-      : null,
-    error ? {borderColor: colors.error} : null,
-    getDisabledStyle,
-    inputStyle,
-  ];
-
-  const renderInputField = () => {
+  const inputField = () => {
     return (
       <InputField
         style={TextInputStyles}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={onFocusHandler}
         placeholder={placeholder}
         editable={editable}
         onChangeText={onChangeText}
+        onEndEditing={onEndEditingHandler}
         {...restProps}
       />
     );
   };
 
-  const renderHintAndError = () => {
+  const hintAndError = () => {
     if (hint && !error) {
       return (
         <Text
@@ -209,21 +226,17 @@ export const TextInput = (props: TextInputProps) => {
     return null;
   };
 
-  const renderContent = () => {
-    return (
-      <View style={[style]}>
-        <View style={styles.inputContainer}>
-          {left ?? null}
-          {renderAnimatedLabel()}
-          {renderInputField()}
-          {right ?? null}
-        </View>
-        {renderHintAndError()}
+  return (
+    <View style={[style]}>
+      <View style={styles.inputContainer}>
+        {left ?? null}
+        {animatedLabel()}
+        {inputField()}
+        {right ?? null}
       </View>
-    );
-  };
-
-  return renderContent();
+      {hintAndError()}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -250,9 +263,6 @@ const styles = StyleSheet.create({
   },
   outlineDisable: {
     borderWidth: verticalScale(1),
-  },
-  defaultDisable: {
-    borderBottomWidth: verticalScale(3),
   },
   borderLess: {
     borderBottomWidth: 0,
