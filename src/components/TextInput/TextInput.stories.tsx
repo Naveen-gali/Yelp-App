@@ -18,6 +18,7 @@ export const CustomTextInput: Story = {
     mode: 'default',
     label: 'Label',
     style: {width: 360},
+    editable: true,
   },
   argTypes: {
     mode: {

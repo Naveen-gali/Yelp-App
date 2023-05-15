@@ -56,23 +56,27 @@ export const TextInput = (props: TextInputProps) => {
         return [
           styles.outlineDisable,
           {
-            borderColor: colors.placeholder,
+            borderColor: colors.border,
             backgroundColor: colors.disabled,
           },
         ];
       } else if (mode === 'default') {
-        return [{borderBottomColor: colors.placeholder}];
+        return [
+          {
+            borderBottomColor: colors.border,
+          },
+        ];
       }
     } else {
       return;
     }
-  }, [colors.disabled, colors.placeholder, editable, mode]);
+  }, [colors.border, colors.disabled, editable, mode]);
 
   const floatingLabel = useRef(new Animated.Value(0)).current;
 
   const yInterpolate = floatingLabel.interpolate({
     inputRange: [0, 1],
-    outputRange: [4, -15],
+    outputRange: [verticalScale(8), verticalScale(-14)],
   });
 
   const animation = useMemo(() => {
@@ -84,6 +88,17 @@ export const TextInput = (props: TextInputProps) => {
       ],
     };
   }, [yInterpolate]);
+
+  const getLabelColor = useMemo(() => {
+    if (editable) {
+      if (error) {
+        return {color: colors.error};
+      } else {
+        return {color: colors.secondary};
+      }
+    }
+    return {color: colors.placeholder};
+  }, [colors.error, colors.placeholder, editable, colors.secondary, error]);
 
   const moveLabelTop = () => {
     Animated.timing(floatingLabel, {
@@ -121,13 +136,13 @@ export const TextInput = (props: TextInputProps) => {
     return [
       styles.input,
       {
-        borderBottomColor: colors.text,
+        borderColor: colors.border,
         color: colors.text,
       },
       fontStyles.b1_Text_Regular,
       getStyle,
       focused && mode !== 'border-less'
-        ? [styles.focused, {borderBottomColor: colors.border}]
+        ? [{borderColor: colors.secondary}]
         : null,
       error ? {borderColor: colors.error} : null,
       getDisabledStyle,
@@ -136,6 +151,7 @@ export const TextInput = (props: TextInputProps) => {
   }, [
     colors.border,
     colors.error,
+    colors.secondary,
     colors.text,
     error,
     focused,
@@ -157,22 +173,21 @@ export const TextInput = (props: TextInputProps) => {
     ];
   }, [animation, colors.background, mode]);
 
-  const showLabelStyle = useMemo(() => {
+  const _labelStyle = useMemo(() => {
     return [
       {
         backgroundColor:
           !editable && mode === 'outline' ? colors.disabled : colors.background,
-        color: colors.text,
       },
       fontStyles.b3_Text_Italic,
-      focused ? [fontStyles.b3_Text_SemiBold, labelStyle] : null,
+      focused ? [fontStyles.b3_Text_SemiBold, getLabelColor, labelStyle] : null,
     ];
   }, [
     colors.background,
     colors.disabled,
-    colors.text,
     editable,
     focused,
+    getLabelColor,
     labelStyle,
     mode,
   ]);
@@ -180,8 +195,8 @@ export const TextInput = (props: TextInputProps) => {
   const renderAnimatedLabel = () => {
     if (label) {
       return (
-        <Animated.View style={animatedLabelStyle}>
-          <Label style={showLabelStyle} label={label} />
+        <Animated.View style={[animatedLabelStyle]}>
+          <Label style={_labelStyle} label={label} />
         </Animated.View>
       );
     }
@@ -217,7 +232,12 @@ export const TextInput = (props: TextInputProps) => {
       );
     } else if (error) {
       return (
-        <Text style={[{color: colors.error}, errorMessageStyle]}>
+        <Text
+          style={[
+            styles.errorMessage,
+            {color: colors.error},
+            errorMessageStyle,
+          ]}>
           {errorMessage ?? Strings.input.default_error}
         </Text>
       );
@@ -242,21 +262,18 @@ export const TextInput = (props: TextInputProps) => {
 const styles = StyleSheet.create({
   input: {
     flex: 1,
-    padding: verticalScale(9),
+    paddingVertical: verticalScale(9),
+    paddingHorizontal: horizontalScale(12),
     borderRadius: verticalScale(3),
-    borderBottomWidth: verticalScale(2),
+    borderBottomWidth: verticalScale(1),
     width: horizontalScale(100),
-  },
-  focused: {
-    borderBottomWidth: verticalScale(2),
   },
   hint: {
     marginTop: verticalScale(5),
-    marginLeft: horizontalScale(5),
+    marginHorizontal: horizontalScale(5),
   },
   errorMessage: {
     marginTop: verticalScale(5),
-    marginLeft: horizontalScale(5),
   },
   outline: {
     borderWidth: verticalScale(1),
@@ -270,11 +287,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginHorizontal: horizontalScale(7),
   },
   animatedLabel: {
     top: verticalScale(5),
-    left: horizontalScale(15),
+    left: horizontalScale(12),
     zIndex: 10000,
     overflow: 'hidden',
     position: 'absolute',
