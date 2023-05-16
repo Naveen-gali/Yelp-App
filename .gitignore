@@ -25,6 +25,10 @@ ios/.xcode.env.local
 # react-native-config codegen
 ios/tmp.xcconfig
 
+# eslint
+.eslintcache
+
+
 # Android/IntelliJ
 #
 build/
