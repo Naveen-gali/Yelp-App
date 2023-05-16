@@ -1,5 +1,5 @@
 import {StoryObj} from '@storybook/react-native';
-import {Decorator} from '../../../.storybook/decorators';
+import {Decorator} from '../../../.storybook';
 import {Label as LabelComp} from './Label';
 import {LabelProps} from './Label.types';
 

@@ -1,8 +1,8 @@
+import {StoryObj} from '@storybook/react-native';
 import React from 'react';
+import {Decorator} from '../../../.storybook';
 import {CustomIcon} from './CustomIcon';
 import {CustomIconNames} from './CustomIcon.types';
-import {StoryObj} from '@storybook/react-native';
-import {Decorator} from '../../../.storybook/decorators';
 
 const MyCustomIconMeta = {
   title: 'MyCustomIcon',

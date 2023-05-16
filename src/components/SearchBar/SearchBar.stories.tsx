@@ -1,8 +1,8 @@
 import {StoryObj} from '@storybook/react-native';
-import {Decorator} from '../../../.storybook/decorators';
+import {Decorator} from '../../../.storybook';
+import {horizontalScale} from '../../utils';
 import {SearchBar} from './SearchBar';
 import {SearchBarProps} from './SearchBar.types';
-import {horizontalScale} from '../../utils';
 
 const SearchBarComp = {
   title: 'SearchBar',
