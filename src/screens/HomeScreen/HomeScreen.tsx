@@ -67,21 +67,20 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   const renderMainContent = () => {
     return (
       <View>
-          <SearchCarousel carouselData={searchCarouselData ?? []} />
-          {renderSearchBar()}
-          <CategorySection />
-          {events.allEvents.map((e, index) => {
-            return (
-              <EventItem
-                name={e.name}
-                imageUrl={e.image_url}
-                onPress={() => {}}
-                style={styles.eventItem}
-                key={index}
-              />
-            );
-          })}
-        </>
+        <SearchCarousel carouselData={searchCarouselData ?? []} />
+        {renderSearchBar()}
+        <CategorySection />
+        {events.allEvents.map((e, index) => {
+          return (
+            <EventItem
+              name={e.name}
+              imageUrl={e.image_url}
+              onPress={() => {}}
+              style={styles.eventItem}
+              key={index}
+            />
+          );
+        })}
       </View>
     );
   };
