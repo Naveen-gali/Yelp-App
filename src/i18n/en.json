@@ -11,5 +11,11 @@
     "requestError": "Bad Network Error!",
     "defaultError": "Something Happened!",
     "alertTitle": "Error Occured"
+  },
+  "input": {
+    "default_error": "Error Occured!"
+  },
+  "searchbar": {
+    "placeholder": "Search for burgers, delivery, barber.."
   }
 }

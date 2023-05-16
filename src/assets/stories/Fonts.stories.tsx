@@ -2,7 +2,7 @@ import {StoryObj} from '@storybook/react-native';
 import React from 'react';
 import {StyleSheet, Text, TextStyle} from 'react-native';
 import {PrimaryFonts, SecondaryFonts} from '..';
-import {Decorator} from '../../../.storybook/decorators';
+import {Decorator} from '../../../.storybook';
 
 const FontsMeta = {
   title: 'Fonts',

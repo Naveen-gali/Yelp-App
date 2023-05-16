@@ -1,8 +1,8 @@
 import {StoryObj} from '@storybook/react-native';
-import {Decorator} from '../../../.storybook/decorators';
+import {Decorator} from '../../../.storybook';
+import {CustomIconNames} from '../CustomIcon';
 import {Button} from './Button';
 import type {ButtonProps} from './Button.types';
-import {CustomIconNames} from '../CustomIcon';
 
 const MyButton = {
   title: 'Button',
