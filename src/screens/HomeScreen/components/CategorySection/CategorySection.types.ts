@@ -1,6 +1,7 @@
-import {LocalizedLanguages} from '../../../../i18n';
+import {CategoryInterface} from '../../../../models';
 
-export type CategorySectionItem = {
-  title: LocalizedLanguages;
-  logo: string;
+export type CategorySectionItem = CategoryInterface;
+
+export type CategorySectionProps = {
+  categories: CategoryInterface[];
 };

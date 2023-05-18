@@ -4,3 +4,5 @@ export * from './Events';
 export * from './BusinessesModel';
 export * from './EventsModel';
 export * from './Common';
+export * from './Category';
+export * from './CategoriesModel';

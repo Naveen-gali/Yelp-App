@@ -1,23 +1,35 @@
 import React from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
-import {FeaturedCategoriesData} from '../../../../assets/data';
 import {CategoryItem} from '../../../../components';
-import {horizontalScale} from '../../../../utils';
-import {CategorySectionItem} from './CategorySection.types';
+import {horizontalScale, verticalScale} from '../../../../utils';
+import {
+  CategorySectionItem,
+  CategorySectionProps,
+} from './CategorySection.types';
 
-const CategorySection = () => {
+const CategorySection = (props: CategorySectionProps) => {
+  const {categories} = props;
   const horizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
 
-  const renderItem = (props: ListRenderItemInfo<CategorySectionItem>) => {
-    const {item, index} = props;
-    return <CategoryItem key={index} icon={item.logo} title={item.title} />;
+  const renderItem = (
+    renderItemProps: ListRenderItemInfo<CategorySectionItem>,
+  ) => {
+    const {item, index} = renderItemProps;
+    return (
+      <CategoryItem
+        key={index}
+        title={item.title}
+        alias={item.alias}
+        style={styles.categoryItemIcon}
+      />
+    );
   };
 
   return (
     <FlatList
-      data={FeaturedCategoriesData}
+      data={categories}
       renderItem={renderItem}
       showsHorizontalScrollIndicator={false}
       numColumns={4}
@@ -30,6 +42,10 @@ const styles = StyleSheet.create({
   horizontalLine: {
     marginHorizontal: horizontalScale(14),
     borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  categoryItemIcon: {
+    marginVertical: verticalScale(20),
+    marginHorizontal: horizontalScale(14),
   },
 });
 

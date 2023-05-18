@@ -1,9 +1,9 @@
-import {ImageStyle, StyleProp, ViewStyle} from 'react-native';
-import {LocalizedLanguages} from '../../i18n';
+import {ImageStyle, StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 export type CategoryItemProps = {
-  title: LocalizedLanguages;
-  icon: string;
+  title: string;
+  alias: string;
   iconStyle?: StyleProp<ImageStyle>;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };

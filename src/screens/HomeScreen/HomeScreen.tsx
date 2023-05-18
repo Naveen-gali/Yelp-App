@@ -18,7 +18,7 @@ import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, CategorySection, SearchCarousel} from './components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
-  const {events} = useContext(RootStoreContext);
+  const {events, categories} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,9 +39,17 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     }
   };
 
+  const getCategories = () => {
+    setIsLoading(true);
+    categories.getAllCategories().then(() => {
+      setIsLoading(false);
+    });
+  };
+
   useEffect(() => {
     getEvents();
     getSearchCarouselData();
+    getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -69,7 +77,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <View>
         <SearchCarousel carouselData={searchCarouselData ?? []} />
         {renderSearchBar()}
-        <CategorySection />
+        <CategorySection categories={categories.featuredCategories} />
         {events.allEvents.map((e, index) => {
           return (
             <EventItem

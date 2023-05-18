@@ -1,0 +1,33 @@
+import {cast, toGenerator, types} from 'mobx-state-tree';
+import {CategoryModel} from './Category';
+import {AsyncTask, runTask} from 'mst-async-task';
+import {CategoryService} from '../services';
+import {featuredCategories} from '../utils';
+
+const CategoriesModel = types
+  .model('CategoriesModel')
+  .props({
+    allCategories: types.optional(types.array(CategoryModel), []),
+    getCategoriesTask: types.optional(AsyncTask, {}),
+    featuredCategories: types.optional(types.array(CategoryModel), []),
+  })
+  .views(self => ({
+    get CategoriesCount() {
+      return self.allCategories.length;
+    },
+  }))
+  .actions(self => {
+    const getAllCategories = (showError: boolean = true) =>
+      runTask(self.getCategoriesTask, function* () {
+        const response = yield* toGenerator(
+          CategoryService.getAllCategories(showError),
+        );
+        const categories = response.data.categories;
+        self.allCategories = cast(categories);
+        self.featuredCategories = cast(featuredCategories(categories));
+      });
+
+    return {getAllCategories};
+  });
+
+export {CategoriesModel};
