@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react-lite';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -33,25 +33,27 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     });
   };
 
-  const getEvents = (_location?: string) => {
-    if (!events.allEvents.length) {
-      events.getAllEvents(_location);
-    }
-  };
+  const getEvents = useCallback(
+    (_location?: string) => {
+      if (!events.allEvents.length) {
+        events.getAllEvents(_location);
+      }
+    },
+    [events],
+  );
 
-  const getCategories = () => {
+  const getCategories = useCallback(() => {
     setIsLoading(true);
     categories.getAllCategories().then(() => {
       setIsLoading(false);
     });
-  };
+  }, [categories]);
 
   useEffect(() => {
     getEvents();
     getSearchCarouselData();
     getCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getCategories, getEvents]);
 
   const {colors} = useThemeColor();
 
