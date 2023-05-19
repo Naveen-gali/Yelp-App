@@ -33,6 +33,10 @@ const PrimaryStackNavigator = () => {
                 ? colors.primary
                 : undefined,
           },
+          headerTintColor:
+            route.params.alias === FeaturedCategories.more
+              ? colors.background
+              : undefined,
         })}
       />
     </PrimaryStack.Navigator>
