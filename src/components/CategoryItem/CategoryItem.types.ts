@@ -1,4 +1,10 @@
-import {ImageStyle, StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {
+  GestureResponderEvent,
+  ImageStyle,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 export type CategoryItemProps = {
   title: string;
@@ -6,4 +12,5 @@ export type CategoryItemProps = {
   iconStyle?: StyleProp<ImageStyle>;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  onPress: (event: GestureResponderEvent) => void;
 };

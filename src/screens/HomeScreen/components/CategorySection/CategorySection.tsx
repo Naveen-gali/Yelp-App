@@ -1,14 +1,16 @@
+import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import {CategoryItem} from '../../../../components';
+import {PrimaryStackRoute} from '../../../../navigation';
 import {horizontalScale, verticalScale} from '../../../../utils';
 import {
   CategorySectionItem,
   CategorySectionProps,
 } from './CategorySection.types';
 
-const CategorySection = (props: CategorySectionProps) => {
-  const {categories} = props;
+const CategorySection = observer((props: CategorySectionProps) => {
+  const {categories, navigation} = props;
   const horizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
@@ -23,6 +25,12 @@ const CategorySection = (props: CategorySectionProps) => {
         title={item.title}
         alias={item.alias}
         style={styles.categoryItemIcon}
+        onPress={() =>
+          navigation.navigate(PrimaryStackRoute.CategoryDetail, {
+            title: item.title,
+            alias: item.alias,
+          })
+        }
       />
     );
   };
@@ -36,7 +44,7 @@ const CategorySection = (props: CategorySectionProps) => {
       ListFooterComponent={horizontalLine}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   horizontalLine: {

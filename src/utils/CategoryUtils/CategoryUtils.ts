@@ -22,9 +22,9 @@ const featuredCategories = (categories: CategoryInterface[]) => {
     },
   ];
 
-  const featuredCategoryItems = categories
-    .filter(category => category.parent_aliases.length === 0)
-    .filter(category => topFeaturedItems.includes(category.alias));
+  const featuredCategoryItems = categories.filter(category =>
+    topFeaturedItems.includes(category.alias),
+  );
 
   const extraCategoryItems = categories
     .filter(category => category.parent_aliases.length === 0)

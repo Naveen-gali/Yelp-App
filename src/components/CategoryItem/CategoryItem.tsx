@@ -11,11 +11,11 @@ import {
 import {CategoryItemProps} from './CategoryItem.types';
 
 const CategoryItem = (props: CategoryItemProps) => {
-  const {title, alias, style, iconStyle, textStyle} = props;
+  const {title, alias, style, iconStyle, textStyle, onPress} = props;
 
   const {colors} = useThemeColor();
   return (
-    <TouchableOpacity style={[styles.iconContainer, style]}>
+    <TouchableOpacity style={[styles.iconContainer, style]} onPress={onPress}>
       <SvgWithCssUri
         uri={getIconForCategory(alias as keyof typeof FeaturedCategories)}
         width={50}

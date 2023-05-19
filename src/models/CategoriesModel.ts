@@ -24,7 +24,11 @@ const CategoriesModel = types
         );
         const categories = response.data.categories;
         self.allCategories = cast(categories);
-        self.featuredCategories = cast(featuredCategories(categories));
+        self.featuredCategories = cast(
+          featuredCategories(
+            categories.filter(category => category.parent_aliases.length === 0),
+          ),
+        );
       });
 
     return {getAllCategories};

@@ -16,12 +16,18 @@ import {SearchCarouselService} from '../../services';
 import {DeviceUtils, horizontalScale, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, CategorySection, SearchCarousel} from './components';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {PrimaryStackParams} from '../../navigation';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
   const {events, categories} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<PrimaryStackParams>>();
 
   const getSearchCarouselData = () => {
     setIsLoading(true);
@@ -51,8 +57,8 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 
   useEffect(() => {
     getEvents();
-    getSearchCarouselData();
     getCategories();
+    getSearchCarouselData();
   }, [getCategories, getEvents]);
 
   const {colors} = useThemeColor();
@@ -79,7 +85,10 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <View>
         <SearchCarousel carouselData={searchCarouselData ?? []} />
         {renderSearchBar()}
-        <CategorySection categories={categories.featuredCategories} />
+        <CategorySection
+          categories={categories.featuredCategories}
+          navigation={navigation}
+        />
         {events.allEvents.map((e, index) => {
           return (
             <EventItem
