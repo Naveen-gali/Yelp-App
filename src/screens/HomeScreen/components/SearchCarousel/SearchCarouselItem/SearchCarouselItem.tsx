@@ -12,20 +12,15 @@ import {fontStyles} from '../../../../../constants';
 
 const SearchCarouselItem = (props: SearchCarouselItemProps) => {
   const {colors} = useThemeColor();
+  const {image, name, onPress} = props;
   return (
     <View style={styles.rootContainer}>
-      <Image
-        source={{uri: props.image}}
-        style={styles.image}
-        resizeMode="stretch"
-      />
+      <Image source={{uri: image}} style={styles.image} resizeMode="stretch" />
       <View style={styles.overflowContainer}>
-        <Text style={[{color: colors.text2}, fontStyles.h1_Bold]}>
-          {props.name}
-        </Text>
+        <Text style={[{color: colors.text2}, fontStyles.h1_Bold]}>{name}</Text>
         <Button
           mode="default"
-          onPress={() => {}}
+          onPress={onPress}
           icon={CustomIconNames.Search}
           iconStyle={[{color: colors.text2}, fontStyles.b1_Medium]}
           style={styles.button}

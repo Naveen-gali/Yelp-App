@@ -4,20 +4,34 @@ import Dots from 'react-native-dots-pagination';
 import {Carousel} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
 import {DeviceUtils, LocaleUtils, verticalScale} from '../../../../utils';
-import {CarouselDataItem, SearchCarouselProps} from './SearchCarousel.types';
+import {
+  SearchCarouselProps,
+  SearchCarouselRenderItemProps,
+} from './SearchCarousel.types';
 import {SearchCarouselItem} from './SearchCarouselItem';
-import {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/typescript/types';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {PrimaryStackParams, PrimaryStackRoute} from '../../../../navigation';
 
-export const SearchCarouselRenderItem = ({
+const SearchCarouselRenderItem = ({
   index,
   item,
-}: CarouselRenderItemInfo<CarouselDataItem>) => {
+}: SearchCarouselRenderItemProps) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<PrimaryStackParams>>();
+
   return (
     <SearchCarouselItem
       name={LocaleUtils.localizedText(item.name)}
       buttonText={LocaleUtils.localizedText(item.buttonText)}
       image={item.image}
       key={index}
+      onPress={() =>
+        navigation.navigate(PrimaryStackRoute.CategoryDetail, {
+          title: LocaleUtils.localizedText(item.buttonText),
+          alias: item.category,
+        })
+      }
     />
   );
 };
