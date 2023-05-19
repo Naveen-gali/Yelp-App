@@ -27,10 +27,12 @@ const PrimaryStackNavigator = () => {
         component={CategoryDetailScreen}
         options={({route}) => ({
           title: route.params.title,
-          headerTintColor:
-            route.params.alias === FeaturedCategories.more
-              ? colors.primary
-              : undefined,
+          headerStyle: {
+            backgroundColor:
+              route.params.alias === FeaturedCategories.more
+                ? colors.primary
+                : undefined,
+          },
         })}
       />
     </PrimaryStack.Navigator>

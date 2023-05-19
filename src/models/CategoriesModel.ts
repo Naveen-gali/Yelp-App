@@ -1,4 +1,4 @@
-import {cast, toGenerator, types} from 'mobx-state-tree';
+import {cast, detach, toGenerator, types} from 'mobx-state-tree';
 import {CategoryModel} from './Category';
 import {AsyncTask, runTask} from 'mst-async-task';
 import {CategoryService} from '../services';
@@ -24,6 +24,7 @@ const CategoriesModel = types
         );
         const categories = response.data.categories;
         self.allCategories = cast(categories);
+        detach(self.featuredCategories);
         self.featuredCategories = cast(
           featuredCategories(
             categories.filter(category => category.parent_aliases.length === 0),

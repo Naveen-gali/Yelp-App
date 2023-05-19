@@ -59,7 +59,8 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     getEvents();
     getCategories();
     getSearchCarouselData();
-  }, [getCategories, getEvents]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {colors} = useThemeColor();
 
