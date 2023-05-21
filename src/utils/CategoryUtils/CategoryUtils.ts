@@ -1,3 +1,4 @@
+import {CustomIconNames} from '../../components';
 import {Constants} from '../../constants';
 import {CategoryInterface} from '../../models';
 import {FeaturedCategories} from './CategoryUtils.types';
@@ -60,4 +61,53 @@ const getIconForCategory = (categoryAlias: keyof typeof FeaturedCategories) => {
   }
 };
 
-export {featuredCategories, getIconForCategory};
+const getCustomIconsForCategories = (categoryAlias: string) => {
+  switch (categoryAlias) {
+    case 'active':
+      return CustomIconNames.Tennis;
+    case 'arts':
+      return CustomIconNames.Events;
+    case 'auto':
+      return CustomIconNames.Car;
+    case 'beautysvc':
+      return CustomIconNames.Sparkles;
+    case 'education':
+      return CustomIconNames.Education;
+    case 'eventservices':
+      return CustomIconNames.Events;
+    case 'financialservices':
+      return CustomIconNames.Finance;
+    case 'food':
+      return CustomIconNames.FastFood;
+    case 'health':
+      return CustomIconNames.Medkit;
+    case 'homeservices':
+      return CustomIconNames.Hammer;
+    case 'hotelstravel':
+      return CustomIconNames.Bus;
+    case 'localflavor':
+      return CustomIconNames.Star;
+    case 'localservices':
+      return CustomIconNames.Key;
+    case 'massmedia':
+      return CustomIconNames.Tv;
+    case 'nightlife':
+      return CustomIconNames.CoolDrink;
+    case 'pets':
+      return CustomIconNames.Pets;
+    case 'professional':
+      return CustomIconNames.Professional;
+    case 'publicservicesgovt':
+      return CustomIconNames.Government;
+    case 'religiousorgs':
+      return CustomIconNames.Religious;
+    case 'restaurants':
+      return CustomIconNames.RestaurantPlate;
+    case 'shopping':
+      return CustomIconNames.Bag;
+    default:
+      return CustomIconNames.Arts;
+  }
+};
+
+export {featuredCategories, getIconForCategory, getCustomIconsForCategories};
