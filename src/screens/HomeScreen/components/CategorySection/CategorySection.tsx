@@ -2,18 +2,22 @@ import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import {CategoryItem} from '../../../../components';
-import {PrimaryStackRoute} from '../../../../navigation';
+import {PrimaryStackParams, PrimaryStackRoute} from '../../../../navigation';
 import {horizontalScale, verticalScale} from '../../../../utils';
 import {
   CategorySectionItem,
   CategorySectionProps,
 } from './CategorySection.types';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const CategorySection = observer((props: CategorySectionProps) => {
-  const {categories, navigation} = props;
+  const {categories} = props;
   const horizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
+  const navigation =
+    useNavigation<NativeStackNavigationProp<PrimaryStackParams>>();
 
   const renderItem = (
     renderItemProps: ListRenderItemInfo<CategorySectionItem>,
