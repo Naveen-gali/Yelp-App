@@ -75,6 +75,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
             shadowColor: colors.shadow,
           },
         ]}
+        placeholderTextColor={colors.placeholder}
         placeholder={Strings.searchbar.placeholder}
         inputStyle={styles.input}
       />
@@ -98,6 +99,9 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
               onPress={() => {}}
               style={styles.eventItem}
               key={index}
+              textStyle={{
+                color: colors.text,
+              }}
             />
           );
         })}

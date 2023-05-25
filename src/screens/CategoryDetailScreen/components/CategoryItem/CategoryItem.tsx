@@ -1,28 +1,42 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {SettingsItemProps} from './SettingsItem.types';
+import {CategoryItemProps} from './CategoryItem.types';
 import {CustomIcon, CustomIconNames} from '../../../../components';
 import {TouchableOpacity} from 'react-native';
 import {fontStyles} from '../../../../constants';
 import {getCustomIconsForCategories} from '../../../../utils';
 
-const SettingsItem = (props: SettingsItemProps) => {
-  const {title, alias, style, iconStyle, labelStyle, arrowStyle} = props;
+const CategoryItem = (props: CategoryItemProps) => {
+  const {
+    title,
+    alias,
+    style,
+    iconStyle,
+    labelStyle,
+    arrowStyle,
+    onPress,
+    showIcon,
+    showArrow,
+  } = props;
   return (
-    <TouchableOpacity style={[styles.container, style]}>
+    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <View style={styles.labelContainer}>
-        <CustomIcon
-          name={getCustomIconsForCategories(alias)}
-          size={28}
-          style={[iconStyle]}
-        />
+        {showIcon ? (
+          <CustomIcon
+            name={getCustomIconsForCategories(alias)}
+            size={28}
+            style={[iconStyle]}
+          />
+        ) : null}
         <Text style={[fontStyles.b2_Text_Regular, labelStyle]}>{title}</Text>
       </View>
-      <CustomIcon
-        name={CustomIconNames.ArrowForward}
-        size={30}
-        style={arrowStyle}
-      />
+      {showArrow ? (
+        <CustomIcon
+          name={CustomIconNames.ArrowForward}
+          size={30}
+          style={arrowStyle}
+        />
+      ) : null}
     </TouchableOpacity>
   );
 };
@@ -42,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {SettingsItem};
+export {CategoryItem};
