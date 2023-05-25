@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-export type CategoryItemProps = {
+export type FeaturedCategoryItemProps = {
   title: string;
   alias: string;
   iconStyle?: StyleProp<ImageStyle>;

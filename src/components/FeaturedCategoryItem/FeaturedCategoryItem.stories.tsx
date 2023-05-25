@@ -1,20 +1,20 @@
 import {StoryObj} from '@storybook/react-native';
 import {Decorator} from '../../../.storybook';
 import {FeaturedCategories} from '../../utils';
-import {CategoryItem as CategoryItemComp} from './CategoryItem';
-import {CategoryItemProps} from './CategoryItem.types';
+import {FeaturedCategoryItem as FeaturedCategoryItemComp} from './FeaturedCategoryItem';
+import {FeaturedCategoryItemProps} from './FeaturedCategoryItem.types';
 
 const MyCategoryItem = {
-  title: 'CategoryItem',
-  component: CategoryItemComp,
+  title: 'FeaturedCategoryItem',
+  component: FeaturedCategoryItemComp,
   decorators: [Decorator],
 };
 
 export default MyCategoryItem;
 
-type Story = StoryObj<CategoryItemProps>;
+type Story = StoryObj<FeaturedCategoryItemProps>;
 
-export const CategoryItem: Story = {
+export const FeaturedCategoryItem: Story = {
   args: {
     title: 'Restaurants',
     alias: 'restaurants',

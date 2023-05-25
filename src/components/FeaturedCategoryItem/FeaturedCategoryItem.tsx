@@ -8,9 +8,9 @@ import {
   getIconForCategory,
   verticalScale,
 } from '../../utils';
-import {CategoryItemProps} from './CategoryItem.types';
+import {FeaturedCategoryItemProps} from './FeaturedCategoryItem.types';
 
-const CategoryItem = (props: CategoryItemProps) => {
+const FeaturedCategoryItem = (props: FeaturedCategoryItemProps) => {
   const {title, alias, style, iconStyle, textStyle, onPress} = props;
 
   const {colors} = useThemeColor();
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {CategoryItem};
+export {FeaturedCategoryItem};

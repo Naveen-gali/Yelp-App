@@ -1,7 +1,7 @@
 import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
-import {CategoryItem} from '../../../../components';
+import {FeaturedCategoryItem} from '../../../../components';
 import {PrimaryStackParams, PrimaryStackRoute} from '../../../../navigation';
 import {horizontalScale, verticalScale} from '../../../../utils';
 import {
@@ -24,7 +24,7 @@ const CategorySection = observer((props: CategorySectionProps) => {
   ) => {
     const {item, index} = renderItemProps;
     return (
-      <CategoryItem
+      <FeaturedCategoryItem
         key={index}
         title={item.title}
         alias={item.alias}
