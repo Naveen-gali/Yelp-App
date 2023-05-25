@@ -11,17 +11,17 @@ import {useThemeColor} from '../../hooks';
 import {fontStyles} from '../../constants';
 
 const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
-  const {route} = props;
+  const {alias} = props.route.params;
   const {categories} = useContext(RootStoreContext);
   const {colors} = useThemeColor();
 
   const navigation =
     useNavigation<NativeStackNavigationProp<PrimaryStackParams>>();
 
-  const checkSubCategories = (alias: string) => {
+  const checkSubCategories = (categoryAlias: string) => {
     return (
       categories.allCategories.filter(category =>
-        category.parent_aliases.includes(alias),
+        category.parent_aliases.includes(categoryAlias),
       ).length !== 0
     );
   };
@@ -65,18 +65,18 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
   };
 
   const getData = () => {
-    if (route.params.alias === 'more') {
+    if (alias === 'more') {
       return categories.allCategories.filter(
         c => c.parent_aliases.length === 0,
       );
     }
     return categories.allCategories.filter(category =>
-      category.parent_aliases.includes(route.params.alias),
+      category.parent_aliases.includes(alias),
     );
   };
 
   const renderMainContent = () => {
-    if (route.params.alias === 'more') {
+    if (alias === 'more') {
       return (
         <FlatList
           data={getData()}
