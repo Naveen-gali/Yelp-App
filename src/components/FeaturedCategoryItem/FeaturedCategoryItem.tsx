@@ -6,6 +6,7 @@ import {useThemeColor} from '../../hooks';
 import {
   FeaturedCategories,
   getIconForCategory,
+  horizontalScale,
   verticalScale,
 } from '../../utils';
 import {FeaturedCategoryItemProps} from './FeaturedCategoryItem.types';
@@ -15,12 +16,12 @@ const FeaturedCategoryItem = (props: FeaturedCategoryItemProps) => {
 
   const {colors} = useThemeColor();
   return (
-    <TouchableOpacity style={[styles.iconContainer, style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <SvgWithCssUri
         uri={getIconForCategory(alias as keyof typeof FeaturedCategories)}
-        width={50}
-        height={50}
-        style={[styles.icon, iconStyle]}
+        width={horizontalScale(50)}
+        height={verticalScale(50)}
+        style={[iconStyle]}
       />
       <Text
         style={[
@@ -37,13 +38,10 @@ const FeaturedCategoryItem = (props: FeaturedCategoryItemProps) => {
 };
 
 const styles = StyleSheet.create({
-  iconContainer: {
+  container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  icon: {
-    marginBottom: verticalScale(4),
   },
   text: {
     textAlign: 'center',

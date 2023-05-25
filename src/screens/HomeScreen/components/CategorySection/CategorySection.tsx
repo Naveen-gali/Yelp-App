@@ -28,13 +28,14 @@ const CategorySection = observer((props: CategorySectionProps) => {
         key={index}
         title={item.title}
         alias={item.alias}
-        style={styles.categoryItemIcon}
+        style={styles.FeaturedCategoryItem}
         onPress={() =>
           navigation.navigate(PrimaryStackRoute.CategoryDetail, {
             title: item.title,
             alias: item.alias,
           })
         }
+        iconStyle={styles.featuredCategoryIcon}
       />
     );
   };
@@ -55,9 +56,12 @@ const styles = StyleSheet.create({
     marginHorizontal: horizontalScale(14),
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  categoryItemIcon: {
-    marginVertical: verticalScale(20),
-    marginHorizontal: horizontalScale(14),
+  FeaturedCategoryItem: {
+    marginVertical: verticalScale(10),
+    marginHorizontal: horizontalScale(12),
+  },
+  featuredCategoryIcon: {
+    marginBottom: verticalScale(4),
   },
 });
 
