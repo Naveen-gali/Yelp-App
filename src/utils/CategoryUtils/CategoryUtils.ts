@@ -1,7 +1,7 @@
 import {CustomIconNames} from '../../components';
 import {Constants} from '../../constants';
 import {CategoryInterface} from '../../models';
-import {FeaturedCategories} from './CategoryUtils.types';
+import {FeaturedCategories, MoreCategories} from './CategoryUtils.types';
 
 const featuredCategories = (categories: CategoryInterface[]) => {
   const topFeaturedItems = [
@@ -61,49 +61,51 @@ const getIconForCategory = (categoryAlias: keyof typeof FeaturedCategories) => {
   }
 };
 
-const getCustomIconsForCategories = (categoryAlias: string) => {
+const getCustomIconsForCategories = (
+  categoryAlias: keyof typeof MoreCategories,
+) => {
   switch (categoryAlias) {
-    case 'active':
+    case MoreCategories.active:
       return CustomIconNames.Tennis;
-    case 'arts':
+    case MoreCategories.arts:
       return CustomIconNames.Events;
-    case 'auto':
+    case MoreCategories.auto:
       return CustomIconNames.Car;
-    case 'beautysvc':
+    case MoreCategories.beautysvc:
       return CustomIconNames.Sparkles;
-    case 'education':
+    case MoreCategories.education:
       return CustomIconNames.Education;
-    case 'eventservices':
+    case MoreCategories.eventservices:
       return CustomIconNames.Events;
-    case 'financialservices':
+    case MoreCategories.financialservices:
       return CustomIconNames.Finance;
-    case 'food':
+    case MoreCategories.food:
       return CustomIconNames.FastFood;
-    case 'health':
+    case MoreCategories.health:
       return CustomIconNames.Medkit;
-    case 'homeservices':
+    case MoreCategories.homeservices:
       return CustomIconNames.Hammer;
-    case 'hotelstravel':
+    case MoreCategories.hotelstravel:
       return CustomIconNames.Bus;
-    case 'localflavor':
+    case MoreCategories.localflavor:
       return CustomIconNames.Star;
-    case 'localservices':
+    case MoreCategories.localservices:
       return CustomIconNames.Key;
-    case 'massmedia':
+    case MoreCategories.massmedia:
       return CustomIconNames.Tv;
-    case 'nightlife':
+    case MoreCategories.nightlife:
       return CustomIconNames.CoolDrink;
-    case 'pets':
+    case MoreCategories.pets:
       return CustomIconNames.Pets;
-    case 'professional':
+    case MoreCategories.professional:
       return CustomIconNames.Professional;
-    case 'publicservicesgovt':
+    case MoreCategories.publicservicesgovt:
       return CustomIconNames.Government;
-    case 'religiousorgs':
+    case MoreCategories.religiousorgs:
       return CustomIconNames.Religious;
-    case 'restaurants':
+    case MoreCategories.restaurants:
       return CustomIconNames.RestaurantPlate;
-    case 'shopping':
+    case MoreCategories.shopping:
       return CustomIconNames.Bag;
     default:
       return CustomIconNames.Arts;
