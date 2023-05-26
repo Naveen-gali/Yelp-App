@@ -5,10 +5,11 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import {FeaturedCategories} from '../../utils';
 
 export type FeaturedCategoryItemProps = {
   title: string;
-  alias: string;
+  alias: FeaturedCategories;
   iconStyle?: StyleProp<ImageStyle>;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;

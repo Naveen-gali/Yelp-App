@@ -3,7 +3,12 @@ import {FlatList, ListRenderItemInfo, StyleSheet} from 'react-native';
 import {CategoryInterface, RootStoreContext} from '../../models';
 import {CategoryDetailScreenProps} from './CategoryDetailScreen.types';
 import {CategoryItem} from './components';
-import {DeviceUtils, horizontalScale, verticalScale} from '../../utils';
+import {
+  DeviceUtils,
+  MoreCategories,
+  horizontalScale,
+  verticalScale,
+} from '../../utils';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {PrimaryStackParams, PrimaryStackRoute} from '../../navigation';
@@ -47,7 +52,7 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
       <CategoryItem
         key={index}
         title={item.title}
-        alias={item.alias}
+        alias={item.alias as MoreCategories}
         style={styles.categoryItem}
         iconStyle={[styles.categoryIcon, {color: colors.text}]}
         arrowStyle={{color: colors.text}}

@@ -40,7 +40,7 @@ const featuredCategories = (categories: CategoryInterface[]) => {
   return featuredCategoriesData;
 };
 
-const getIconForCategory = (categoryAlias: keyof typeof FeaturedCategories) => {
+const getIconForCategory = (categoryAlias: FeaturedCategories) => {
   switch (categoryAlias) {
     case FeaturedCategories.restaurants:
       return Constants.RestaurantsIconUrl;
@@ -61,9 +61,7 @@ const getIconForCategory = (categoryAlias: keyof typeof FeaturedCategories) => {
   }
 };
 
-const getCustomIconsForCategories = (
-  categoryAlias: keyof typeof MoreCategories,
-) => {
+const getCustomIconsForCategories = (categoryAlias: MoreCategories) => {
   switch (categoryAlias) {
     case MoreCategories.active:
       return CustomIconNames.Tennis;

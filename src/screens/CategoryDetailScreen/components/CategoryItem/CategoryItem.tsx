@@ -4,7 +4,7 @@ import {CategoryItemProps} from './CategoryItem.types';
 import {CustomIcon, CustomIconNames} from '../../../../components';
 import {TouchableOpacity} from 'react-native';
 import {fontStyles} from '../../../../constants';
-import {MoreCategories, getCustomIconsForCategories} from '../../../../utils';
+import {getCustomIconsForCategories} from '../../../../utils';
 
 const CategoryItem = (props: CategoryItemProps) => {
   const {
@@ -23,9 +23,7 @@ const CategoryItem = (props: CategoryItemProps) => {
       <View style={styles.labelContainer}>
         {showIcon ? (
           <CustomIcon
-            name={getCustomIconsForCategories(
-              alias as keyof typeof MoreCategories,
-            )}
+            name={getCustomIconsForCategories(alias)}
             size={28}
             style={[iconStyle]}
           />

@@ -3,12 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {SvgWithCssUri} from 'react-native-svg';
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
-import {
-  FeaturedCategories,
-  getIconForCategory,
-  horizontalScale,
-  verticalScale,
-} from '../../utils';
+import {getIconForCategory, horizontalScale, verticalScale} from '../../utils';
 import {FeaturedCategoryItemProps} from './FeaturedCategoryItem.types';
 
 const FeaturedCategoryItem = (props: FeaturedCategoryItemProps) => {
@@ -18,7 +13,7 @@ const FeaturedCategoryItem = (props: FeaturedCategoryItemProps) => {
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <SvgWithCssUri
-        uri={getIconForCategory(alias as keyof typeof FeaturedCategories)}
+        uri={getIconForCategory(alias)}
         width={horizontalScale(50)}
         height={verticalScale(50)}
         style={[iconStyle]}

@@ -3,7 +3,11 @@ import React from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import {FeaturedCategoryItem} from '../../../../components';
 import {PrimaryStackParams, PrimaryStackRoute} from '../../../../navigation';
-import {horizontalScale, verticalScale} from '../../../../utils';
+import {
+  FeaturedCategories,
+  horizontalScale,
+  verticalScale,
+} from '../../../../utils';
 import {
   CategorySectionItem,
   CategorySectionProps,
@@ -27,7 +31,7 @@ const CategorySection = observer((props: CategorySectionProps) => {
       <FeaturedCategoryItem
         key={index}
         title={item.title}
-        alias={item.alias}
+        alias={item.alias as FeaturedCategories}
         style={styles.FeaturedCategoryItem}
         onPress={() =>
           navigation.navigate(PrimaryStackRoute.CategoryDetail, {
