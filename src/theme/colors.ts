@@ -25,6 +25,9 @@ const LightTheme = {
     passiveDots: Palette.neutral500,
     loaderBackground: Palette.neutral300,
     buttonBorder: Palette.neutral900,
+    placeholder: Palette.neutral700,
+    shadow: Palette.neutral900,
+    error: Palette.error,
   },
 };
 
@@ -53,6 +56,9 @@ const DarkTheme = {
     passiveDots: Palette.neutral500,
     loaderBackground: Palette.neutral300,
     buttonBorder: Palette.neutral900,
+    placeholder: Palette.neutral700,
+    shadow: Palette.neutral900,
+    error: Palette.error,
   },
 };
 

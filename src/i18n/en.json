@@ -14,5 +14,11 @@
     "location": "San Francisco, CA",
     "shareYourExperiences": "Share your experiences",
     "doYouRecommendThisBusiness": "Do you recommend this business?"
+  },
+  "input": {
+    "default_error": "Error Occured!"
+  },
+  "searchbar": {
+    "placeholder": "Search for burgers, delivery, barber.."
   }
 }

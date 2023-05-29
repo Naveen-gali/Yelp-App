@@ -63,6 +63,10 @@ const fontStyles = StyleSheet.create({
     fontSize: verticalScale(12),
     fontFamily: SecondaryFonts.SemiBold,
   },
+  b3_Text_Italic: {
+    fontSize: verticalScale(12),
+    fontFamily: SecondaryFonts.Italic,
+  },
   b3_Text_Regular: {
     fontSize: verticalScale(12),
     fontFamily: SecondaryFonts.Regular,

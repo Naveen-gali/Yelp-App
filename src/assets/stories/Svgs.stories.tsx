@@ -1,8 +1,8 @@
-import React from 'react';
-import {SVGS} from '..';
 import {StoryObj} from '@storybook/react-native';
+import React from 'react';
 import {SvgProps} from 'react-native-svg';
-import {Decorator} from '../../../.storybook/decorators';
+import {SVGS} from '..';
+import {Decorator} from '../../../.storybook';
 
 const SvgWrapper = (props: {name: keyof typeof SVGS} & SvgProps) => {
   const {name, ...restProps} = props;

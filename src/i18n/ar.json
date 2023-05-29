@@ -14,5 +14,11 @@
     "location": "سان فرانسيسكو، كاليفورنيا",
     "shareYourExperiences": "شارك تجاربك",
     "doYouRecommendThisBusiness": "هل تنصح بهذا العمل؟"
+  },
+  "input": {
+    "default_error": "حدث خطأ!"
+  },
+  "searchbar": {
+    "placeholder": "ابحث عن برجر ، توصيل ، حلاق .."
   }
 }
