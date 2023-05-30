@@ -1,8 +1,8 @@
 import {cast, detach, toGenerator, types} from 'mobx-state-tree';
 import {AsyncTask, runTask} from 'mst-async-task';
-import {CategoryService} from '../services';
-import {featuredCategories} from '../utils';
-import {CategoryModel} from './Category';
+import {CategoryService} from '../../services';
+import {featuredCategories} from '../../utils';
+import {CategoryModel} from '.';
 
 const CategoriesModel = types
   .model('CategoriesModel')

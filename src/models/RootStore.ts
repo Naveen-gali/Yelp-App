@@ -1,9 +1,9 @@
 import {Instance, types} from 'mobx-state-tree';
 import {createContext} from 'react';
 import {mstPersist} from '../utils';
-import {BusinessesModel} from './BusinessesModel';
-import {EventsModel} from './EventsModel';
-import {CategoriesModel} from './CategoriesModel';
+import {BusinessesModel} from './Business';
+import {EventsModel} from './Events';
+import {CategoriesModel} from './Category';
 
 const store = types.model('RootStoreModel').props({
   businesses: types.optional(BusinessesModel, {}),
