@@ -14,5 +14,8 @@
   },
   "searchbar": {
     "placeholder": "ابحث عن برجر ، توصيل ، حلاق .."
+  },
+  "categories": {
+    "More": "أكثر"
   }
 }

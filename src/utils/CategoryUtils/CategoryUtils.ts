@@ -1,4 +1,5 @@
 import {Constants} from '../../constants';
+import {Strings} from '../../i18n';
 import {CategoryInterface} from '../../models';
 import {FeaturedCategories} from './CategoryUtils.types';
 
@@ -18,7 +19,7 @@ const featuredCategories = (categories: CategoryInterface[]) => {
   const moreItemArray = [
     {
       alias: 'more',
-      title: 'More',
+      title: Strings.categories.More,
       parent_aliases: [],
       country_blacklist: [],
       country_whitelist: [],
