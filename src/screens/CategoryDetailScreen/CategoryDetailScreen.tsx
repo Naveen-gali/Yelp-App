@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet} from 'react-native';
 import {CategoryInterface, RootStoreContext} from '../../models';
 import {CategoryDetailScreenProps} from './CategoryDetailScreen.types';
@@ -19,57 +19,21 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
   const {alias} = props.route.params;
   const {categories} = useContext(RootStoreContext);
   const {colors} = useThemeColor();
-
   const navigation =
     useNavigation<NativeStackNavigationProp<PrimaryStackParams>>();
 
-  const checkSubCategories = (categoryAlias: string) => {
-    return (
-      categories.allCategories.filter(category =>
-        category.parent_aliases.includes(categoryAlias),
-      ).length !== 0
-    );
-  };
+  const checkSubCategories = useCallback(
+    (categoryAlias: string) => {
+      return (
+        categories.allCategories.filter(category =>
+          category.parent_aliases.includes(categoryAlias),
+        ).length !== 0
+      );
+    },
+    [categories.allCategories],
+  );
 
-  const renderItem = (
-    renderItemProps: ListRenderItemInfo<CategoryInterface>,
-    showIcon: boolean,
-  ) => {
-    const {item, index} = renderItemProps;
-
-    const onPressHandler = () => {
-      return checkSubCategories(item.alias)
-        ? navigation.push(PrimaryStackRoute.CategoryDetail, {
-            title: item.title,
-            alias: item.alias,
-          })
-        : navigation.push(PrimaryStackRoute.CategoryBusinesses, {
-            category: item,
-          });
-    };
-
-    return (
-      <CategoryItem
-        key={index}
-        title={item.title}
-        alias={item.alias as MoreCategories}
-        style={styles.categoryItem}
-        iconStyle={[styles.categoryIcon, {color: colors.text}]}
-        arrowStyle={{color: colors.text}}
-        labelStyle={[
-          DeviceUtils.isAndroid
-            ? fontStyles.b1_Text_Regular
-            : fontStyles.b2_Text_Regular,
-          {color: colors.text},
-        ]}
-        onPress={onPressHandler}
-        showIcon={showIcon}
-        showArrow={checkSubCategories(item.alias)}
-      />
-    );
-  };
-
-  const getData = () => {
+  const getData = useCallback(() => {
     if (alias === 'more') {
       return categories.allCategories.filter(
         c => c.parent_aliases.length === 0,
@@ -78,9 +42,50 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
     return categories.allCategories.filter(category =>
       category.parent_aliases.includes(alias),
     );
-  };
+  }, [alias, categories.allCategories]);
 
-  const renderMainContent = () => {
+  const renderItem = useCallback(
+    (
+      renderItemProps: ListRenderItemInfo<CategoryInterface>,
+      showIcon: boolean,
+    ) => {
+      const {item, index} = renderItemProps;
+
+      const onPressHandler = () => {
+        return checkSubCategories(item.alias)
+          ? navigation.push(PrimaryStackRoute.CategoryDetail, {
+              title: item.title,
+              alias: item.alias,
+            })
+          : navigation.push(PrimaryStackRoute.CategoryBusinesses, {
+              category: item,
+            });
+      };
+
+      return (
+        <CategoryItem
+          key={index}
+          title={item.title}
+          alias={item.alias as MoreCategories}
+          style={styles.categoryItem}
+          iconStyle={[styles.categoryIcon, {color: colors.text}]}
+          arrowStyle={{color: colors.text}}
+          labelStyle={[
+            DeviceUtils.isAndroid
+              ? fontStyles.b1_Text_Regular
+              : fontStyles.b2_Text_Regular,
+            {color: colors.text},
+          ]}
+          onPress={onPressHandler}
+          showIcon={showIcon}
+          showArrow={checkSubCategories(item.alias)}
+        />
+      );
+    },
+    [checkSubCategories, colors.text, navigation],
+  );
+
+  const renderMainContent = useCallback(() => {
     if (alias === 'more') {
       return (
         <FlatList
@@ -100,7 +105,7 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
         />
       );
     }
-  };
+  }, [alias, getData, renderItem]);
 
   return renderMainContent();
 };
