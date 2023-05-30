@@ -1,6 +1,6 @@
 import {cast, toGenerator, types} from 'mobx-state-tree';
-import {BusinessModel} from './Business/BusinessModel';
-import {BusinessService, BusinessServiceTypes} from '../services';
+import {BusinessModel} from './BusinessModel';
+import {BusinessService, BusinessServiceTypes} from '../../services';
 import {AsyncTask, runTask} from 'mst-async-task';
 
 const BusinessesModel = types

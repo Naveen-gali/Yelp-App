@@ -3,9 +3,6 @@
     "title": "Home",
     "welcome": "Welcome"
   },
-  "button": {
-    "title": "Featured Event in Texas"
-  },
   "error": {
     "responseError": "Something Weird Happened!",
     "requestError": "Bad Network Error!",
@@ -17,5 +14,8 @@
   },
   "searchbar": {
     "placeholder": "Search for burgers, delivery, barber.."
+  },
+  "categories": {
+    "More": "More"
   }
 }
