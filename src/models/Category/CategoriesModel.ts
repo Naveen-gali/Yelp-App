@@ -1,8 +1,8 @@
 import {cast, detach, toGenerator, types} from 'mobx-state-tree';
 import {AsyncTask, runTask} from 'mst-async-task';
+import {CategoryInterface, CategoryModel} from '.';
 import {CategoryService} from '../../services';
 import {featuredCategories} from '../../utils';
-import {CategoryModel} from '.';
 
 const CategoriesModel = types
   .model('CategoriesModel')
@@ -25,12 +25,16 @@ const CategoriesModel = types
         const categories = response.data.categories;
         self.allCategories = cast(categories);
         detach(self.featuredCategories);
-        self.featuredCategories = cast(
-          featuredCategories(
-            categories.filter(category => category.parent_aliases.length === 0),
-          ),
-        );
+        setFeaturedCategories(categories);
       });
+
+    const setFeaturedCategories = (categories: CategoryInterface[]) => {
+      self.featuredCategories = cast(
+        featuredCategories(
+          categories.filter(category => category.parent_aliases.length === 0),
+        ),
+      );
+    };
 
     return {getAllCategories};
   });
