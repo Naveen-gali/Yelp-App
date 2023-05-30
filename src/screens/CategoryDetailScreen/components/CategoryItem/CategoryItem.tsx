@@ -21,7 +21,10 @@ const CategoryItem = (props: CategoryItemProps) => {
       <View style={styles.labelContainer}>
         {showIcon ? (
           <CustomIcon
-            name={CustomIconNames[alias] ?? CustomIconNames.Delivery}
+            name={
+              CustomIconNames[alias as keyof typeof CustomIconNames] ??
+              CustomIconNames.delivery
+            }
             size={28}
             style={[iconStyle]}
           />

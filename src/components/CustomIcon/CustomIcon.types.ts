@@ -6,7 +6,7 @@ export type CustomIconType = Omit<IconProps, 'name'> & {
 
 export enum CustomIconNames {
   // TODO: Add the icon names as needed
-  Delivery = 'delivery',
+  delivery = 'delivery',
   restaurants = 'restaurant-plate',
   AmazonPay = 'amazonpay',
   religiousorgs = 'religious',

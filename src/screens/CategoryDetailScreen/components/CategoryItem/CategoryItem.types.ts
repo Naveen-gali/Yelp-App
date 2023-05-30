@@ -4,11 +4,10 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import {MoreCategories} from '../../../../utils';
 
 export type CategoryItemProps = {
   title: string;
-  alias: MoreCategories;
+  alias: string;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
   labelStyle?: StyleProp<TextStyle>;

@@ -8,27 +8,3 @@ export enum FeaturedCategories {
   auto = 'auto',
   more = 'more',
 }
-
-export enum MoreCategories {
-  active = 'active',
-  arts = 'arts',
-  auto = 'auto',
-  beautysvc = 'beautysvc',
-  education = 'education',
-  eventservices = 'eventservices',
-  financialservices = 'financialservices',
-  food = 'food',
-  health = 'health',
-  homeservices = 'homeservices',
-  hotelstravel = 'hotelstravel',
-  localflavor = 'localflavor',
-  localservices = 'localservices',
-  massmedia = 'massmedia',
-  nightlife = 'nightlife',
-  pets = 'pets',
-  professional = 'professional',
-  publicservicesgovt = 'publicservicesgovt',
-  religiousorgs = 'religiousorgs',
-  restaurants = 'restaurants',
-  shopping = 'shopping',
-}

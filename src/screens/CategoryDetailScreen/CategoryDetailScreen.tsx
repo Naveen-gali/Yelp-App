@@ -1,19 +1,19 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useCallback, useContext} from 'react';
 import {FlatList, ListRenderItemInfo, StyleSheet} from 'react-native';
+import {fontStyles} from '../../constants';
+import {useThemeColor} from '../../hooks';
 import {CategoryInterface, RootStoreContext} from '../../models';
-import {CategoryDetailScreenProps} from './CategoryDetailScreen.types';
-import {CategoryItem} from './components';
+import {PrimaryStackParams, PrimaryStackRoute} from '../../navigation';
 import {
   DeviceUtils,
-  MoreCategories,
+  FeaturedCategories,
   horizontalScale,
   verticalScale,
 } from '../../utils';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {PrimaryStackParams, PrimaryStackRoute} from '../../navigation';
-import {useThemeColor} from '../../hooks';
-import {fontStyles} from '../../constants';
+import {CategoryDetailScreenProps} from './CategoryDetailScreen.types';
+import {CategoryItem} from './components';
 
 const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
   const {alias} = props.route.params;
@@ -34,7 +34,7 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
   );
 
   const getData = useCallback(() => {
-    if (alias === 'more') {
+    if (alias === FeaturedCategories.more) {
       return categories.allCategories.filter(
         c => c.parent_aliases.length === 0,
       );
@@ -66,7 +66,7 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
         <CategoryItem
           key={index}
           title={item.title}
-          alias={item.alias as MoreCategories}
+          alias={item.alias}
           style={styles.categoryItem}
           iconStyle={[styles.categoryIcon, {color: colors.text}]}
           arrowStyle={{color: colors.text}}
@@ -86,7 +86,7 @@ const CategoryDetailScreen = (props: CategoryDetailScreenProps) => {
   );
 
   const renderMainContent = useCallback(() => {
-    if (alias === 'more') {
+    if (alias === FeaturedCategories.more) {
       return (
         <FlatList
           data={getData()}
