@@ -1,7 +1,8 @@
-import {CustomIconNames} from '../../components';
 import {Constants} from '../../constants';
 import {CategoryInterface} from '../../models';
-import {FeaturedCategories, MoreCategories} from './CategoryUtils.types';
+import {FeaturedCategories} from './CategoryUtils.types';
+
+const FEATURED_CATEGORIES_GRID_LENGTH = 7;
 
 const featuredCategories = (categories: CategoryInterface[]) => {
   const topFeaturedItems = [
@@ -11,6 +12,7 @@ const featuredCategories = (categories: CategoryInterface[]) => {
     'active',
     'beautysvc',
     'homeservices',
+    'auto',
   ];
 
   const moreItemArray = [
@@ -30,7 +32,7 @@ const featuredCategories = (categories: CategoryInterface[]) => {
   const extraCategoryItems = categories
     .filter(category => category.parent_aliases.length === 0)
     .filter(category => !featuredCategoryItems.includes(category))
-    .slice(0, 7 - featuredCategoryItems.length);
+    .slice(0, FEATURED_CATEGORIES_GRID_LENGTH - featuredCategoryItems.length);
 
   const featuredCategoriesData = featuredCategoryItems.concat(
     extraCategoryItems,
@@ -54,6 +56,8 @@ const getIconForCategory = (categoryAlias: FeaturedCategories) => {
       return Constants.BeautyIconUrl;
     case FeaturedCategories.homeservices:
       return Constants.HomeServicesIconUrl;
+    case FeaturedCategories.auto:
+      return Constants.AutomotiveIconUrl;
     case FeaturedCategories.more:
       return Constants.MoreIconUrl;
     default:
@@ -61,53 +65,4 @@ const getIconForCategory = (categoryAlias: FeaturedCategories) => {
   }
 };
 
-const getCustomIconsForCategories = (categoryAlias: MoreCategories) => {
-  switch (categoryAlias) {
-    case MoreCategories.active:
-      return CustomIconNames.Tennis;
-    case MoreCategories.arts:
-      return CustomIconNames.Events;
-    case MoreCategories.auto:
-      return CustomIconNames.Car;
-    case MoreCategories.beautysvc:
-      return CustomIconNames.Sparkles;
-    case MoreCategories.education:
-      return CustomIconNames.Education;
-    case MoreCategories.eventservices:
-      return CustomIconNames.Events;
-    case MoreCategories.financialservices:
-      return CustomIconNames.Finance;
-    case MoreCategories.food:
-      return CustomIconNames.FastFood;
-    case MoreCategories.health:
-      return CustomIconNames.Medkit;
-    case MoreCategories.homeservices:
-      return CustomIconNames.Hammer;
-    case MoreCategories.hotelstravel:
-      return CustomIconNames.Bus;
-    case MoreCategories.localflavor:
-      return CustomIconNames.Star;
-    case MoreCategories.localservices:
-      return CustomIconNames.Key;
-    case MoreCategories.massmedia:
-      return CustomIconNames.Tv;
-    case MoreCategories.nightlife:
-      return CustomIconNames.CoolDrink;
-    case MoreCategories.pets:
-      return CustomIconNames.Pets;
-    case MoreCategories.professional:
-      return CustomIconNames.Professional;
-    case MoreCategories.publicservicesgovt:
-      return CustomIconNames.Government;
-    case MoreCategories.religiousorgs:
-      return CustomIconNames.Religious;
-    case MoreCategories.restaurants:
-      return CustomIconNames.RestaurantPlate;
-    case MoreCategories.shopping:
-      return CustomIconNames.Bag;
-    default:
-      return CustomIconNames.Arts;
-  }
-};
-
-export {featuredCategories, getIconForCategory, getCustomIconsForCategories};
+export {featuredCategories, getIconForCategory};

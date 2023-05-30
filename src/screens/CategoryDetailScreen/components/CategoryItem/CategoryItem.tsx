@@ -1,10 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {CategoryItemProps} from './CategoryItem.types';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {CustomIcon, CustomIconNames} from '../../../../components';
-import {TouchableOpacity} from 'react-native';
 import {fontStyles} from '../../../../constants';
-import {getCustomIconsForCategories} from '../../../../utils';
+import {CategoryItemProps} from './CategoryItem.types';
 
 const CategoryItem = (props: CategoryItemProps) => {
   const {
@@ -23,7 +21,7 @@ const CategoryItem = (props: CategoryItemProps) => {
       <View style={styles.labelContainer}>
         {showIcon ? (
           <CustomIcon
-            name={getCustomIconsForCategories(alias)}
+            name={CustomIconNames[alias] ?? CustomIconNames.Delivery}
             size={28}
             style={[iconStyle]}
           />

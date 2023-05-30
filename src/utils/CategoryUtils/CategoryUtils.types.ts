@@ -5,6 +5,7 @@ export enum FeaturedCategories {
   active = 'active',
   beautysvc = 'beautysvc',
   homeservices = 'homeservices',
+  auto = 'auto',
   more = 'more',
 }
 
