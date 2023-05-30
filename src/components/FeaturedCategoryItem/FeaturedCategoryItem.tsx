@@ -8,8 +8,8 @@ import {FeaturedCategoryItemProps} from './FeaturedCategoryItem.types';
 
 const FeaturedCategoryItem = (props: FeaturedCategoryItemProps) => {
   const {title, alias, style, iconStyle, textStyle, onPress} = props;
-
   const {colors} = useThemeColor();
+
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <SvgWithCssUri
