@@ -1,5 +1,3 @@
-//TODO: Remove next line comment after finding the fix in meeting
-/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {PrimaryStackNavigator} from '../PrimaryStack';
@@ -10,19 +8,30 @@ import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const tabBarIcon = (props: {
+    focused: boolean;
+    color: string;
+    size: number;
+    icon: CustomIconNames;
+  }) => {
+    return (
+      <CustomIcon name={props.icon} size={props.size} color={props.color} />
+    );
+  };
+
   return (
     <BottomTabs.Navigator>
       <BottomTabs.Screen
         name={BottomTabRoute.Search}
         component={PrimaryStackNavigator}
         options={{
-          tabBarIcon: ({size, color}) => (
-            <CustomIcon
-              name={CustomIconNames.Search}
-              size={size}
-              color={color}
-            />
-          ),
+          tabBarIcon: ({color, focused, size}) =>
+            tabBarIcon({
+              focused,
+              color,
+              size,
+              icon: CustomIconNames.Search,
+            }),
           headerShown: false,
         }}
       />
@@ -30,13 +39,13 @@ const BottomTabNavigator = () => {
         name={BottomTabRoute.Me}
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({size, color}) => (
-            <CustomIcon
-              name={CustomIconNames.Profile}
-              size={size}
-              color={color}
-            />
-          ),
+          tabBarIcon: ({color, focused, size}) =>
+            tabBarIcon({
+              color,
+              focused,
+              size,
+              icon: CustomIconNames.Profile,
+            }),
           headerShown: false,
         }}
       />

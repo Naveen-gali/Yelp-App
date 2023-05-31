@@ -8,6 +8,8 @@ import {horizontalScale, verticalScale} from '../../../utils';
 import ProfileAction from './ProfileAction/ProfileAction';
 import {ProfileActionsData, StatsData} from '../../../assets';
 
+const circleSize = Math.min(horizontalScale(80), verticalScale(80));
+
 const ProfileHeader = () => {
   const {colors} = useThemeColor();
 
@@ -53,10 +55,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    height: 80,
-    width: 80,
-    // TODO: Ask about this
-    borderRadius: 40,
+    height: circleSize,
+    width: circleSize,
+    borderRadius: circleSize / 2,
   },
   statsContainer: {
     flexDirection: 'row',

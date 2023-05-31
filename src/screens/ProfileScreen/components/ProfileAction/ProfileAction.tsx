@@ -2,8 +2,10 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {CustomIcon} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
-import {verticalScale} from '../../../../utils';
+import {horizontalScale, verticalScale} from '../../../../utils';
 import {ProfileActionsDataItemType} from '../../../../assets';
+
+const circleSize = Math.min(horizontalScale(50), verticalScale(50));
 
 const ProfileAction = (props: ProfileActionsDataItemType) => {
   const {icon} = props;
@@ -19,10 +21,9 @@ const ProfileAction = (props: ProfileActionsDataItemType) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 50,
-    height: 50,
-    // TODO: Ask About this
-    borderRadius: 25,
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
