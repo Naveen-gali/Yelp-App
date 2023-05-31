@@ -11,6 +11,26 @@ import {ProfileActionsData, StatsData} from '../../../assets';
 const ProfileHeader = () => {
   const {colors} = useThemeColor();
 
+  const renderStats = () => {
+    return StatsData.map((s, index) => (
+      <View style={styles.statItem} key={index}>
+        <CustomIcon name={s.icon} size={verticalScale(16)} />
+        <Text style={styles.statCount}>{s.count}</Text>
+      </View>
+    ));
+  };
+
+  const rendreProfileActions = () => {
+    return ProfileActionsData.map((s, index) => {
+      return (
+        <View style={styles.profileAction} key={index}>
+          <ProfileAction icon={s.icon} label={s.label} />
+          <Text style={styles.label}>{s.label}</Text>
+        </View>
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -21,24 +41,8 @@ const ProfileHeader = () => {
       <Text style={(fontStyles.b3_Text_Regular, {color: colors.text})}>
         {Strings.profile.location}
       </Text>
-      <View style={styles.statsContainer}>
-        {StatsData.map((s, index) => (
-          <View style={styles.statItem} key={index}>
-            <CustomIcon name={s.icon} size={verticalScale(16)} />
-            <Text style={styles.statCount}>{s.count}</Text>
-          </View>
-        ))}
-      </View>
-      <View style={styles.profileActionsRow}>
-        {ProfileActionsData.map((s, index) => {
-          return (
-            <View style={styles.profileAction} key={index}>
-              <ProfileAction icon={s.icon} label={s.label} />
-              <Text style={styles.label}>{s.label}</Text>
-            </View>
-          );
-        })}
-      </View>
+      <View style={styles.statsContainer}>{renderStats()}</View>
+      <View style={styles.profileActionsRow}>{rendreProfileActions()}</View>
     </View>
   );
 };

@@ -60,22 +60,22 @@ const ProfileScreen = () => {
     return <View style={styles.horizontalLine} />;
   };
 
+  const moreSettingsRenderItem = (
+    props: ListRenderItemInfo<MoreSettingItemType>,
+  ) => {
+    const {item} = props;
+
+    return (
+      <TouchableOpacity style={styles.moreSetting}>
+        <CustomIcon name={item.icon} size={verticalScale(25)} />
+        <Text style={[fontStyles.b2_Text_Regular, styles.settingsText]}>
+          {LocaleUtils.localizedText(item.label)}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   const renderMoreSettings = () => {
-    const moreSettingsRenderItem = (
-      props: ListRenderItemInfo<MoreSettingItemType>,
-    ) => {
-      const {item} = props;
-
-      return (
-        <TouchableOpacity style={styles.moreSetting}>
-          <CustomIcon name={item.icon} size={verticalScale(25)} />
-          <Text style={[fontStyles.b2_Text_Regular, styles.settingsText]}>
-            {LocaleUtils.localizedText(item.label)}
-          </Text>
-        </TouchableOpacity>
-      );
-    };
-
     return (
       <FlatList
         data={MoreSettings}
