@@ -1,7 +1,7 @@
 import {cast, getSnapshot, toGenerator, types} from 'mobx-state-tree';
-import {EventModel} from './Events/EventModel';
+import {EventModel} from './EventModel';
 import {AsyncTask, runTask} from 'mst-async-task';
-import {EventsService, EventServiceTypes} from '../services';
+import {EventsService, EventServiceTypes} from '../../services';
 
 const EventsModel = types
   .model('EventsModel')

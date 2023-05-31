@@ -59,7 +59,6 @@
 		<string>OpenSans-Bold.ttf</string>
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-SemiBold.ttf</string>
-		<string>icomoon.ttf</string>
 		<string>OpenSans-BoldItalic.ttf</string>
 		<string>OpenSans-ExtraBold.ttf</string>
 		<string>OpenSans-ExtraBoldItalic.ttf</string>
@@ -85,6 +84,7 @@
 		<string>Poppins-SemiBoldItalic.ttf</string>
 		<string>Poppins-Thin.ttf</string>
 		<string>Poppins-ThinItalic.ttf</string>
+		<string>icomoon.ttf</string>
 	</array>
 </dict>
 </plist>

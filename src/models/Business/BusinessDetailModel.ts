@@ -1,12 +1,12 @@
 import {SnapshotOut, types} from 'mobx-state-tree';
 import {AttributesModel} from './AttributesModel';
-import {CategoryModel} from './CategoryModel';
 import {CoordinatesModel} from './CoordinatesModel';
 import {HoursModel} from './HoursModel';
 import {LocationModel} from '../Common';
 import {MessagingModel} from './MessagingModel';
 import {PhotoDetailsModel} from './PhotoDetailsModel';
 import {SpecialHoursModel} from './SpecialHoursModel';
+import {CategoryModel} from '../Category';
 
 const BusinessDetailModel = types.model('BusinessDetailModel').props({
   alias: types.optional(types.string, ''),

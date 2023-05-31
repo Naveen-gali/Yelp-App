@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react-lite';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -15,10 +15,10 @@ import {RootStoreContext} from '../../models';
 import {SearchCarouselService} from '../../services';
 import {DeviceUtils, horizontalScale, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
-import {CarouselDataItem, SearchCarousel} from './components';
+import {CarouselDataItem, CategorySection, SearchCarousel} from './components';
 
 const HomeScreen = observer((_props: HomeScreenProps) => {
-  const {events} = useContext(RootStoreContext);
+  const {events, categories} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -33,14 +33,25 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     });
   };
 
-  const getEvents = (_location?: string) => {
-    if (!events.allEvents.length) {
-      events.getAllEvents(_location);
-    }
-  };
+  const getEvents = useCallback(
+    (_location?: string) => {
+      if (!events.allEvents.length) {
+        events.getAllEvents(_location);
+      }
+    },
+    [events],
+  );
+
+  const getCategories = useCallback(() => {
+    setIsLoading(true);
+    categories.getAllCategories().then(() => {
+      setIsLoading(false);
+    });
+  }, [categories]);
 
   useEffect(() => {
     getEvents();
+    getCategories();
     getSearchCarouselData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -58,6 +69,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
             shadowColor: colors.shadow,
           },
         ]}
+        placeholderTextColor={colors.placeholder}
         placeholder={Strings.searchbar.placeholder}
         inputStyle={styles.input}
       />
@@ -69,19 +81,21 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <View>
         <SearchCarousel carouselData={searchCarouselData ?? []} />
         {renderSearchBar()}
-        <View>
-          {events.allEvents.map((e, index) => {
-            return (
-              <EventItem
-                name={e.name}
-                imageUrl={e.image_url}
-                onPress={() => {}}
-                style={styles.eventItem}
-                key={index}
-              />
-            );
-          })}
-        </View>
+        <CategorySection categories={categories.featuredCategories} />
+        {events.allEvents.map((e, index) => {
+          return (
+            <EventItem
+              name={e.name}
+              imageUrl={e.image_url}
+              onPress={() => {}}
+              style={styles.eventItem}
+              key={index}
+              textStyle={{
+                color: colors.text,
+              }}
+            />
+          );
+        })}
       </View>
     );
   };

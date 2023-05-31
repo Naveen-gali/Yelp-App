@@ -20,5 +20,8 @@
   },
   "searchbar": {
     "placeholder": "Search for burgers, delivery, barber.."
+  },
+  "categories": {
+    "More": "More"
   }
 }
