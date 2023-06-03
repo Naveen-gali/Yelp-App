@@ -67,7 +67,12 @@ const ProfileScreen = () => {
     return (
       <TouchableOpacity style={styles.moreSetting}>
         <CustomIcon name={item.icon} size={verticalScale(25)} />
-        <Text style={[fontStyles.b2_Text_Regular, styles.settingsText]}>
+        <Text
+          style={[
+            styles.settingsText,
+            fontStyles.b2_Text_Regular,
+            {color: colors.text},
+          ]}>
           {LocaleUtils.localizedText(item.label)}
         </Text>
       </TouchableOpacity>
