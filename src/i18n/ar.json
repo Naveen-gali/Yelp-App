@@ -13,7 +13,8 @@
     "name": "نافين ج.",
     "location": "سان فرانسيسكو، كاليفورنيا",
     "shareYourExperiences": "شارك تجاربك",
-    "doYouRecommendThisBusiness": "هل تنصح بهذا العمل؟"
+    "doYouRecommendThisBusiness": "هل تنصح بهذا العمل؟",
+    "seeMore": "شاهد المزيد"
   },
   "input": {
     "default_error": "حدث خطأ!"

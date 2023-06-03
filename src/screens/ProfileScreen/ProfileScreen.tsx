@@ -49,7 +49,7 @@ const ProfileScreen = () => {
           onPress={() => {}}
           mode="outlined"
           style={[styles.button, {borderColor: colors.buttonBorder}]}>
-          See More
+          {Strings.profile.seeMore}
         </Button>
       </View>
     );
