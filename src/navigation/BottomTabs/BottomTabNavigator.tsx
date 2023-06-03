@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {PrimaryStackNavigator} from '../PrimaryStack';
 import {BottomTabRoute} from './BottomTabNavigator.types';
 import {CustomIcon, CustomIconNames} from '../../components';
-import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
+import {ProfileScreen} from '../../screens';
 
 const BottomTabs = createBottomTabNavigator();
 
