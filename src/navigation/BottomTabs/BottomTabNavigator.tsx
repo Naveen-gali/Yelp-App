@@ -1,19 +1,17 @@
-import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {PrimaryStackNavigator} from '../PrimaryStack';
-import {BottomTabRoute} from './BottomTabNavigator.types';
+import React from 'react';
 import {CustomIcon, CustomIconNames} from '../../components';
 import {ProfileScreen} from '../../screens';
+import {PrimaryStackNavigator} from '../PrimaryStack';
+import {
+  BottomTabNavigatorIconProps,
+  BottomTabRoute,
+} from './BottomTabNavigator.types';
 
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const tabBarIcon = (props: {
-    focused: boolean;
-    color: string;
-    size: number;
-    icon: CustomIconNames;
-  }) => {
+  const tabBarIcon = (props: BottomTabNavigatorIconProps) => {
     return (
       <CustomIcon name={props.icon} size={props.size} color={props.color} />
     );
@@ -25,13 +23,8 @@ const BottomTabNavigator = () => {
         name={BottomTabRoute.Search}
         component={PrimaryStackNavigator}
         options={{
-          tabBarIcon: ({color, focused, size}) =>
-            tabBarIcon({
-              focused,
-              color,
-              size,
-              icon: CustomIconNames.Search,
-            }),
+          tabBarIcon: props =>
+            tabBarIcon({...props, icon: CustomIconNames.Search}),
           headerShown: false,
         }}
       />
@@ -39,13 +32,8 @@ const BottomTabNavigator = () => {
         name={BottomTabRoute.Me}
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({color, focused, size}) =>
-            tabBarIcon({
-              color,
-              focused,
-              size,
-              icon: CustomIconNames.Profile,
-            }),
+          tabBarIcon: props =>
+            tabBarIcon({...props, icon: CustomIconNames.Profile}),
           headerShown: false,
         }}
       />
