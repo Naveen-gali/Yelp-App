@@ -25,7 +25,7 @@ import {ExperienceCard, ProfileHeader} from './components';
 const ProfileScreen = () => {
   const {colors} = useThemeColor();
 
-  const experiencesRenderItem = (
+  const renderExperiencesItem = (
     props: ListRenderItemInfo<ExperiencesDataItemType>,
   ) => {
     const {item} = props;
@@ -44,7 +44,7 @@ const ProfileScreen = () => {
         <Text style={fontStyles.b1_Text_Bold}>
           {Strings.profile.shareYourExperiences}
         </Text>
-        <FlatList data={ExperiencesData} renderItem={experiencesRenderItem} />
+        <FlatList data={ExperiencesData} renderItem={renderExperiencesItem} />
         <Button
           onPress={() => {}}
           mode="outlined"
@@ -55,11 +55,11 @@ const ProfileScreen = () => {
     );
   };
 
-  const horizontalLine = () => {
+  const renderHorizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
 
-  const moreSettingsRenderItem = (
+  const renderMoreSettingsItem = (
     props: ListRenderItemInfo<MoreSettingItemType>,
   ) => {
     const {item} = props;
@@ -78,10 +78,10 @@ const ProfileScreen = () => {
     return (
       <FlatList
         data={MoreSettings}
-        ListHeaderComponent={horizontalLine}
+        ListHeaderComponent={renderHorizontalLine}
         ListHeaderComponentStyle={styles.listHeader}
-        renderItem={moreSettingsRenderItem}
-        ItemSeparatorComponent={horizontalLine}
+        renderItem={renderMoreSettingsItem}
+        ItemSeparatorComponent={renderHorizontalLine}
       />
     );
   };

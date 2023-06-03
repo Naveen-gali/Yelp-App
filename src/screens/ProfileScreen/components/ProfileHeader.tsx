@@ -22,7 +22,7 @@ const ProfileHeader = () => {
     ));
   };
 
-  const rendreProfileActions = () => {
+  const renderProfileActions = () => {
     return ProfileActionsData.map((s, index) => {
       return (
         <View style={styles.profileAction} key={index}>
@@ -44,7 +44,7 @@ const ProfileHeader = () => {
         {Strings.profile.location}
       </Text>
       <View style={styles.statsContainer}>{renderStats()}</View>
-      <View style={styles.profileActionsRow}>{rendreProfileActions()}</View>
+      <View style={styles.profileActionsRow}>{renderProfileActions()}</View>
     </View>
   );
 };
