@@ -5,7 +5,7 @@ export enum BottomTabRoute {
   Me = 'Me',
 }
 
-export type BottomTabNavigatorIconProps = {
+export type BottomTabBarIconProps = {
   focused: boolean;
   color: string;
   size: number;

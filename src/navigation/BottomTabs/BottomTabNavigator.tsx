@@ -4,14 +4,14 @@ import {CustomIcon, CustomIconNames} from '../../components';
 import {ProfileScreen} from '../../screens';
 import {PrimaryStackNavigator} from '../PrimaryStack';
 import {
-  BottomTabNavigatorIconProps,
+  BottomTabBarIconProps,
   BottomTabRoute,
 } from './BottomTabNavigator.types';
 
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const tabBarIcon = (props: BottomTabNavigatorIconProps) => {
+  const tabBarIcon = (props: BottomTabBarIconProps) => {
     return (
       <CustomIcon name={props.icon} size={props.size} color={props.color} />
     );
