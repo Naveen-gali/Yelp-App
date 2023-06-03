@@ -16,7 +16,11 @@ const ProfileHeader = () => {
   const renderStats = () => {
     return StatsData.map((s, index) => (
       <View style={styles.statItem} key={index}>
-        <CustomIcon name={s.icon} size={verticalScale(16)} />
+        <CustomIcon
+          name={s.icon}
+          size={verticalScale(16)}
+          color={colors.text}
+        />
         <Text style={styles.statCount}>{s.count}</Text>
       </View>
     ));

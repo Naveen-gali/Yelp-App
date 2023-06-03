@@ -14,7 +14,7 @@ const ProfileAction = (props: ProfileActionsDataItemType) => {
   return (
     <TouchableOpacity
       style={[styles.container, {backgroundColor: colors.passiveDots}]}>
-      <CustomIcon name={icon} size={verticalScale(20)} />
+      <CustomIcon name={icon} size={verticalScale(20)} color={colors.text} />
     </TouchableOpacity>
   );
 };

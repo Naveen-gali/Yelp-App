@@ -66,7 +66,11 @@ const ProfileScreen = () => {
 
     return (
       <TouchableOpacity style={styles.moreSetting}>
-        <CustomIcon name={item.icon} size={verticalScale(25)} />
+        <CustomIcon
+          name={item.icon}
+          size={verticalScale(25)}
+          color={colors.text}
+        />
         <Text
           style={[
             styles.settingsText,
