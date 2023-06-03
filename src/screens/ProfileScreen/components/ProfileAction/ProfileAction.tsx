@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
+import {ProfileActionsDataItemType} from '../../../../assets';
 import {CustomIcon} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
 import {horizontalScale, verticalScale} from '../../../../utils';
-import {ProfileActionsDataItemType} from '../../../../assets';
 
 const circleSize = Math.min(horizontalScale(50), verticalScale(50));
 
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileAction;
+export {ProfileAction};

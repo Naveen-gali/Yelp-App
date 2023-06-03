@@ -20,8 +20,7 @@ import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
-import ExperienceCard from './components/ExperienceCard/ExperienceCard';
-import ProfileHeader from './components/ProfileHeader';
+import {ExperienceCard, ProfileHeader} from './components';
 
 const ProfileScreen = () => {
   const {colors} = useThemeColor();
