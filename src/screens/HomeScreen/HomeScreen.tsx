@@ -23,6 +23,14 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
 
+  const onEventItemPress = useCallback(() => {
+    // TODO: Add This Functions once ready
+  }, []);
+
+  const onChangeTextSearchBar = useCallback(() => {
+    // TODO: Add This Functions once ready
+  }, []);
+
   const getSearchCarouselData = () => {
     setIsLoading(true);
     SearchCarouselService.getSearchCarouselData().then(res => {
@@ -61,7 +69,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   const renderSearchBar = () => {
     return (
       <SearchBar
-        onChangeText={() => {}}
+        onChangeText={onChangeTextSearchBar}
         style={[
           styles.searchbar,
           {
@@ -87,7 +95,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
             <EventItem
               name={e.name}
               imageUrl={e.image_url}
-              onPress={() => {}}
+              onPress={onEventItemPress}
               style={styles.eventItem}
               key={index}
               textStyle={{

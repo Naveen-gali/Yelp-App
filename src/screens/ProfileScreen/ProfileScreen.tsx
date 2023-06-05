@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -25,6 +25,10 @@ import {ExperienceCard, ProfileHeader} from './components';
 const ProfileScreen = () => {
   const {colors} = useThemeColor();
 
+  const onPressSeeMore = useCallback(() => {
+    // TODO: Add This Functions once ready
+  }, []);
+
   const renderExperiencesItem = (
     props: ListRenderItemInfo<ExperiencesDataItemType>,
   ) => {
@@ -46,7 +50,7 @@ const ProfileScreen = () => {
         </Text>
         <FlatList data={ExperiencesData} renderItem={renderExperiencesItem} />
         <Button
-          onPress={() => {}}
+          onPress={onPressSeeMore}
           mode="outlined"
           style={[styles.button, {borderColor: colors.buttonBorder}]}>
           {Strings.profile.seeMore}

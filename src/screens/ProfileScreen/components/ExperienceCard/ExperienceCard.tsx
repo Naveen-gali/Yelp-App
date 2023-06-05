@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {Button, Card} from '../../../../components';
 import {fontStyles} from '../../../../constants';
@@ -11,6 +11,16 @@ const ExperienceCard = (props: ExperienceCardProps) => {
   const {style, title, logo} = props;
 
   const {colors} = useThemeColor();
+
+  const onPressYes = useCallback(() => {
+    // TODO: Add This Functions once ready
+  }, []);
+  const onPressNo = useCallback(() => {
+    // TODO: Add This Functions once ready
+  }, []);
+  const onPressMayBe = useCallback(() => {
+    // TODO: Add This Functions once ready
+  }, []);
 
   return (
     <Card
@@ -30,21 +40,21 @@ const ExperienceCard = (props: ExperienceCardProps) => {
         <View style={styles.buttonRow}>
           <Button
             mode="outlined"
-            onPress={() => {}}
+            onPress={onPressYes}
             style={[styles.actionButton, {borderColor: colors.buttonBorder}]}
             textStyle={fontStyles.b3_Text_SemiBold}>
             {Strings.experienceBtns.yes}
           </Button>
           <Button
             mode="outlined"
-            onPress={() => {}}
+            onPress={onPressNo}
             style={[styles.actionButton, {borderColor: colors.buttonBorder}]}
             textStyle={fontStyles.b3_Text_SemiBold}>
             {Strings.experienceBtns.no}
           </Button>
           <Button
             mode="outlined"
-            onPress={() => {}}
+            onPress={onPressMayBe}
             style={[styles.actionButton, {borderColor: colors.buttonBorder}]}
             textStyle={fontStyles.b3_Text_SemiBold}>
             {Strings.experienceBtns.mayBe}
