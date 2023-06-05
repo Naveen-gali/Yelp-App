@@ -1,5 +1,5 @@
-import {CustomIconNames} from '../../components';
-import {LocalizedLanguages} from '../../i18n';
+import {CustomIconNames} from '../components';
+import {LocalizedLanguages} from '../i18n';
 
 export type StatsDataItemType = {
   icon: CustomIconNames;

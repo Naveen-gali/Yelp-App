@@ -3,7 +3,7 @@ import {
   MoreSettingsType,
   ProfileActionsDataType,
   StatsDataType,
-} from './Assets.types';
+} from '../../types';
 
 const SearchCarouselData = require('./SearchCarouselData.json');
 const StatsData: StatsDataType = require('./StatsData.json');
@@ -18,5 +18,3 @@ export {
   ExperiencesData,
   MoreSettings,
 };
-
-export * from './Assets.types';
