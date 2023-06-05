@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: verticalScale(15),
     paddingVertical: verticalScale(10),
     borderRadius: verticalScale(4),
-    marginHorizontal: horizontalScale(3),
+    marginRight: horizontalScale(5),
   },
   buttonRow: {
     flexDirection: 'row',
