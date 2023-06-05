@@ -128,10 +128,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: verticalScale(10),
+    paddingVertical: verticalScale(10),
   },
   horizontalLine: {
-    marginHorizontal: horizontalScale(10),
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   settingsText: {
