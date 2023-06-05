@@ -24,5 +24,10 @@
   },
   "categories": {
     "More": "أكثر"
+  },
+  "experienceBtns": {
+    "yes": "نعم",
+    "no": "لا",
+    "mayBe": "ربما"
   }
 }

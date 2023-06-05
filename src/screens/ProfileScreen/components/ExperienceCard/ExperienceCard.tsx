@@ -33,21 +33,21 @@ const ExperienceCard = (props: ExperienceCardProps) => {
             onPress={() => {}}
             style={[styles.actionButton, {borderColor: colors.buttonBorder}]}
             textStyle={fontStyles.b3_Text_SemiBold}>
-            Yes
+            {Strings.experienceBtns.yes}
           </Button>
           <Button
             mode="outlined"
             onPress={() => {}}
             style={[styles.actionButton, {borderColor: colors.buttonBorder}]}
             textStyle={fontStyles.b3_Text_SemiBold}>
-            No
+            {Strings.experienceBtns.no}
           </Button>
           <Button
             mode="outlined"
             onPress={() => {}}
             style={[styles.actionButton, {borderColor: colors.buttonBorder}]}
             textStyle={fontStyles.b3_Text_SemiBold}>
-            Maybe
+            {Strings.experienceBtns.mayBe}
           </Button>
         </View>
       </View>

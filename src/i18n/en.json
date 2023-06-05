@@ -24,5 +24,10 @@
   },
   "categories": {
     "More": "More"
+  },
+  "experienceBtns": {
+    "yes": "Yes",
+    "no": "No",
+    "mayBe": "MayBe"
   }
 }
