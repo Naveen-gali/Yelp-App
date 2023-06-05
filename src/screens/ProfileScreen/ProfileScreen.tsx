@@ -9,16 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  ExperiencesData,
-  ExperiencesDataItemType,
-  MoreSettingItemType,
-  MoreSettings,
-} from '../../assets';
+import {ExperiencesData, MoreSettings} from '../../assets';
 import {Button, CustomIcon} from '../../components';
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
+import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
 import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
 

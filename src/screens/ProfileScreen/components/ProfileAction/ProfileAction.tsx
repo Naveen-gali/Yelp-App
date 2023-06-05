@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
-import {ProfileActionsDataItemType} from '../../../../assets';
 import {CustomIcon} from '../../../../components';
 import {useThemeColor} from '../../../../hooks';
+import {ProfileActionsDataItemType} from '../../../../types';
 import {horizontalScale, verticalScale} from '../../../../utils';
 
 const circleSize = Math.min(horizontalScale(50), verticalScale(50));
