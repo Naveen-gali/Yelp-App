@@ -6,7 +6,8 @@ const isIos = Platform.OS === 'ios';
 const isPlatform = (T: PlatformType) => Platform.OS === T;
 
 const locale: string = isIos
-  ? NativeModules.SettingsManager.settings.AppleLocale
+  ? NativeModules.SettingsManager.settings.AppleLocale ||
+    NativeModules.SettingsManager.settings.AppleLanguages[0]
   : NativeModules.I18nManager.localeIdentifier;
 
 const getDeviceWindowWidth = Dimensions.get('window').width;

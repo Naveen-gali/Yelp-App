@@ -44,6 +44,7 @@ try {
 const getStories = () => {
   return {
     './src/components/Button/Button.stories.tsx': require('../src/components/Button/Button.stories.tsx'),
+    './src/components/Card/Card.stories.tsx': require('../src/components/Card/Card.stories.tsx'),
     './src/components/Carousel/Carousel.stories.tsx': require('../src/components/Carousel/Carousel.stories.tsx'),
     './src/components/CustomIcon/CustomIcon.stories.tsx': require('../src/components/CustomIcon/CustomIcon.stories.tsx'),
     './src/components/FeaturedCategoryItem/FeaturedCategoryItem.stories.tsx': require('../src/components/FeaturedCategoryItem/FeaturedCategoryItem.stories.tsx'),

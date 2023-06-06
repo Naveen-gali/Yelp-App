@@ -9,6 +9,13 @@
     "defaultError": "شيء ما حصل!",
     "alertTitle": "حدث خطأ"
   },
+  "profile": {
+    "name": "نافين ج.",
+    "location": "سان فرانسيسكو، كاليفورنيا",
+    "shareYourExperiences": "شارك تجاربك",
+    "doYouRecommendThisBusiness": "هل تنصح بهذا العمل؟",
+    "seeMore": "شاهد المزيد"
+  },
   "input": {
     "default_error": "حدث خطأ!"
   },
@@ -17,5 +24,10 @@
   },
   "categories": {
     "More": "أكثر"
+  },
+  "experienceBtns": {
+    "yes": "نعم",
+    "no": "لا",
+    "mayBe": "ربما"
   }
 }

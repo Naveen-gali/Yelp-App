@@ -50,7 +50,7 @@ const CategorySection = observer((props: CategorySectionProps) => {
       renderItem={renderItem}
       showsHorizontalScrollIndicator={false}
       numColumns={4}
-      ListFooterComponent={horizontalLine}
+      ListFooterComponent={categories.length ? horizontalLine : null}
     />
   );
 });

@@ -9,6 +9,13 @@
     "defaultError": "Something Happened!",
     "alertTitle": "Error Occured"
   },
+  "profile": {
+    "name": "Naveen G.",
+    "location": "San Francisco, CA",
+    "shareYourExperiences": "Share your experiences",
+    "doYouRecommendThisBusiness": "Do you recommend this business?",
+    "seeMore": "See More"
+  },
   "input": {
     "default_error": "Error Occured!"
   },
@@ -17,5 +24,10 @@
   },
   "categories": {
     "More": "More"
+  },
+  "experienceBtns": {
+    "yes": "Yes",
+    "no": "No",
+    "mayBe": "MayBe"
   }
 }

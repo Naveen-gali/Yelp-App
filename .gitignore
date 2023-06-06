@@ -28,7 +28,6 @@ ios/tmp.xcconfig
 # eslint
 .eslintcache
 
-
 # Android/IntelliJ
 #
 build/
