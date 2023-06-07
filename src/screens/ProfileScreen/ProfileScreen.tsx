@@ -17,12 +17,15 @@ import {Strings} from '../../i18n';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
 import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
+import analytics from '@react-native-firebase/analytics';
 
 const ProfileScreen = () => {
   const {colors} = useThemeColor();
 
-  const onPressSeeMore = useCallback(() => {
-    // TODO: Add This Functions once ready
+  const onPressSeeMore = useCallback(async () => {
+    await analytics().logEvent('selected_btn', {
+      value: 'See More',
+    });
   }, []);
 
   const renderExperiencesItem = (
