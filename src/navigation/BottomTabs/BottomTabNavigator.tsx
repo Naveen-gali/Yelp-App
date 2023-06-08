@@ -1,3 +1,4 @@
+import remoteConfig from '@react-native-firebase/remote-config';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {CustomIcon, CustomIconNames} from '../../components';
@@ -17,6 +18,8 @@ const BottomTabNavigator = () => {
     );
   };
 
+  const active_color = remoteConfig().getValue('bottom_tab_active_color');
+
   return (
     <BottomTabs.Navigator>
       <BottomTabs.Screen
@@ -24,7 +27,11 @@ const BottomTabNavigator = () => {
         component={PrimaryStackNavigator}
         options={{
           tabBarIcon: props =>
-            tabBarIcon({...props, icon: CustomIconNames.Search}),
+            tabBarIcon({
+              ...props,
+              icon: CustomIconNames.Search,
+              color: props.focused ? active_color.asString() : props.color,
+            }),
           headerShown: false,
         }}
       />
@@ -33,7 +40,11 @@ const BottomTabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: props =>
-            tabBarIcon({...props, icon: CustomIconNames.Profile}),
+            tabBarIcon({
+              ...props,
+              icon: CustomIconNames.Profile,
+              color: props.focused ? active_color.asString() : '',
+            }),
           headerShown: false,
         }}
       />

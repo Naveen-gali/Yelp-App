@@ -19,6 +19,11 @@ PODS:
   - Firebase/Crashlytics (10.10.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 10.10.0)
+  - Firebase/RemoteConfig (10.10.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 10.10.0)
+  - FirebaseABTesting (10.10.0):
+    - FirebaseCore (~> 10.0)
   - FirebaseAnalytics (10.10.0):
     - FirebaseAnalytics/AdIdSupport (= 10.10.0)
     - FirebaseCore (~> 10.0)
@@ -58,6 +63,12 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
+  - FirebaseRemoteConfig (10.10.0):
+    - FirebaseABTesting (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - FirebaseSessions (10.10.0):
     - FirebaseCore (~> 10.5)
     - FirebaseCoreExtension (~> 10.0)
@@ -490,6 +501,10 @@ PODS:
     - FirebaseCoreExtension (= 10.10.0)
     - React-Core
     - RNFBApp
+  - RNFBRemoteConfig (18.0.0):
+    - Firebase/RemoteConfig (= 10.10.0)
+    - React-Core
+    - RNFBApp
   - RNGestureHandler (2.9.0):
     - React-Core
   - RNReanimated (3.1.0):
@@ -572,6 +587,7 @@ DEPENDENCIES:
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
+  - "RNFBRemoteConfig (from `../node_modules/@react-native-firebase/remote-config`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -581,12 +597,14 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Firebase
+    - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebaseRemoteConfig
     - FirebaseSessions
     - fmt
     - GoogleAppMeasurement
@@ -684,6 +702,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBCrashlytics:
     :path: "../node_modules/@react-native-firebase/crashlytics"
+  RNFBRemoteConfig:
+    :path: "../node_modules/@react-native-firebase/remote-config"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -701,12 +721,14 @@ SPEC CHECKSUMS:
   FBLazyVector: 446e84642979fff0ba57f3c804c2228a473aeac2
   FBReactNativeSpec: 241709e132e3bf1526c1c4f00bc5384dd39dfba9
   Firebase: facd334e557a979bd03a0b58d90fd56b52b8aba0
+  FirebaseABTesting: b2a87808d90f02766fcffb3957d3e397e7accc15
   FirebaseAnalytics: 7bc7de519111dae802f5bc0c9c083918f8b8870d
   FirebaseCore: d027ff503d37edb78db98429b11f580a24a7df2a
   FirebaseCoreExtension: 8d93ebbf6838a874b4ed82a564c9d6705f8365dd
   FirebaseCoreInternal: 971029061d326000d65bfdc21f5502c75c8b0893
   FirebaseCrashlytics: bc8f3bed7f4d04be79d87391455efb4c9b163131
   FirebaseInstallations: 52153982b057d3afcb4e1fbb3eb0b6d00611e681
+  FirebaseRemoteConfig: 8ef82c9d0bc45525a3d152d958f08742523ca5a9
   FirebaseSessions: 5f9e62cd4096e24d2011cbd845b0efceffaee1ec
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
@@ -755,6 +777,7 @@ SPEC CHECKSUMS:
   RNFBAnalytics: 87fe286d542f14655e73981499576f46a2091062
   RNFBApp: 10aa0ab560e30186c39a9756846945cac6499ea7
   RNFBCrashlytics: 74ae7a78db91634eb83ecbf82202f21be49afd73
+  RNFBRemoteConfig: 4b1babfe1e15fd3937c9d54cf59ae80a09f2dde5
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNReanimated: b1220a0e5168745283ff5d53bfc7d2144b2cee1b
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f

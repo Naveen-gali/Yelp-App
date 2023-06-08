@@ -4,18 +4,26 @@ import RNBootsplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {RootStore, RootStoreContext, setupStore} from './models';
 import {RootNavigator} from './navigation';
+import remoteConfig from '@react-native-firebase/remote-config';
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
 
+  const fetchRemoteConfig = async () => {
+    await remoteConfig().fetch(0);
+    await remoteConfig().fetchAndActivate();
+  };
+
   useEffect(() => {
-    setupStore().then(() => {
-      setIsSettingStore(false);
-      RNBootsplash.hide({
-        duration: 500,
-        fade: true,
+    setupStore()
+      .then(() => fetchRemoteConfig())
+      .then(() => {
+        setIsSettingStore(false);
+        RNBootsplash.hide({
+          duration: 500,
+          fade: true,
+        });
       });
-    });
   });
 
   const renderContent = () => {
