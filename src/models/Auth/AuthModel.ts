@@ -17,10 +17,8 @@ const AuthModel = types
     });
 
     const signOut = flow(function* () {
-      console.log('Before Signout :- ', self.isAuthenticated);
       yield GoogleSignin.signOut();
       self.isAuthenticated = false;
-      console.log('After Signout :- ', self.isAuthenticated);
     });
 
     return {checkSignin, signOut, signin};

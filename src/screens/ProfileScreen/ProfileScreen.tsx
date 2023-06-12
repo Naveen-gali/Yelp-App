@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
-import React, {useCallback, useContext} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -12,17 +12,22 @@ import {
 } from 'react-native';
 import {ExperiencesData, MoreSettings} from '../../assets';
 import {Button, CustomIcon} from '../../components';
-import {fontStyles} from '../../constants';
+import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {RootStoreContext} from '../../models';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
 import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
+import {observer} from 'mobx-react-lite';
 
-const ProfileScreen = () => {
+const ProfileScreen = observer(() => {
   const {colors} = useThemeColor();
-  const {auth} = useContext(RootStoreContext);
+  const {auth, user} = useContext(RootStoreContext);
+
+  useEffect(() => {
+    user.getCurrentUser();
+  });
 
   const onPressSeeMore = useCallback(async () => {
     await analytics().logEvent('selected_btn', {
@@ -70,7 +75,9 @@ const ProfileScreen = () => {
     const {item} = props;
 
     return (
-      <TouchableOpacity style={styles.moreSetting}>
+      <TouchableOpacity
+        style={styles.moreSetting}
+        onPress={item.id === 'logout' ? auth.signOut : () => {}}>
         <CustomIcon
           name={item.icon}
           size={verticalScale(25)}
@@ -103,16 +110,17 @@ const ProfileScreen = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <SafeAreaView>
-        <ProfileHeader />
-        <Button mode="default" onPress={auth.signOut}>
-          Logout
-        </Button>
+        <ProfileHeader
+          email={user.email}
+          image={user.photo ?? Constants.UserImageUrl}
+          name={user.givenName ?? user.familyName + '' + user.name}
+        />
         {renderExperiences()}
         {renderMoreSettings()}
       </SafeAreaView>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

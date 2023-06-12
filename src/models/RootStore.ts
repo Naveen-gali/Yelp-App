@@ -5,12 +5,14 @@ import {BusinessesModel} from './Business';
 import {EventsModel} from './Events';
 import {CategoriesModel} from './Category';
 import {AuthModel} from './Auth';
+import {UserModel} from './User';
 
 const store = types.model('RootStoreModel').props({
   businesses: types.optional(BusinessesModel, {}),
   events: types.optional(EventsModel, {}),
   categories: types.optional(CategoriesModel, {}),
   auth: types.optional(AuthModel, {}),
+  user: types.optional(UserModel, {}),
 });
 
 const RootStore = store.create({

@@ -18,6 +18,7 @@ export type ProfileActionsDataType = ProfileActionsDataItemType[];
 export type MoreSettingsType = MoreSettingItemType[];
 
 export type MoreSettingItemType = {
+  id: string;
   label: LocalizedLanguages;
   icon: CustomIconNames;
 };

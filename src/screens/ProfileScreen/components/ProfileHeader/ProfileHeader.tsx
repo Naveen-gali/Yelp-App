@@ -1,16 +1,17 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {ProfileActionsData, StatsData} from '../../../assets';
-import {CustomIcon} from '../../../components';
-import {Constants, fontStyles} from '../../../constants';
-import {useThemeColor} from '../../../hooks';
-import {Strings} from '../../../i18n';
-import {horizontalScale, verticalScale} from '../../../utils';
-import {ProfileAction} from './ProfileAction';
+import {ProfileActionsData, StatsData} from '../../../../assets';
+import {CustomIcon} from '../../../../components';
+import {fontStyles} from '../../../../constants';
+import {useThemeColor} from '../../../../hooks';
+import {horizontalScale, verticalScale} from '../../../../utils';
+import {ProfileAction} from '../ProfileAction';
+import {ProfileHeaderProps} from './ProfileHeader.types';
 
 const circleSize = Math.min(horizontalScale(80), verticalScale(80));
 
-const ProfileHeader = () => {
+const ProfileHeader = (props: ProfileHeaderProps) => {
+  const {email, image, name} = props;
   const {colors} = useThemeColor();
 
   const renderStats = () => {
@@ -39,13 +40,10 @@ const ProfileHeader = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{uri: Constants.UserImageUrl}}
-        style={styles.profileImage}
-      />
-      <Text style={fontStyles.b1_Bold}>{Strings.profile.name}</Text>
+      <Image source={{uri: image}} style={styles.profileImage} />
+      <Text style={fontStyles.b1_Bold}>{name}</Text>
       <Text style={(fontStyles.b3_Text_Regular, {color: colors.text})}>
-        {Strings.profile.location}
+        {email}
       </Text>
       <View style={styles.statsContainer}>{renderStats()}</View>
       <View style={styles.profileActionsRow}>{renderProfileActions()}</View>
