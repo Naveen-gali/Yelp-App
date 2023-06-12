@@ -6,9 +6,14 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useContext} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {AuthStackParams, AuthStackRoute} from '../../navigation';
 import {RootStoreContext} from '../../models';
+import {Constants, fontStyles} from '../../constants';
+import {useThemeColor} from '../../hooks';
+import {horizontalScale, verticalScale} from '../../utils';
+
+const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
 const LoginScreen = () => {
   const context = useContext(RootStoreContext);
@@ -28,35 +33,55 @@ const LoginScreen = () => {
     return auth().signInWithCredential(googleCredential);
   }
 
-  const getCurrentUser = () => {
-    GoogleSignin.getCurrentUser().then(user => {
-      console.log('USER :_ ', user);
-    });
-  };
-
-  getCurrentUser();
+  const {colors} = useThemeColor();
 
   return (
     <View style={styles.container}>
-      <GoogleSigninButton
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={() =>
-          onGoogleButtonPress().then(() =>
-            navigation.replace(AuthStackRoute.App),
-          )
-        }
-      />
+      <Image source={{uri: Constants.SignUpLogoUrl}} style={styles.image} />
+      <View style={styles.signInBtnContainer}>
+        <Text
+          style={[
+            fontStyles.b1_Medium,
+            {color: colors.primary},
+            styles.loginText,
+          ]}>
+          Login To Yelp
+        </Text>
+        <GoogleSigninButton
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={() =>
+            onGoogleButtonPress().then(() =>
+              navigation.replace(AuthStackRoute.App),
+            )
+          }
+        />
+      </View>
+      <Text style={[fontStyles.b4_Text_Regular, styles.consentText]}>
+        By continuing, you agree to Yelp’s Terms of Service and acknowledge
+        Yelp’s Privacy Policy.
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '100%',
+  },
+  loginText: {
+    marginBottom: verticalScale(40),
+  },
+  consentText: {
+    textAlign: 'center',
+    marginTop: verticalScale(20),
+  },
+  signInBtnContainer: {
     alignItems: 'center',
   },
+  image: {width: circleSize, height: circleSize},
 });
 
 export {LoginScreen};
