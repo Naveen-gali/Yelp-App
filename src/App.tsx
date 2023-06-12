@@ -1,10 +1,11 @@
+import remoteConfig from '@react-native-firebase/remote-config';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import RNBootsplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {RootStore, RootStoreContext, setupStore} from './models';
 import {RootNavigator} from './navigation';
-import remoteConfig from '@react-native-firebase/remote-config';
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
@@ -14,13 +15,18 @@ function App(): JSX.Element {
     await remoteConfig().fetchAndActivate();
   };
 
+  GoogleSignin.configure({
+    webClientId:
+      '757548623602-8tu5l0dhdbjle9u0ovk51hfno22dhces.apps.googleusercontent.com',
+  });
+
   useEffect(() => {
     setupStore()
       .then(() => fetchRemoteConfig())
       .then(() => {
         setIsSettingStore(false);
         RNBootsplash.hide({
-          duration: 500,
+          duration: 700,
           fade: true,
         });
       });

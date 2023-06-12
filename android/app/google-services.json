@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "757548623602-8tu5l0dhdbjle9u0ovk51hfno22dhces.apps.googleusercontent.com",
+          "client_id": "757548623602-kuvtjp8vmagqg5qke2mmr28j4hmi3qgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yelpapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "757548623602-kqvsn96rjf6e9gbnah0sngfh8nigcpg9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

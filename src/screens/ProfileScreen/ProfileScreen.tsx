@@ -1,4 +1,5 @@
-import React, {useCallback} from 'react';
+import analytics from '@react-native-firebase/analytics';
+import React, {useCallback, useContext} from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -14,13 +15,14 @@ import {Button, CustomIcon} from '../../components';
 import {fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
+import {RootStoreContext} from '../../models';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
 import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
-import analytics from '@react-native-firebase/analytics';
 
 const ProfileScreen = () => {
   const {colors} = useThemeColor();
+  const {auth} = useContext(RootStoreContext);
 
   const onPressSeeMore = useCallback(async () => {
     await analytics().logEvent('selected_btn', {
@@ -102,6 +104,9 @@ const ProfileScreen = () => {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <SafeAreaView>
         <ProfileHeader />
+        <Button mode="default" onPress={auth.signOut}>
+          Logout
+        </Button>
         {renderExperiences()}
         {renderMoreSettings()}
       </SafeAreaView>

@@ -1,17 +1,25 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import {observer} from 'mobx-react-lite';
+import React, {useContext, useEffect} from 'react';
 import {useColorScheme} from 'react-native';
+import {RootStoreContext} from '../models';
 import {DarkTheme, LightTheme} from '../theme';
+import {AuthStackNavigator} from './AuthStack';
 import {BottomTabNavigator} from './BottomTabs';
 
-const RootNavigator = () => {
+const RootNavigator = observer(() => {
   const theme = useColorScheme();
+  const {auth} = useContext(RootStoreContext);
+
+  useEffect(() => {
+    auth.checkSignin();
+  }, [auth]);
 
   return (
     <NavigationContainer theme={theme === 'dark' ? DarkTheme : LightTheme}>
-      <BottomTabNavigator />
+      {auth.isAuthenticated ? <BottomTabNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
-};
+});
 
 export {RootNavigator};

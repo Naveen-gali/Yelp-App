@@ -4,11 +4,13 @@ import {mstPersist} from '../utils';
 import {BusinessesModel} from './Business';
 import {EventsModel} from './Events';
 import {CategoriesModel} from './Category';
+import {AuthModel} from './Auth';
 
 const store = types.model('RootStoreModel').props({
   businesses: types.optional(BusinessesModel, {}),
   events: types.optional(EventsModel, {}),
   categories: types.optional(CategoriesModel, {}),
+  auth: types.optional(AuthModel, {}),
 });
 
 const RootStore = store.create({
@@ -21,15 +23,13 @@ const RootStore = store.create({
   categories: {
     allCategories: [],
   },
+  auth: {
+    isAuthenticated: false,
+  },
 });
 
 const setupStore = () => {
-  return mstPersist(
-    'RootStore',
-    RootStore.events,
-    ['allEvents', 'eventDetail', 'featuredEvent'],
-    ['getEventsTask', 'getEventDetailTask', 'getFeaturedEventTask'],
-  );
+  return mstPersist('RootStore', RootStore.auth, ['isAuthenticated'], []);
 };
 
 export type StoreType = Instance<typeof store>;
