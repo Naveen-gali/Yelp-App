@@ -2137,6 +2137,11 @@
   dependencies:
     stacktrace-js "^2.0.0"
 
+"@react-native-firebase/perf@^18.0.0":
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/perf/-/perf-18.0.0.tgz#01227635a15c0c9e50a49f8c10eba93ab5a33795"
+  integrity sha512-ZOfQzbEBqaYICxnLwpy+jtgy45bAvemQUrnfkcOu8kzimvPTjsOWU0Cm0MFSSTKxQ4d4CdP33vhrzvCSA20TeA==
+
 "@react-native-firebase/remote-config@^18.0.0":
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-18.0.0.tgz#0d7c9294939101433c1c57636855820c4326acf9"

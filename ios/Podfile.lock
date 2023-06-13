@@ -28,6 +28,9 @@ PODS:
   - Firebase/Crashlytics (10.10.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 10.10.0)
+  - Firebase/Performance (10.10.0):
+    - Firebase/CoreOnly
+    - FirebasePerformance (~> 10.10.0)
   - Firebase/RemoteConfig (10.10.0):
     - Firebase/CoreOnly
     - FirebaseRemoteConfig (~> 10.10.0)
@@ -79,6 +82,16 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
+  - FirebasePerformance (10.10.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseRemoteConfig (~> 10.0)
+    - FirebaseSessions (~> 10.5)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/ISASwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebaseRemoteConfig (10.10.0):
     - FirebaseABTesting (~> 10.0)
     - FirebaseCore (~> 10.0)
@@ -129,6 +142,7 @@ PODS:
     - GoogleUtilities/Network
   - GoogleUtilities/Environment (7.11.1):
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/ISASwizzler (7.11.1)
   - GoogleUtilities/Logger (7.11.1):
     - GoogleUtilities/Environment
   - GoogleUtilities/MethodSwizzler (7.11.1):
@@ -529,6 +543,10 @@ PODS:
     - FirebaseCoreExtension (= 10.10.0)
     - React-Core
     - RNFBApp
+  - RNFBPerf (18.0.0):
+    - Firebase/Performance (= 10.10.0)
+    - React-Core
+    - RNFBApp
   - RNFBRemoteConfig (18.0.0):
     - Firebase/RemoteConfig (= 10.10.0)
     - React-Core
@@ -619,6 +637,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
+  - "RNFBPerf (from `../node_modules/@react-native-firebase/perf`)"
   - "RNFBRemoteConfig (from `../node_modules/@react-native-firebase/remote-config`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
@@ -640,6 +659,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebasePerformance
     - FirebaseRemoteConfig
     - FirebaseSessions
     - fmt
@@ -743,6 +763,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/auth"
   RNFBCrashlytics:
     :path: "../node_modules/@react-native-firebase/crashlytics"
+  RNFBPerf:
+    :path: "../node_modules/@react-native-firebase/perf"
   RNFBRemoteConfig:
     :path: "../node_modules/@react-native-firebase/remote-config"
   RNGestureHandler:
@@ -774,6 +796,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 971029061d326000d65bfdc21f5502c75c8b0893
   FirebaseCrashlytics: bc8f3bed7f4d04be79d87391455efb4c9b163131
   FirebaseInstallations: 52153982b057d3afcb4e1fbb3eb0b6d00611e681
+  FirebasePerformance: 7ae687b2d6e9656ecd62847053d61adcc96ba544
   FirebaseRemoteConfig: 8ef82c9d0bc45525a3d152d958f08742523ca5a9
   FirebaseSessions: 5f9e62cd4096e24d2011cbd845b0efceffaee1ec
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
@@ -827,6 +850,7 @@ SPEC CHECKSUMS:
   RNFBApp: 10aa0ab560e30186c39a9756846945cac6499ea7
   RNFBAuth: a9817ae1e23f852b58514f9122809a5dc4c4071a
   RNFBCrashlytics: 74ae7a78db91634eb83ecbf82202f21be49afd73
+  RNFBPerf: a1cfad742fc564840b9942c2614af37faba1d476
   RNFBRemoteConfig: 4b1babfe1e15fd3937c9d54cf59ae80a09f2dde5
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNGoogleSignin: ccaa4a81582cf713eea562c5dd9dc1961a715fd0
