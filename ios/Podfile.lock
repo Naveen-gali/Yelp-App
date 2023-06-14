@@ -28,6 +28,9 @@ PODS:
   - Firebase/Crashlytics (10.10.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 10.10.0)
+  - Firebase/Messaging (10.10.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 10.10.0)
   - Firebase/Performance (10.10.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.10.0)
@@ -82,6 +85,15 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (10.10.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Reachability (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebasePerformance (10.10.0):
     - FirebaseCore (~> 10.5)
     - FirebaseInstallations (~> 10.0)
@@ -525,6 +537,8 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.18.1):
     - React-Core
+  - RNCPushNotificationIOS (1.11.0):
+    - React-Core
   - RNDateTimePicker (7.0.1):
     - React-Core
   - RNFBAnalytics (18.0.0):
@@ -540,6 +554,11 @@ PODS:
     - RNFBApp
   - RNFBCrashlytics (18.0.0):
     - Firebase/Crashlytics (= 10.10.0)
+    - FirebaseCoreExtension (= 10.10.0)
+    - React-Core
+    - RNFBApp
+  - RNFBMessaging (18.0.0):
+    - Firebase/Messaging (= 10.10.0)
     - FirebaseCoreExtension (= 10.10.0)
     - React-Core
     - RNFBApp
@@ -632,11 +651,13 @@ DEPENDENCIES:
   - ReactNativeLocalization (from `../node_modules/react-native-localization`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
+  - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNFBPerf (from `../node_modules/@react-native-firebase/perf`)"
   - "RNFBRemoteConfig (from `../node_modules/@react-native-firebase/remote-config`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -659,6 +680,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebaseMessaging
     - FirebasePerformance
     - FirebaseRemoteConfig
     - FirebaseSessions
@@ -753,6 +775,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBAnalytics:
@@ -763,6 +787,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/auth"
   RNFBCrashlytics:
     :path: "../node_modules/@react-native-firebase/crashlytics"
+  RNFBMessaging:
+    :path: "../node_modules/@react-native-firebase/messaging"
   RNFBPerf:
     :path: "../node_modules/@react-native-firebase/perf"
   RNFBRemoteConfig:
@@ -796,6 +822,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 971029061d326000d65bfdc21f5502c75c8b0893
   FirebaseCrashlytics: bc8f3bed7f4d04be79d87391455efb4c9b163131
   FirebaseInstallations: 52153982b057d3afcb4e1fbb3eb0b6d00611e681
+  FirebaseMessaging: 8a3b9a8b98ce72a42d22e69865cf662e38d2d6f5
   FirebasePerformance: 7ae687b2d6e9656ecd62847053d61adcc96ba544
   FirebaseRemoteConfig: 8ef82c9d0bc45525a3d152d958f08742523ca5a9
   FirebaseSessions: 5f9e62cd4096e24d2011cbd845b0efceffaee1ec
@@ -845,11 +872,13 @@ SPEC CHECKSUMS:
   ReactNativeLocalization: 076497d7ca70341c751cd3b3e7c86187332a182d
   RNBootSplash: 8fb33325dc3620a01984c6660c42cbd93fadcc80
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
+  RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
   RNDateTimePicker: e073697ac3e8a378968d68ab0581fef542b8af8a
   RNFBAnalytics: 87fe286d542f14655e73981499576f46a2091062
   RNFBApp: 10aa0ab560e30186c39a9756846945cac6499ea7
   RNFBAuth: a9817ae1e23f852b58514f9122809a5dc4c4071a
   RNFBCrashlytics: 74ae7a78db91634eb83ecbf82202f21be49afd73
+  RNFBMessaging: a0cf20be8f41d89af98f5611d5db432c59371f68
   RNFBPerf: a1cfad742fc564840b9942c2614af37faba1d476
   RNFBRemoteConfig: 4b1babfe1e15fd3937c9d54cf59ae80a09f2dde5
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
