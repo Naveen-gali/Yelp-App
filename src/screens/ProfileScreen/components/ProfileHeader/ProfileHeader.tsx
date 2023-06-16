@@ -1,17 +1,13 @@
-import storage from '@react-native-firebase/storage';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import ImagePicker, {
-  Image as ImagePickerResultProps,
-} from 'react-native-image-crop-picker';
+
 import {ProfileActionsData, StatsData} from '../../../../assets';
 import {CustomIcon} from '../../../../components';
 import {fontStyles} from '../../../../constants';
@@ -23,11 +19,8 @@ import {ProfileHeaderProps} from './ProfileHeader.types';
 const circleSize = Math.min(horizontalScale(80), verticalScale(80));
 
 const ProfileHeader = (props: ProfileHeaderProps) => {
-  const {email, image, name} = props;
+  const {email, image, name, imageOnPress, photoUploading} = props;
   const {colors} = useThemeColor();
-
-  const [photoUploading, setPhotoUploading] = useState(false);
-  const [profileImage, setProfileImage] = useState(image);
 
   const renderStats = () => {
     return StatsData.map((s, index) => (
@@ -53,55 +46,13 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
     });
   };
 
-  const reference = storage().ref(name);
-
-  const getImagePickerResultUrl = (result: ImagePickerResultProps) => {
-    if (DeviceUtils.isIos && result.sourceURL) {
-      return result.sourceURL;
-    } else {
-      return result.path;
-    }
-  };
-
-  const pickImage = async () => {
-    const result = await ImagePicker.openPicker({
-      mediaType: 'photo',
-      cropping: true,
-    });
-
-    console.log('PICKER RESULT :_ ', result);
-
-    if (result) {
-      setPhotoUploading(true);
-      await reference.putFile(getImagePickerResultUrl(result)).then(res => {
-        console.log('RES :_ ', res);
-        setPhotoUploading(false);
-      });
-    } else {
-      // TODO: HardCoded Strings
-      Alert.alert('Photo Upload Error', 'Try After SomeTime');
-    }
-  };
-
-  const getImageUrl = async () => {
-    const url = await storage().ref(name).getDownloadURL();
-    console.log('Image Url :- ', url);
-    if (url) {
-      setProfileImage(url);
-    }
-  };
-
-  useEffect(() => {
-    getImageUrl();
-  });
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={pickImage} disabled={photoUploading}>
+      <TouchableOpacity onPress={imageOnPress} disabled={photoUploading}>
         {photoUploading ? (
           <ActivityIndicator size="large" />
         ) : (
-          <Image source={{uri: profileImage}} style={styles.profileImage} />
+          <Image source={{uri: image}} style={styles.profileImage} />
         )}
       </TouchableOpacity>
       <Text style={fontStyles.b1_Bold}>{name}</Text>
@@ -124,7 +75,6 @@ const styles = StyleSheet.create({
     height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    opacity: 100,
   },
   profileImage: {
     height: circleSize,

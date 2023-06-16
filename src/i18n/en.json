@@ -29,5 +29,13 @@
     "yes": "Yes",
     "no": "No",
     "mayBe": "MayBe"
+  },
+  "photoUpload": {
+    "title": "Photo Upload Error",
+    "description": "Try After SomeTime"
+  },
+  "uploadTypes": {
+    "useCamera": "Use Camera",
+    "useStorage": "Use Storage"
   }
 }

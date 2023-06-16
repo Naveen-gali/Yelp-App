@@ -1,6 +1,17 @@
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import analytics from '@react-native-firebase/analytics';
-import React, {useCallback, useContext, useEffect} from 'react';
+import storage from '@react-native-firebase/storage';
+import {observer} from 'mobx-react-lite';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
+  Alert,
   FlatList,
   ListRenderItemInfo,
   SafeAreaView,
@@ -10,24 +21,105 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import ImagePicker, {
+  Image as ImagePickerResultProps,
+} from 'react-native-image-crop-picker';
+import PushNotification from 'react-native-push-notification';
 import {ExperiencesData, MoreSettings} from '../../assets';
-import {Button, CustomIcon} from '../../components';
+import {Button, CustomIcon, CustomIconNames} from '../../components';
 import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {RootStoreContext} from '../../models';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
-import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
+import {
+  DeviceUtils,
+  LocaleUtils,
+  horizontalScale,
+  verticalScale,
+} from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
-import {observer} from 'mobx-react-lite';
-import PushNotification from 'react-native-push-notification';
 
 const ProfileScreen = observer(() => {
   const {colors} = useThemeColor();
   const {auth, user} = useContext(RootStoreContext);
 
+  const [photoUploading, setPhotoUploading] = useState(false);
+  const [profileImage, setProfileImage] = useState(user.photo);
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const snapPoints = useMemo(() => ['25%'], []);
+
+  const handlePresentModelPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const handleModelClose = useCallback(() => {
+    bottomSheetModalRef.current?.close();
+  }, []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('HandleSheetChanges', index);
+  }, []);
+
+  const reference = storage().ref(user.id);
+
+  const getImagePickerResultUrl = (result: ImagePickerResultProps) => {
+    if (DeviceUtils.isIos && result.sourceURL) {
+      return result.sourceURL;
+    } else {
+      return result.path;
+    }
+  };
+
+  const pickImage = async () => {
+    const result = await ImagePicker.openPicker({
+      mediaType: 'photo',
+      cropping: true,
+    });
+
+    console.log('PICKER RESULT :_ ', result);
+
+    if (result) {
+      setPhotoUploading(true);
+      await reference.putFile(getImagePickerResultUrl(result)).then(res => {
+        console.log('RES :_ ', res);
+        setPhotoUploading(false);
+      });
+    } else {
+      Alert.alert(Strings.photoUpload.title, Strings.photoUpload.description);
+    }
+  };
+
+  const pickFromCamera = async () => {
+    const result = await ImagePicker.openCamera({
+      mediaType: 'photo',
+      cropping: true,
+    });
+
+    if (result) {
+      setPhotoUploading(true);
+      await reference.putFile(getImagePickerResultUrl(result)).then(res => {
+        console.log('RES :_ ', res);
+        setPhotoUploading(false);
+      });
+    } else {
+      Alert.alert(Strings.photoUpload.title, Strings.photoUpload.description);
+    }
+  };
+
+  const getImageUrl = async () => {
+    const url = await storage().ref(user.id).getDownloadURL();
+    console.log('Image Url :- ', url);
+    if (url) {
+      setProfileImage(url);
+    }
+  };
+
   useEffect(() => {
     user.getCurrentUser();
+    getImageUrl();
   });
 
   const onPressSeeMore = useCallback(async () => {
@@ -123,18 +215,66 @@ const ProfileScreen = observer(() => {
     );
   };
 
+  const renderBottomSheetModal = () => {
+    return (
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}>
+        <View style={styles.bottomSheetContentContainer}>
+          <TouchableOpacity
+            style={styles.bottomSheetActionItem}
+            onPress={() => {
+              pickFromCamera();
+              handleModelClose();
+            }}>
+            <CustomIcon
+              name={CustomIconNames.Camera}
+              size={30}
+              color={colors.text}
+            />
+            <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+              {Strings.uploadTypes.useCamera}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.bottomSheetActionItem}
+            onPress={() => {
+              pickImage();
+              handleModelClose();
+            }}>
+            <CustomIcon
+              name={CustomIconNames.Image}
+              size={30}
+              color={colors.text}
+            />
+            <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+              {Strings.uploadTypes.useStorage}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </BottomSheetModal>
+    );
+  };
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <SafeAreaView>
-        <ProfileHeader
-          email={user.email}
-          image={user.photo ?? Constants.UserImageUrl}
-          name={user.givenName ?? user.familyName + '' + user.name}
-        />
-        {renderExperiences()}
-        {renderMoreSettings()}
-      </SafeAreaView>
-    </ScrollView>
+    <BottomSheetModalProvider>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <SafeAreaView>
+          <ProfileHeader
+            email={user.email}
+            image={profileImage ?? Constants.UserImageUrl}
+            name={user.givenName ?? user.familyName + '' + user.name}
+            imageOnPress={handlePresentModelPress}
+            photoUploading={photoUploading}
+          />
+          {renderExperiences()}
+          {renderMoreSettings()}
+          {renderBottomSheetModal()}
+        </SafeAreaView>
+      </ScrollView>
+    </BottomSheetModalProvider>
   );
 });
 
@@ -166,6 +306,23 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     marginVertical: verticalScale(10),
+  },
+  bottomSheetContentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  bottomSheetActionItem: {
+    padding: verticalScale(20),
+    alignItems: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+    elevation: 9,
   },
 });
 

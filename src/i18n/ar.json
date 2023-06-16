@@ -29,5 +29,13 @@
     "yes": "نعم",
     "no": "لا",
     "mayBe": "ربما"
+  },
+  "photoUpload": {
+    "title": "خطأ في تحميل الصور",
+    "description": "جرب بعد بعض الوقت"
+  },
+  "uploadTypes": {
+    "useCamera": "استخدم الكاميرا",
+    "useStorage": "استخدم التخزين"
   }
 }
