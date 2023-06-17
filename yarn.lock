@@ -9031,6 +9031,11 @@ plist@^3.0.5:
     base64-js "^1.5.1"
     xmlbuilder "^15.1.1"
 
+pod-install@0.1.38:
+  version "0.1.38"
+  resolved "https://registry.yarnpkg.com/pod-install/-/pod-install-0.1.38.tgz#1c16a800a5fc1abea0cafcc0e190f376368c76ab"
+  integrity sha512-NeDWGigjJRriOIKBOvpW2/tK2tYLfyUT7ia6C6L+oarCAhBNP+IGODWdU+GEAqvfsseqOApcFclpXAJTL0UPzA==
+
 polished@^4.2.2:
   version "4.2.2"
   resolved "https://registry.npmjs.org/polished/-/polished-4.2.2.tgz"
@@ -9462,6 +9467,14 @@ react-native-modal-selector@^2.1.1:
   integrity sha512-+Cvoz/yNUFmfIkJ7xkmlLR2nhJOUhx00S6BPqp2Ruy8LkmaiNr7WMZ4BzsgzylyEgZ84Q+42HQ0v0QzJYobviA==
   dependencies:
     prop-types "^15.5.10"
+
+react-native-permissions@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.8.0.tgz#7c1f75ae126c7d0b863eec9d2f5cd93ff8ad8310"
+  integrity sha512-BfZ7ksgdpGchHZH8M/kxCGZbWeACANbnPmb3hNjVOMDQusc4PWlPpobX3eBqYMSKbpi7bMECeV9BVU4QuwAf9A==
+  dependencies:
+    picocolors "^1.0.0"
+    pkg-dir "^5.0.0"
 
 react-native-push-notification@^8.1.1:
   version "8.1.1"

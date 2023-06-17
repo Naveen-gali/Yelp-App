@@ -37,5 +37,17 @@
   "uploadTypes": {
     "useCamera": "Use Camera",
     "useStorage": "Use Storage"
+  },
+  "locationService": {
+    "noPermission": "No Permission",
+    "blocked": "Blocked",
+    "blockedPermission": "Blocked Permission to access Camera. Try enabling from Settings",
+    "goToSettings": "Go To Settings",
+    "cancel": "Cancel",
+    "tryEnablingFromSettings": "No Permission. Try enabling from Settings",
+    "notAvailable": "Not Available",
+    "denied": "Denied",
+    "deniedDescription": "Permission Denied! Try Enabling from Settings",
+    "invalidPermission": "Invalid Permission"
   }
 }

@@ -31,6 +31,7 @@ import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {RootStoreContext} from '../../models';
+import {RequiredPermissions, checkPermission} from '../../services';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
 import {
   DeviceUtils,
@@ -79,12 +80,9 @@ const ProfileScreen = observer(() => {
       cropping: true,
     });
 
-    console.log('PICKER RESULT :_ ', result);
-
     if (result) {
       setPhotoUploading(true);
-      await reference.putFile(getImagePickerResultUrl(result)).then(res => {
-        console.log('RES :_ ', res);
+      await reference.putFile(getImagePickerResultUrl(result)).then(() => {
         setPhotoUploading(false);
       });
     } else {
@@ -111,7 +109,6 @@ const ProfileScreen = observer(() => {
 
   const getImageUrl = async () => {
     const url = await storage().ref(user.id).getDownloadURL();
-    console.log('Image Url :- ', url);
     if (url) {
       setProfileImage(url);
     }
@@ -215,6 +212,24 @@ const ProfileScreen = observer(() => {
     );
   };
 
+  const checkCameraPermission = async () => {
+    await checkPermission(RequiredPermissions.Camera).then(res => {
+      if (res) {
+        pickFromCamera();
+        handleModelClose();
+      }
+    });
+  };
+
+  const checkPhotoLibraryPermission = async () => {
+    await checkPermission(RequiredPermissions.PhotoLibrary).then(res => {
+      if (res) {
+        pickImage();
+        handleModelClose();
+      }
+    });
+  };
+
   const renderBottomSheetModal = () => {
     return (
       <BottomSheetModal
@@ -225,10 +240,7 @@ const ProfileScreen = observer(() => {
         <View style={styles.bottomSheetContentContainer}>
           <TouchableOpacity
             style={styles.bottomSheetActionItem}
-            onPress={() => {
-              pickFromCamera();
-              handleModelClose();
-            }}>
+            onPress={checkCameraPermission}>
             <CustomIcon
               name={CustomIconNames.Camera}
               size={30}
@@ -240,10 +252,7 @@ const ProfileScreen = observer(() => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.bottomSheetActionItem}
-            onPress={() => {
-              pickImage();
-              handleModelClose();
-            }}>
+            onPress={checkPhotoLibraryPermission}>
             <CustomIcon
               name={CustomIconNames.Image}
               size={30}
