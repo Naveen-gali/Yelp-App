@@ -8,6 +8,10 @@ import {RootStore, RootStoreContext, setupStore} from './models';
 import {RootNavigator} from './navigation';
 import messaging from '@react-native-firebase/messaging';
 import PushNotification, {Importance} from 'react-native-push-notification';
+import {
+  checkNotifications,
+  requestNotifications,
+} from 'react-native-permissions';
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
@@ -58,6 +62,12 @@ function App(): JSX.Element {
           fade: true,
         });
       });
+
+    checkNotifications().then(async res => {
+      if (res.status !== 'granted') {
+        await requestNotifications(['alert', 'badge', 'sound']);
+      }
+    });
 
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log('onNotificationOpenedApp', JSON.stringify(remoteMessage));

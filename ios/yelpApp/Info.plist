@@ -106,9 +106,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>YOUR TEXT</string>
+	<string>To select photo to create a personalized profile picture</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>YOUR TEXT</string>
+	<string>To select photo to create a personalized profile picture</string>
 	<key>NSCameraUsageDescription</key>
 	<string>To take photo to create a personalized profile picture</string>
 </dict>
