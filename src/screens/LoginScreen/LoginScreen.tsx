@@ -12,6 +12,7 @@ import {RootStoreContext} from '../../models';
 import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {horizontalScale, verticalScale} from '../../utils';
+import {Strings} from '../../i18n';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -45,7 +46,7 @@ const LoginScreen = () => {
             {color: colors.primary},
             styles.loginText,
           ]}>
-          Login To Yelp
+          {Strings.loginScreen.loginToYelp}
         </Text>
         <GoogleSigninButton
           size={GoogleSigninButton.Size.Wide}
@@ -58,8 +59,7 @@ const LoginScreen = () => {
         />
       </View>
       <Text style={[fontStyles.b4_Text_Regular, styles.consentText]}>
-        By continuing, you agree to Yelp’s Terms of Service and acknowledge
-        Yelp’s Privacy Policy.
+        {Strings.loginScreen.subText}
       </Text>
     </View>
   );

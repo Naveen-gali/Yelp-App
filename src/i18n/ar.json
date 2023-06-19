@@ -49,5 +49,9 @@
     "denied": "نفي",
     "deniedDescription": "تم رفض الإذن! جرب التمكين من الإعدادات",
     "invalidPermission": "إذن غير صالح"
+  },
+  "loginScreen": {
+    "loginToYelp": "تسجيل الدخول إلى Yelp",
+    "subText": "من خلال المتابعة ، فإنك توافق على شروط خدمة Yelp وتقر بسياسة خصوصية Yelp."
   }
 }

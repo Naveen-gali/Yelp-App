@@ -49,5 +49,9 @@
     "denied": "Denied",
     "deniedDescription": "Permission Denied! Try Enabling from Settings",
     "invalidPermission": "Invalid Permission"
+  },
+  "loginScreen": {
+    "loginToYelp": "Login To Yelp",
+    "subText": "By continuing, you agree to Yelp’s Terms of Service and acknowledge Yelp’s Privacy Policy."
   }
 }
