@@ -41,7 +41,7 @@
   "locationService": {
     "noPermission": "لا إذن",
     "blocked": "مسدود",
-    "blockedPermission": "إذن محظور للوصول إلى الكاميرا. حاول التمكين من الإعدادات",
+    "blockedPermission": "إذن محظور. حاول التمكين من الإعدادات",
     "goToSettings": "اذهب للاعدادات",
     "cancel": "إلغاء الأمر",
     "tryEnablingFromSettings": "لا إذن. حاول التمكين من الإعدادات",

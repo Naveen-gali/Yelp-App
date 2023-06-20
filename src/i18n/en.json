@@ -41,7 +41,7 @@
   "locationService": {
     "noPermission": "No Permission",
     "blocked": "Blocked",
-    "blockedPermission": "Blocked Permission to access Camera. Try enabling from Settings",
+    "blockedPermission": "Blocked Permission. Try enabling from Settings",
     "goToSettings": "Go To Settings",
     "cancel": "Cancel",
     "tryEnablingFromSettings": "No Permission. Try enabling from Settings",

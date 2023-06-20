@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import {Alert, AlertButton, AlertOptions} from 'react-native';
 import {
   PERMISSIONS,
   RESULTS,
@@ -23,9 +23,38 @@ const getPermissionBasedOnPlatform = (permission: RequiredPermissions) => {
   throw new Error(Strings.locationService.invalidPermission);
 };
 
-let shouldRequestPermission = true;
+const showAlert = (
+  title: string,
+  description: string,
+  buttons?: AlertButton[],
+  options?: AlertOptions,
+) => {
+  return Alert.alert(title, description, buttons, options);
+};
+
+let permissionDeniedMap: Record<RequiredPermissions, boolean> = {
+  [RequiredPermissions.Camera]: false,
+  [RequiredPermissions.PhotoLibrary]: false,
+};
 
 const checkPermission = async (permission: RequiredPermissions) => {
+  if (permissionDeniedMap[permission]) {
+    showAlert(
+      Strings.locationService.denied,
+      Strings.locationService.deniedDescription,
+      [
+        {
+          text: Strings.locationService.goToSettings,
+          onPress: async () => await openSettings(),
+        },
+        {
+          text: Strings.locationService.cancel,
+        },
+      ],
+    );
+    return false;
+  }
+
   const permissionStatus = await check(
     getPermissionBasedOnPlatform(permission),
   );
@@ -33,21 +62,21 @@ const checkPermission = async (permission: RequiredPermissions) => {
 
   switch (permissionStatus) {
     case RESULTS.UNAVAILABLE:
-      Alert.alert(
+      showAlert(
         Strings.locationService.notAvailable,
         Strings.locationService.notAvailable,
       );
-      hasPermission = false;
       break;
     case RESULTS.DENIED:
-      if (!shouldRequestPermission) {
-        const requestStatus = await request(
-          getPermissionBasedOnPlatform(permission),
-        );
-        if (requestStatus === RESULTS.GRANTED) {
-          hasPermission = true;
-        } else {
-          Alert.alert(
+      const requestStatus = await request(
+        getPermissionBasedOnPlatform(permission),
+      );
+
+      if (requestStatus === RESULTS.GRANTED) {
+        hasPermission = true;
+      } else {
+        if (permissionDeniedMap[permission]) {
+          showAlert(
             Strings.locationService.denied,
             Strings.locationService.deniedDescription,
             [
@@ -60,20 +89,17 @@ const checkPermission = async (permission: RequiredPermissions) => {
               },
             ],
           );
-          hasPermission = false;
         }
+        permissionDeniedMap[permission] = true;
       }
-      shouldRequestPermission = false;
-      hasPermission = false;
       break;
+
     case RESULTS.LIMITED:
-      hasPermission = true;
-      break;
     case RESULTS.GRANTED:
       hasPermission = true;
       break;
     case RESULTS.BLOCKED:
-      Alert.alert(
+      showAlert(
         Strings.locationService.blocked,
         Strings.locationService.blockedPermission,
         [
@@ -86,10 +112,9 @@ const checkPermission = async (permission: RequiredPermissions) => {
           },
         ],
       );
-      hasPermission = false;
       break;
     default:
-      Alert.alert(
+      showAlert(
         Strings.locationService.noPermission,
         Strings.locationService.noPermission,
         [
@@ -102,10 +127,8 @@ const checkPermission = async (permission: RequiredPermissions) => {
           },
         ],
       );
-      hasPermission = false;
       break;
   }
-
   return hasPermission;
 };
 
