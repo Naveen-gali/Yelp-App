@@ -68,9 +68,9 @@ const ProfileScreen = observer(() => {
 
   const getImagePickerResultUrl = (result: ImagePickerResultProps) => {
     if (DeviceUtils.isIos && result.sourceURL) {
-      return result.sourceURL;
+      return decodeURI(result.sourceURL);
     } else {
-      return result.path;
+      return decodeURI(result.path);
     }
   };
 
@@ -82,9 +82,18 @@ const ProfileScreen = observer(() => {
 
     if (result) {
       setPhotoUploading(true);
-      await reference.putFile(getImagePickerResultUrl(result)).then(() => {
-        setPhotoUploading(false);
-      });
+      await reference
+        .putFile(getImagePickerResultUrl(result))
+        .then(res => {
+          console.log('UPLAOD RES :_ ', res);
+        })
+        .catch(() =>
+          Alert.alert(
+            Strings.photoUpload.title,
+            Strings.photoUpload.description,
+          ),
+        );
+      setPhotoUploading(false);
     } else {
       Alert.alert(Strings.photoUpload.title, Strings.photoUpload.description);
     }

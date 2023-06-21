@@ -32,40 +32,77 @@ const showAlert = (
   return Alert.alert(title, description, buttons, options);
 };
 
-let permissionDeniedMap: Record<RequiredPermissions, boolean> = {
-  [RequiredPermissions.Camera]: false,
-  [RequiredPermissions.PhotoLibrary]: false,
-};
+let permissionDeniedMap: Record<RequiredPermissions, boolean>;
+
+// Called when the Result is RESULTS.UNAVAILABLE
+function resultUnavailable(): void {
+  return showAlert(
+    Strings.locationService.notAvailable,
+    Strings.locationService.notAvailable,
+  );
+}
+
+// Called when the Result is RESULTS.BLOCKED
+function resultsBlocked() {
+  return showAlert(
+    Strings.locationService.blocked,
+    Strings.locationService.blockedPermission,
+    [
+      {
+        text: Strings.locationService.goToSettings,
+        onPress: async () => await openSettings(),
+      },
+      {
+        text: Strings.locationService.cancel,
+      },
+    ],
+  );
+}
+
+// Called when the Result is RESULTS.DENIED
+function resultsDenied() {
+  return showAlert(
+    Strings.locationService.denied,
+    Strings.locationService.deniedDescription,
+    [
+      {
+        text: Strings.locationService.goToSettings,
+        onPress: async () => await openSettings(),
+      },
+      {
+        text: Strings.locationService.cancel,
+      },
+    ],
+  );
+}
+
+// Called when the Result is returned default.
+function defaultCase() {
+  return showAlert(
+    Strings.locationService.noPermission,
+    Strings.locationService.noPermission,
+    [
+      {
+        text: Strings.locationService.goToSettings,
+        onPress: async () => await openSettings(),
+      },
+      {
+        text: Strings.locationService.cancel,
+      },
+    ],
+  );
+}
 
 const checkPermission = async (permission: RequiredPermissions) => {
-  if (permissionDeniedMap[permission]) {
-    showAlert(
-      Strings.locationService.denied,
-      Strings.locationService.deniedDescription,
-      [
-        {
-          text: Strings.locationService.goToSettings,
-          onPress: async () => await openSettings(),
-        },
-        {
-          text: Strings.locationService.cancel,
-        },
-      ],
-    );
-    return false;
-  }
-
   const permissionStatus = await check(
     getPermissionBasedOnPlatform(permission),
   );
   let hasPermission = false;
+  console.log('PS :_ ', permissionStatus);
 
   switch (permissionStatus) {
     case RESULTS.UNAVAILABLE:
-      showAlert(
-        Strings.locationService.notAvailable,
-        Strings.locationService.notAvailable,
-      );
+      resultUnavailable();
       break;
     case RESULTS.DENIED:
       const requestStatus = await request(
@@ -76,60 +113,23 @@ const checkPermission = async (permission: RequiredPermissions) => {
         hasPermission = true;
       } else {
         if (permissionDeniedMap[permission]) {
-          showAlert(
-            Strings.locationService.denied,
-            Strings.locationService.deniedDescription,
-            [
-              {
-                text: Strings.locationService.goToSettings,
-                onPress: async () => await openSettings(),
-              },
-              {
-                text: Strings.locationService.cancel,
-              },
-            ],
-          );
+          resultsDenied();
         }
         permissionDeniedMap[permission] = true;
       }
       break;
-
     case RESULTS.LIMITED:
     case RESULTS.GRANTED:
       hasPermission = true;
       break;
     case RESULTS.BLOCKED:
-      showAlert(
-        Strings.locationService.blocked,
-        Strings.locationService.blockedPermission,
-        [
-          {
-            text: Strings.locationService.goToSettings,
-            onPress: async () => await openSettings(),
-          },
-          {
-            text: Strings.locationService.cancel,
-          },
-        ],
-      );
+      resultsBlocked();
       break;
     default:
-      showAlert(
-        Strings.locationService.noPermission,
-        Strings.locationService.noPermission,
-        [
-          {
-            text: Strings.locationService.goToSettings,
-            onPress: async () => await openSettings(),
-          },
-          {
-            text: Strings.locationService.cancel,
-          },
-        ],
-      );
+      defaultCase();
       break;
   }
   return hasPermission;
 };
 
-export {checkPermission, getPermissionBasedOnPlatform};
+export {checkPermission};
