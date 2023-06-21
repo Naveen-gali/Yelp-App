@@ -50,6 +50,23 @@ function App(): JSX.Element {
     }
   }
 
+  const notificationCheckHandler = () =>
+    checkNotifications().then(async res => {
+      if (res.status !== 'granted') {
+        await requestNotifications(['alert', 'badge', 'sound']);
+      }
+    });
+
+  const onAppOpenedFromNotification = () =>
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log('onNotificationOpenedApp', JSON.stringify(remoteMessage));
+    });
+
+  const onMessageHandler = () =>
+    messaging().onMessage(remoteMessage => {
+      console.log('onMessage', JSON.stringify(remoteMessage));
+    });
+
   useEffect(() => {
     requestUserPermission();
     createNotificationChannel();
@@ -63,18 +80,11 @@ function App(): JSX.Element {
         });
       });
 
-    checkNotifications().then(async res => {
-      if (res.status !== 'granted') {
-        await requestNotifications(['alert', 'badge', 'sound']);
-      }
-    });
+    notificationCheckHandler();
+    onAppOpenedFromNotification();
 
-    messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log('onNotificationOpenedApp', JSON.stringify(remoteMessage));
-    });
-    const unsubscribe = messaging().onMessage(remoteMessage => {
-      console.log('onMessage', JSON.stringify(remoteMessage));
-    });
+    const unsubscribe = onMessageHandler();
+
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {
