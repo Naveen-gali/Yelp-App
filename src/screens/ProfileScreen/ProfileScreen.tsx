@@ -243,7 +243,7 @@ const ProfileScreen = observer(() => {
             onPress={checkCameraPermission}>
             <CustomIcon
               name={CustomIconNames.Camera}
-              size={30}
+              size={verticalScale(30)}
               color={colors.text}
             />
             <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
@@ -255,7 +255,7 @@ const ProfileScreen = observer(() => {
             onPress={checkPhotoLibraryPermission}>
             <CustomIcon
               name={CustomIconNames.Image}
-              size={30}
+              size={verticalScale(30)}
               color={colors.text}
             />
             <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>

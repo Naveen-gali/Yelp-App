@@ -55,8 +55,8 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
           <Image source={{uri: image}} style={styles.profileImage} />
         )}
       </TouchableOpacity>
-      <Text style={fontStyles.b1_Bold}>{name}</Text>
-      <Text style={(fontStyles.b3_Text_Regular, {color: colors.text})}>
+      <Text style={[fontStyles.b1_Bold, {color: colors.text}]}>{name}</Text>
+      <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
         {email}
       </Text>
       <View style={styles.statsContainer}>{renderStats()}</View>
