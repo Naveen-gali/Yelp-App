@@ -32,7 +32,10 @@ const showAlert = (
   return Alert.alert(title, description, buttons, options);
 };
 
-let permissionDeniedMap: Record<RequiredPermissions, boolean>;
+let permissionDeniedMap: Record<RequiredPermissions, boolean> = {
+  [RequiredPermissions.Camera]: false,
+  [RequiredPermissions.PhotoLibrary]: false,
+};
 
 // Called when the Result is RESULTS.UNAVAILABLE
 function resultUnavailable(): void {
@@ -98,7 +101,6 @@ const checkPermission = async (permission: RequiredPermissions) => {
     getPermissionBasedOnPlatform(permission),
   );
   let hasPermission = false;
-  console.log('PS :_ ', permissionStatus);
 
   switch (permissionStatus) {
     case RESULTS.UNAVAILABLE:
@@ -114,8 +116,9 @@ const checkPermission = async (permission: RequiredPermissions) => {
       } else {
         if (permissionDeniedMap[permission]) {
           resultsDenied();
+        } else {
+          permissionDeniedMap[permission] = true;
         }
-        permissionDeniedMap[permission] = true;
       }
       break;
     case RESULTS.LIMITED:
