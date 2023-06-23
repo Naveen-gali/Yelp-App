@@ -33,6 +33,7 @@
     "@react-native-firebase/remote-config": "^18.0.0",
     "@react-native-firebase/storage": "^18.0.0",
     "@react-native-google-signin/google-signin": "^10.0.1",
+    "@react-native-masked-view/masked-view": "^0.2.9",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
@@ -58,7 +59,7 @@
     "react-native-reanimated-carousel": "^3.3.0",
     "react-native-safe-area-context": "^4.5.0",
     "react-native-screens": "^3.20.0",
-    "react-native-shimmer-placeholder": "^2.0.9",
+    "react-native-skeleton-placeholder": "^5.2.4",
     "react-native-svg": "^13.8.0",
     "react-native-vector-icons": "^9.2.0"
   },
