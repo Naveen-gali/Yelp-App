@@ -42,11 +42,11 @@ let permissionDeniedMap: Record<RequiredPermissions, boolean> = {
 async function resultUnavailable(): Promise<boolean> {
   return new Promise(resolve => {
     return showAlert(
-      Strings.locationService.notAvailable,
-      Strings.locationService.notAvailable,
+      Strings.permissionService.notAvailable,
+      Strings.permissionService.notAvailable,
       [
         {
-          text: Strings.locationService.cancel,
+          text: Strings.permissionService.cancel,
           onPress: () => resolve(false),
         },
       ],
@@ -58,18 +58,18 @@ async function resultUnavailable(): Promise<boolean> {
 async function resultsBlocked(): Promise<boolean> {
   return new Promise(resolve => {
     showAlert(
-      Strings.locationService.blocked,
-      Strings.locationService.blockedPermission,
+      Strings.permissionService.blocked,
+      Strings.permissionService.blockedPermission,
       [
         {
-          text: Strings.locationService.goToSettings,
+          text: Strings.permissionService.goToSettings,
           onPress: async () => {
             await openSettings();
             resolve(true);
           },
         },
         {
-          text: Strings.locationService.cancel,
+          text: Strings.permissionService.cancel,
           onPress: () => resolve(false),
         },
       ],
@@ -81,18 +81,18 @@ async function resultsBlocked(): Promise<boolean> {
 async function resultsDenied(): Promise<boolean> {
   return new Promise(resolve => {
     showAlert(
-      Strings.locationService.denied,
-      Strings.locationService.deniedDescription,
+      Strings.permissionService.denied,
+      Strings.permissionService.deniedDescription,
       [
         {
-          text: Strings.locationService.goToSettings,
+          text: Strings.permissionService.goToSettings,
           onPress: async () => {
             await openSettings();
             resolve(true);
           },
         },
         {
-          text: Strings.locationService.cancel,
+          text: Strings.permissionService.cancel,
           onPress: () => resolve(false),
         },
       ],
@@ -104,18 +104,18 @@ async function resultsDenied(): Promise<boolean> {
 function defaultCase() {
   return new Promise(resolve => {
     showAlert(
-      Strings.locationService.noPermission,
-      Strings.locationService.noPermission,
+      Strings.permissionService.noPermission,
+      Strings.permissionService.noPermission,
       [
         {
-          text: Strings.locationService.goToSettings,
+          text: Strings.permissionService.goToSettings,
           onPress: async () => {
             await openSettings();
             resolve(true);
           },
         },
         {
-          text: Strings.locationService.cancel,
+          text: Strings.permissionService.cancel,
           onPress: () => resolve(false),
         },
       ],

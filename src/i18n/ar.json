@@ -38,7 +38,7 @@
     "useCamera": "استخدم الكاميرا",
     "useStorage": "استخدم التخزين"
   },
-  "locationService": {
+  "permissionService": {
     "noPermission": "لا إذن",
     "blocked": "مسدود",
     "blockedPermission": "إذن محظور. حاول التمكين من الإعدادات",

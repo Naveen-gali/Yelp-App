@@ -38,7 +38,7 @@
     "useCamera": "Use Camera",
     "useStorage": "Use Storage"
   },
-  "locationService": {
+  "permissionService": {
     "noPermission": "No Permission",
     "blocked": "Blocked",
     "blockedPermission": "Blocked Permission. Try enabling from Settings",
