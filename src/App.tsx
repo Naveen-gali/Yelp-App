@@ -12,6 +12,7 @@ import {
   checkNotifications,
   requestNotifications,
 } from 'react-native-permissions';
+import {LogBox} from 'react-native';
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
@@ -25,6 +26,8 @@ function App(): JSX.Element {
     await remoteConfig().fetch(0);
     await remoteConfig().fetchAndActivate();
   };
+
+  LogBox.ignoreAllLogs();
 
   const createNotificationChannel = () =>
     PushNotification.createChannel(

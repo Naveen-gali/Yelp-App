@@ -26,6 +26,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     useState<CarouselDataItem[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
+  const [eventsLoading, setEventsLoading] = useState(false);
 
   const onEventItemPress = useCallback(() => {
     // TODO: Add This Functions once ready
@@ -48,7 +49,8 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   const getEvents = useCallback(
     (_location?: string) => {
       if (!events.allEvents.length) {
-        events.getAllEvents(_location);
+        setEventsLoading(true);
+        events.getAllEvents(_location).then(() => setEventsLoading(false));
       }
     },
     [events],
@@ -88,7 +90,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     );
   };
 
-  const renderSkeleton = () => {
+  const renderCategorySectionSkeleton = () => {
     return (
       <>
         <View style={styles.shimmerItemsRowContainer}>
@@ -127,6 +129,26 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
             <View style={styles.shimmerItemText} />
           </View>
         </View>
+        <View style={styles.horizontalLineShimmer} />
+      </>
+    );
+  };
+
+  const renderEventsSectionSkeleton = () => {
+    return (
+      <>
+        <View style={styles.eventShimmerContainer}>
+          <View style={styles.eventItemImageShimmer} />
+          <View style={styles.eventItemTitleShimmer} />
+        </View>
+        <View style={styles.eventShimmerContainer}>
+          <View style={styles.eventItemImageShimmer} />
+          <View style={styles.eventItemTitleShimmer} />
+        </View>
+        <View style={styles.eventShimmerContainer}>
+          <View style={styles.eventItemImageShimmer} />
+          <View style={styles.eventItemTitleShimmer} />
+        </View>
       </>
     );
   };
@@ -138,25 +160,31 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
         {renderSearchBar()}
         {categoriesLoading ? (
           <SkeletonPlaceholder enabled={categoriesLoading}>
-            {renderSkeleton()}
+            {renderCategorySectionSkeleton()}
           </SkeletonPlaceholder>
         ) : (
           <CategorySection categories={categories.featuredCategories} />
         )}
-        {events.allEvents.map((e, index) => {
-          return (
-            <EventItem
-              name={e.name}
-              imageUrl={e.image_url}
-              onPress={onEventItemPress}
-              style={styles.eventItem}
-              key={index}
-              textStyle={{
-                color: colors.text,
-              }}
-            />
-          );
-        })}
+        {eventsLoading ? (
+          <SkeletonPlaceholder enabled={eventsLoading}>
+            {renderEventsSectionSkeleton()}
+          </SkeletonPlaceholder>
+        ) : (
+          events.allEvents.map((e, index) => {
+            return (
+              <EventItem
+                name={e.name}
+                imageUrl={e.image_url}
+                onPress={onEventItemPress}
+                style={styles.eventItem}
+                key={index}
+                textStyle={{
+                  color: colors.text,
+                }}
+              />
+            );
+          })
+        )}
       </View>
     );
   };
@@ -242,6 +270,25 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+  },
+  horizontalLineShimmer: {
+    marginHorizontal: horizontalScale(14),
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
+  },
+  eventShimmerContainer: {
+    marginLeft: horizontalScale(20),
+    marginTop: verticalScale(20),
+  },
+  eventItemImageShimmer: {
+    width: horizontalScale(100),
+    height: verticalScale(100),
+    borderRadius: verticalScale(10),
+  },
+  eventItemTitleShimmer: {
+    marginTop: verticalScale(6),
+    width: horizontalScale(260),
+    height: verticalScale(30),
+    borderRadius: verticalScale(5),
   },
 });
 
