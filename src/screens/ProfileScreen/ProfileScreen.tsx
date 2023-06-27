@@ -13,6 +13,7 @@ import React, {
 import {
   Alert,
   FlatList,
+  GestureResponderEvent,
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
@@ -239,6 +240,21 @@ const ProfileScreen = observer(() => {
     });
   };
 
+  const renderBottomSheetActionButton = (
+    text: string,
+    icon: CustomIconNames,
+    onPress: (event: GestureResponderEvent) => void,
+  ) => {
+    return (
+      <TouchableOpacity style={styles.bottomSheetActionItem} onPress={onPress}>
+        <CustomIcon name={icon} size={verticalScale(30)} color={colors.text} />
+        <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   const renderBottomSheetModal = () => {
     return (
       <BottomSheetModal
@@ -247,30 +263,16 @@ const ProfileScreen = observer(() => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}>
         <View style={styles.bottomSheetContentContainer}>
-          <TouchableOpacity
-            style={styles.bottomSheetActionItem}
-            onPress={checkCameraPermission}>
-            <CustomIcon
-              name={CustomIconNames.Camera}
-              size={verticalScale(30)}
-              color={colors.text}
-            />
-            <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
-              {Strings.uploadTypes.useCamera}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.bottomSheetActionItem}
-            onPress={checkPhotoLibraryPermission}>
-            <CustomIcon
-              name={CustomIconNames.Image}
-              size={verticalScale(30)}
-              color={colors.text}
-            />
-            <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
-              {Strings.uploadTypes.useStorage}
-            </Text>
-          </TouchableOpacity>
+          {renderBottomSheetActionButton(
+            Strings.uploadTypes.useCamera,
+            CustomIconNames.Camera,
+            checkCameraPermission,
+          )}
+          {renderBottomSheetActionButton(
+            Strings.uploadTypes.useStorage,
+            CustomIconNames.Image,
+            checkPhotoLibraryPermission,
+          )}
         </View>
       </BottomSheetModal>
     );
