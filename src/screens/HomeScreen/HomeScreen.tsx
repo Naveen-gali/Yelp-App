@@ -9,11 +9,13 @@ import {
   View,
 } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {EventItem, SearchBar} from '../../components';
+import {ErrorView, EventItem, SearchBar} from '../../components';
+import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {RootStoreContext} from '../../models';
 import {SearchCarouselService} from '../../services';
+import {ScreenStatus} from '../../types';
 import {DeviceUtils, horizontalScale, verticalScale} from '../../utils';
 import {HomeScreenProps} from './HomeScreen.types';
 import {CarouselDataItem, CategorySection, SearchCarousel} from './components';
@@ -24,9 +26,15 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   const {events, categories} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [categoriesLoading, setCategoriesLoading] = useState(false);
-  const [eventsLoading, setEventsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<ScreenStatus>(
+    ScreenStatus.LOADING,
+  );
+  const [categoriesStatus, setCategoriesStatus] = useState<ScreenStatus>(
+    ScreenStatus.LOADING,
+  );
+  const [eventsStatus, setEventsStatus] = useState<ScreenStatus>(
+    ScreenStatus.LOADING,
+  );
 
   const onEventItemPress = useCallback(() => {
     // TODO: Add This Functions once ready
@@ -37,30 +45,36 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   }, []);
 
   const getSearchCarouselData = () => {
-    setIsLoading(true);
+    setIsLoading(ScreenStatus.LOADING);
     SearchCarouselService.getSearchCarouselData().then(res => {
       if (res.stat === 'ok') {
         setSearchCarouselData(res.data);
-        setIsLoading(false);
+        setIsLoading(ScreenStatus.SUCCESS);
       }
     });
   };
 
   const getEvents = useCallback(
     (_location?: string) => {
-      if (!events.allEvents.length) {
-        setEventsLoading(true);
-        events.getAllEvents(_location).then(() => setEventsLoading(false));
-      }
+      setEventsStatus(ScreenStatus.LOADING);
+      events
+        .getAllEvents(_location)
+        .then(() => setEventsStatus(ScreenStatus.SUCCESS))
+        .catch(() => setEventsStatus(ScreenStatus.ERROR));
     },
     [events],
   );
 
   const getCategories = useCallback(() => {
-    setCategoriesLoading(true);
-    categories.getAllCategories().then(() => {
-      setCategoriesLoading(false);
-    });
+    setCategoriesStatus(ScreenStatus.LOADING);
+    categories
+      .getAllCategories()
+      .then(() => {
+        setCategoriesStatus(ScreenStatus.SUCCESS);
+      })
+      .catch(() => {
+        setCategoriesStatus(ScreenStatus.ERROR);
+      });
   }, [categories]);
 
   useEffect(() => {
@@ -90,67 +104,114 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
     );
   };
 
+  const renderCategorySectionSkeletonItem = () => {
+    return (
+      <View style={styles.shimmerItemContainer}>
+        <View style={styles.shimmerItemLogo} />
+        <View style={styles.shimmerItemText} />
+      </View>
+    );
+  };
+
+  const renderCategorySectionSkeletonItemRow = () => {
+    return (
+      <View style={styles.shimmerItemsRowContainer}>
+        {renderCategorySectionSkeletonItem()}
+        {renderCategorySectionSkeletonItem()}
+        {renderCategorySectionSkeletonItem()}
+        {renderCategorySectionSkeletonItem()}
+      </View>
+    );
+  };
+
   const renderCategorySectionSkeleton = () => {
     return (
       <>
-        <View style={styles.shimmerItemsRowContainer}>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-        </View>
-        <View style={styles.shimmerItemsRowContainer}>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-          <View style={styles.shimmerItemContainer}>
-            <View style={styles.shimmerItemLogo} />
-            <View style={styles.shimmerItemText} />
-          </View>
-        </View>
+        {renderCategorySectionSkeletonItemRow()}
+        {renderCategorySectionSkeletonItemRow()}
         <View style={styles.horizontalLineShimmer} />
       </>
+    );
+  };
+
+  const renderEventsSectionSkeletonItem = () => {
+    return (
+      <View style={styles.eventShimmerContainer}>
+        <View style={styles.eventItemImageShimmer} />
+        <View style={styles.eventItemTitleShimmer} />
+      </View>
     );
   };
 
   const renderEventsSectionSkeleton = () => {
     return (
       <>
-        <View style={styles.eventShimmerContainer}>
-          <View style={styles.eventItemImageShimmer} />
-          <View style={styles.eventItemTitleShimmer} />
-        </View>
-        <View style={styles.eventShimmerContainer}>
-          <View style={styles.eventItemImageShimmer} />
-          <View style={styles.eventItemTitleShimmer} />
-        </View>
-        <View style={styles.eventShimmerContainer}>
-          <View style={styles.eventItemImageShimmer} />
-          <View style={styles.eventItemTitleShimmer} />
-        </View>
+        {renderEventsSectionSkeletonItem()}
+        {renderEventsSectionSkeletonItem()}
+        {renderEventsSectionSkeletonItem()}
       </>
     );
+  };
+
+  const renderCategories = () => {
+    if (categoriesStatus === ScreenStatus.LOADING) {
+      return (
+        <SkeletonPlaceholder
+          enabled={categoriesStatus === ScreenStatus.LOADING}>
+          {renderCategorySectionSkeleton()}
+        </SkeletonPlaceholder>
+      );
+    } else if (categoriesStatus === ScreenStatus.SUCCESS) {
+      return <CategorySection categories={categories.featuredCategories} />;
+    } else if (categoriesStatus === ScreenStatus.ERROR) {
+      return (
+        <ErrorView
+          text={Strings.errorViewText.categories}
+          style={{
+            height: verticalScale(150),
+          }}
+          textStyle={[fontStyles.b2_Text_Regular, {color: colors.text}]}
+          action={() => getCategories()}
+        />
+      );
+    }
+  };
+
+  const renderEvents = () => {
+    if (eventsStatus === ScreenStatus.LOADING) {
+      return (
+        <SkeletonPlaceholder enabled={eventsStatus === ScreenStatus.LOADING}>
+          {renderEventsSectionSkeleton()}
+        </SkeletonPlaceholder>
+      );
+    } else if (eventsStatus === ScreenStatus.SUCCESS) {
+      return events.allEvents.map((e, index) => {
+        return (
+          <EventItem
+            name={e.name}
+            imageUrl={e.image_url}
+            onPress={onEventItemPress}
+            style={styles.eventItem}
+            key={index}
+            textStyle={{
+              color: colors.text,
+            }}
+          />
+        );
+      });
+    } else if (eventsStatus === ScreenStatus.ERROR) {
+      return (
+        <ErrorView
+          text={Strings.errorViewText.events}
+          action={() => getEvents()}
+          image={Constants.ErrorUrl}
+          style={{
+            marginTop: verticalScale(20),
+            height: verticalScale(200),
+          }}
+        />
+      );
+    }
   };
 
   const renderMainContent = () => {
@@ -158,39 +219,14 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       <View>
         <SearchCarousel carouselData={searchCarouselData ?? []} />
         {renderSearchBar()}
-        {categoriesLoading ? (
-          <SkeletonPlaceholder enabled={categoriesLoading}>
-            {renderCategorySectionSkeleton()}
-          </SkeletonPlaceholder>
-        ) : (
-          <CategorySection categories={categories.featuredCategories} />
-        )}
-        {eventsLoading ? (
-          <SkeletonPlaceholder enabled={eventsLoading}>
-            {renderEventsSectionSkeleton()}
-          </SkeletonPlaceholder>
-        ) : (
-          events.allEvents.map((e, index) => {
-            return (
-              <EventItem
-                name={e.name}
-                imageUrl={e.image_url}
-                onPress={onEventItemPress}
-                style={styles.eventItem}
-                key={index}
-                textStyle={{
-                  color: colors.text,
-                }}
-              />
-            );
-          })
-        )}
+        {renderCategories()}
+        {renderEvents()}
       </View>
     );
   };
 
   const renderContent = () => {
-    if (isLoading) {
+    if (isLoading === ScreenStatus.LOADING) {
       return (
         <View
           style={[

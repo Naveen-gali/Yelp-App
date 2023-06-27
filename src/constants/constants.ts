@@ -23,4 +23,6 @@ export const Constants = {
     'https://s3-media0.fl.yelpcdn.com/assets/public/yelp_favicon.yji-70908133d95b444ea335.svg',
   SignUpLogoUrl:
     'https://s3-media0.fl.yelpcdn.com/assets/2/www/img/7922e77f338d/signup/signup_illustration.png',
+  ErrorUrl:
+    'https://fpdl.in/uploads/20230626134151_[fpdl.in]_no-data-concept-illustration_114360-626_normal.jpg',
 };

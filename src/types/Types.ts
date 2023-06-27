@@ -28,4 +28,10 @@ export type ExperiencesDataItemType = {
   logo: string;
 };
 
+export enum ScreenStatus {
+  LOADING = 'LOADING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}
+
 export type ExperiencesDataType = ExperiencesDataItemType[];

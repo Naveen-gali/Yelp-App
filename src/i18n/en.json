@@ -53,5 +53,10 @@
   "loginScreen": {
     "loginToYelp": "Login To Yelp",
     "subText": "By continuing, you agree to Yelp’s Terms of Service and acknowledge Yelp’s Privacy Policy."
+  },
+  "errorViewText": {
+    "categories": "Can't Load Categories Right now",
+    "events": "Can't Load Events Right now",
+    "retry": "Retry"
   }
 }
