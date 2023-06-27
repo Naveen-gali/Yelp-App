@@ -26,7 +26,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   const {events, categories} = useContext(RootStoreContext);
   const [searchCarouselData, setSearchCarouselData] =
     useState<CarouselDataItem[]>();
-  const [isLoading, setIsLoading] = useState<ScreenStatus>(
+  const [carouselDataStatus, setCarouselDataStatus] = useState<ScreenStatus>(
     ScreenStatus.LOADING,
   );
   const [categoriesStatus, setCategoriesStatus] = useState<ScreenStatus>(
@@ -45,11 +45,11 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   }, []);
 
   const getSearchCarouselData = () => {
-    setIsLoading(ScreenStatus.LOADING);
+    setCarouselDataStatus(ScreenStatus.LOADING);
     SearchCarouselService.getSearchCarouselData().then(res => {
       if (res.stat === 'ok') {
         setSearchCarouselData(res.data);
-        setIsLoading(ScreenStatus.SUCCESS);
+        setCarouselDataStatus(ScreenStatus.SUCCESS);
       }
     });
   };
@@ -167,9 +167,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
       return (
         <ErrorView
           text={Strings.errorViewText.categories}
-          style={{
-            height: verticalScale(150),
-          }}
+          style={styles.categoriesErrorView}
           textStyle={[fontStyles.b2_Text_Regular, {color: colors.text}]}
           action={() => getCategories()}
         />
@@ -205,10 +203,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
           text={Strings.errorViewText.events}
           action={() => getEvents()}
           image={Constants.ErrorUrl}
-          style={{
-            marginTop: verticalScale(20),
-            height: verticalScale(200),
-          }}
+          style={styles.eventsErrorView}
         />
       );
     }
@@ -226,7 +221,7 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
   };
 
   const renderContent = () => {
-    if (isLoading === ScreenStatus.LOADING) {
+    if (carouselDataStatus === ScreenStatus.LOADING) {
       return (
         <View
           style={[
@@ -325,6 +320,13 @@ const styles = StyleSheet.create({
     width: horizontalScale(260),
     height: verticalScale(30),
     borderRadius: verticalScale(5),
+  },
+  categoriesErrorView: {
+    height: verticalScale(150),
+  },
+  eventsErrorView: {
+    marginTop: verticalScale(20),
+    height: verticalScale(200),
   },
 });
 
