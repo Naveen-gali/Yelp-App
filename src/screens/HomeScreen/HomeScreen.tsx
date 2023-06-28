@@ -106,49 +106,75 @@ const HomeScreen = observer((_props: HomeScreenProps) => {
 
   const renderCategorySectionSkeletonItem = () => {
     return (
-      <View style={styles.shimmerItemContainer}>
-        <View style={styles.shimmerItemLogo} />
-        <View style={styles.shimmerItemText} />
-      </View>
+      <SkeletonPlaceholder.Item
+        marginBottom={verticalScale(15)}
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center">
+        <SkeletonPlaceholder.Item
+          width={circleSize}
+          height={circleSize}
+          borderRadius={circleSize / 2}
+        />
+        <SkeletonPlaceholder.Item
+          marginTop={verticalScale(6)}
+          width={horizontalScale(70)}
+          height={verticalScale(20)}
+          borderRadius={verticalScale(5)}
+        />
+      </SkeletonPlaceholder.Item>
     );
   };
 
   const renderCategorySectionSkeletonItemRow = () => {
     return (
-      <View style={styles.shimmerItemsRowContainer}>
-        {renderCategorySectionSkeletonItem()}
-        {renderCategorySectionSkeletonItem()}
-        {renderCategorySectionSkeletonItem()}
-        {renderCategorySectionSkeletonItem()}
-      </View>
+      <SkeletonPlaceholder.Item
+        marginTop={verticalScale(20)}
+        flexDirection="row"
+        justifyContent="space-evenly">
+        {new Array(4).fill(null).map(() => renderCategorySectionSkeletonItem())}
+      </SkeletonPlaceholder.Item>
     );
   };
 
   const renderCategorySectionSkeleton = () => {
     return (
       <>
-        {renderCategorySectionSkeletonItemRow()}
-        {renderCategorySectionSkeletonItemRow()}
-        <View style={styles.horizontalLineShimmer} />
+        {new Array(2)
+          .fill(null)
+          .map(() => renderCategorySectionSkeletonItemRow())}
+        <SkeletonPlaceholder.Item
+          marginHorizontal={horizontalScale(14)}
+          borderBottomWidth={StyleSheet.hairlineWidth * 2}
+        />
       </>
     );
   };
 
   const renderEventsSectionSkeletonItem = () => {
     return (
-      <View style={styles.eventShimmerContainer}>
-        <View style={styles.eventItemImageShimmer} />
-        <View style={styles.eventItemTitleShimmer} />
-      </View>
+      <SkeletonPlaceholder.Item
+        marginLeft={horizontalScale(20)}
+        marginTop={verticalScale(20)}>
+        <SkeletonPlaceholder.Item
+          width={horizontalScale(100)}
+          height={verticalScale(100)}
+          borderRadius={verticalScale(10)}
+        />
+        <SkeletonPlaceholder.Item
+          marginTop={verticalScale(6)}
+          width={horizontalScale(260)}
+          height={verticalScale(30)}
+          borderRadius={verticalScale(5)}
+        />
+      </SkeletonPlaceholder.Item>
     );
   };
 
   const renderEventsSectionSkeleton = () => {
     return (
       <>
-        {renderEventsSectionSkeletonItem()}
-        {renderEventsSectionSkeletonItem()}
-        {renderEventsSectionSkeletonItem()}
+        {new Array(3).fill(null).map(() => renderEventsSectionSkeletonItem())}
       </>
     );
   };
@@ -279,47 +305,6 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     marginVertical: verticalScale(10),
-  },
-  shimmerItemContainer: {
-    marginBottom: verticalScale(15),
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  shimmerItemLogo: {
-    width: circleSize,
-    height: circleSize,
-    borderRadius: circleSize / 2,
-  },
-  shimmerItemText: {
-    marginTop: verticalScale(6),
-    width: horizontalScale(70),
-    height: verticalScale(20),
-    borderRadius: verticalScale(5),
-  },
-  shimmerItemsRowContainer: {
-    marginTop: verticalScale(20),
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  horizontalLineShimmer: {
-    marginHorizontal: horizontalScale(14),
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-  },
-  eventShimmerContainer: {
-    marginLeft: horizontalScale(20),
-    marginTop: verticalScale(20),
-  },
-  eventItemImageShimmer: {
-    width: horizontalScale(100),
-    height: verticalScale(100),
-    borderRadius: verticalScale(10),
-  },
-  eventItemTitleShimmer: {
-    marginTop: verticalScale(6),
-    width: horizontalScale(260),
-    height: verticalScale(30),
-    borderRadius: verticalScale(5),
   },
   categoriesErrorView: {
     height: verticalScale(150),
