@@ -10,6 +10,7 @@ import {DarkTheme, LightTheme} from '../theme';
 import {AuthStackNavigator} from './AuthStack';
 import {BottomTabNavigator} from './BottomTabs';
 import analytics from '@react-native-firebase/analytics';
+import * as Sentry from '@sentry/react-native';
 
 const RootNavigator = observer(() => {
   const theme = useColorScheme();
@@ -17,6 +18,8 @@ const RootNavigator = observer(() => {
 
   const routeNameRef = useRef<string>();
   const navigationRef = useNavigationContainerRef();
+
+  const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
   useEffect(() => {
     auth.checkSignin();
@@ -27,6 +30,7 @@ const RootNavigator = observer(() => {
       theme={theme === 'dark' ? DarkTheme : LightTheme}
       ref={navigationRef}
       onReady={() => {
+        routingInstrumentation.registerNavigationContainer(navigationRef);
         routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name;
       }}
       onStateChange={async () => {

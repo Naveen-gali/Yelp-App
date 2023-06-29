@@ -1,18 +1,32 @@
+import messaging from '@react-native-firebase/messaging';
 import remoteConfig from '@react-native-firebase/remote-config';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import * as Sentry from '@sentry/react-native';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import RNBootsplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {RootStore, RootStoreContext, setupStore} from './models';
-import {RootNavigator} from './navigation';
-import messaging from '@react-native-firebase/messaging';
-import PushNotification, {Importance} from 'react-native-push-notification';
 import {
   checkNotifications,
   requestNotifications,
 } from 'react-native-permissions';
-import {LogBox} from 'react-native';
+import PushNotification, {Importance} from 'react-native-push-notification';
+import {RootStore, RootStoreContext, setupStore} from './models';
+import {RootNavigator} from './navigation';
+
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+
+Sentry.init({
+  dsn: 'https://e54ac6d47e5c4d98b71e346d76e9ccd0@o544755.ingest.sentry.io/4505436435841024',
+
+  tracesSampleRate: 1.0,
+  integrations: [
+    new Sentry.ReactNativeTracing({
+      traceFetch: true,
+      routingInstrumentation,
+    }),
+  ],
+});
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
@@ -26,8 +40,6 @@ function App(): JSX.Element {
     await remoteConfig().fetch(0);
     await remoteConfig().fetchAndActivate();
   };
-
-  LogBox.ignoreAllLogs();
 
   const createNotificationChannel = () =>
     PushNotification.createChannel(
