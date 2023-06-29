@@ -63,10 +63,7 @@ async function showPermissionBlockedAlert(): Promise<boolean> {
       [
         {
           text: Strings.permissionService.goToSettings,
-          onPress: async () => {
-            await openSettings();
-            resolve(true);
-          },
+          onPress: () => openSettings(),
         },
         {
           text: Strings.permissionService.cancel,
@@ -86,10 +83,7 @@ async function showPermissionDeniedAlert(): Promise<boolean> {
       [
         {
           text: Strings.permissionService.goToSettings,
-          onPress: async () => {
-            await openSettings();
-            resolve(true);
-          },
+          onPress: () => openSettings(),
         },
         {
           text: Strings.permissionService.cancel,
@@ -109,10 +103,7 @@ function showNoPermissionAlert() {
       [
         {
           text: Strings.permissionService.goToSettings,
-          onPress: async () => {
-            await openSettings();
-            resolve(true);
-          },
+          onPress: () => openSettings(),
         },
         {
           text: Strings.permissionService.cancel,
