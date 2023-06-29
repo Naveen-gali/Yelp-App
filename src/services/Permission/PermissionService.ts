@@ -39,7 +39,7 @@ let permissionDeniedMap: Record<RequiredPermissions, boolean> = {
 };
 
 // Called when the Result is RESULTS.UNAVAILABLE
-async function resultUnavailable(): Promise<boolean> {
+async function showPermissionUnavailableAlert(): Promise<boolean> {
   return new Promise(resolve => {
     return showAlert(
       Strings.permissionService.notAvailable,
@@ -55,7 +55,7 @@ async function resultUnavailable(): Promise<boolean> {
 }
 
 // Called when the Result is RESULTS.BLOCKED
-async function resultsBlocked(): Promise<boolean> {
+async function showPermissionBlockedAlert(): Promise<boolean> {
   return new Promise(resolve => {
     showAlert(
       Strings.permissionService.blocked,
@@ -78,7 +78,7 @@ async function resultsBlocked(): Promise<boolean> {
 }
 
 // Called when the Result is RESULTS.DENIED
-async function resultsDenied(): Promise<boolean> {
+async function showPermissionDeniedAlert(): Promise<boolean> {
   return new Promise(resolve => {
     showAlert(
       Strings.permissionService.denied,
@@ -101,7 +101,7 @@ async function resultsDenied(): Promise<boolean> {
 }
 
 // Called when the Result is returned default.
-function defaultCase() {
+function showNoPermissionAlert() {
   return new Promise(resolve => {
     showAlert(
       Strings.permissionService.noPermission,
@@ -130,22 +130,22 @@ const requestPermission = async (permission: RequiredPermissions) => {
 
   switch (requestStatus) {
     case RESULTS.UNAVAILABLE:
-      await resultUnavailable();
+      await showPermissionUnavailableAlert();
       break;
     case RESULTS.DENIED:
       if (permissionDeniedMap[permission]) {
-        await resultsDenied();
+        await showPermissionDeniedAlert();
       }
       permissionDeniedMap[permission] = true;
       break;
     case RESULTS.LIMITED:
     case RESULTS.GRANTED:
-      return;
+      break;
     case RESULTS.BLOCKED:
-      await resultsBlocked();
+      await showPermissionBlockedAlert();
       break;
     default:
-      await defaultCase();
+      await showNoPermissionAlert();
       break;
   }
 };
@@ -159,7 +159,7 @@ const checkPermission = async (permission: RequiredPermissions) => {
 
   switch (permissionStatus) {
     case RESULTS.UNAVAILABLE:
-      await resultUnavailable();
+      await showPermissionUnavailableAlert();
       break;
     case RESULTS.DENIED:
       await requestPermission(permission);
@@ -169,10 +169,10 @@ const checkPermission = async (permission: RequiredPermissions) => {
       hasPermission = true;
       break;
     case RESULTS.BLOCKED:
-      await resultsBlocked();
+      await showPermissionBlockedAlert();
       break;
     default:
-      await defaultCase();
+      await showNoPermissionAlert();
       break;
   }
   console.log('END');
