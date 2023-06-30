@@ -18,6 +18,7 @@ export type ProfileActionsDataType = ProfileActionsDataItemType[];
 export type MoreSettingsType = MoreSettingItemType[];
 
 export type MoreSettingItemType = {
+  id: string;
   label: LocalizedLanguages;
   icon: CustomIconNames;
 };
@@ -26,5 +27,11 @@ export type ExperiencesDataItemType = {
   title: LocalizedLanguages;
   logo: string;
 };
+
+export enum ScreenStatus {
+  LOADING = 'LOADING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}
 
 export type ExperiencesDataType = ExperiencesDataItemType[];

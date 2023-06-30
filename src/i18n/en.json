@@ -29,5 +29,34 @@
     "yes": "Yes",
     "no": "No",
     "mayBe": "MayBe"
+  },
+  "photoUpload": {
+    "title": "Photo Upload Error",
+    "description": "Try After SomeTime"
+  },
+  "uploadTypes": {
+    "useCamera": "Use Camera",
+    "useStorage": "Use Storage"
+  },
+  "permissionService": {
+    "noPermission": "No Permission",
+    "blocked": "Blocked",
+    "blockedPermission": "Blocked Permission. Try enabling from Settings",
+    "goToSettings": "Go To Settings",
+    "cancel": "Cancel",
+    "tryEnablingFromSettings": "No Permission. Try enabling from Settings",
+    "notAvailable": "Not Available",
+    "denied": "Denied",
+    "deniedDescription": "Permission Denied! Try Enabling from Settings",
+    "invalidPermission": "Invalid Permission"
+  },
+  "loginScreen": {
+    "loginToYelp": "Login To Yelp",
+    "subText": "By continuing, you agree to Yelp’s Terms of Service and acknowledge Yelp’s Privacy Policy."
+  },
+  "errorViewText": {
+    "categories": "Can't Load Categories Right now",
+    "events": "Can't Load Events Right now",
+    "retry": "Retry"
   }
 }

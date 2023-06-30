@@ -1,16 +1,25 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {ProfileActionsData, StatsData} from '../../../assets';
-import {CustomIcon} from '../../../components';
-import {Constants, fontStyles} from '../../../constants';
-import {useThemeColor} from '../../../hooks';
-import {Strings} from '../../../i18n';
-import {horizontalScale, verticalScale} from '../../../utils';
-import {ProfileAction} from './ProfileAction';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
+import {ProfileActionsData, StatsData} from '../../../../assets';
+import {CustomIcon} from '../../../../components';
+import {fontStyles} from '../../../../constants';
+import {useThemeColor} from '../../../../hooks';
+import {DeviceUtils, horizontalScale, verticalScale} from '../../../../utils';
+import {ProfileAction} from '../ProfileAction';
+import {ProfileHeaderProps} from './ProfileHeader.types';
 
 const circleSize = Math.min(horizontalScale(80), verticalScale(80));
 
-const ProfileHeader = () => {
+const ProfileHeader = (props: ProfileHeaderProps) => {
+  const {email, image, name, imageOnPress, photoUploading} = props;
   const {colors} = useThemeColor();
 
   const renderStats = () => {
@@ -39,13 +48,16 @@ const ProfileHeader = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{uri: Constants.UserImageUrl}}
-        style={styles.profileImage}
-      />
-      <Text style={fontStyles.b1_Bold}>{Strings.profile.name}</Text>
-      <Text style={(fontStyles.b3_Text_Regular, {color: colors.text})}>
-        {Strings.profile.location}
+      <TouchableOpacity onPress={imageOnPress} disabled={photoUploading}>
+        {photoUploading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <Image source={{uri: image}} style={styles.profileImage} />
+        )}
+      </TouchableOpacity>
+      <Text style={[fontStyles.b1_Bold, {color: colors.text}]}>{name}</Text>
+      <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+        {email}
       </Text>
       <View style={styles.statsContainer}>{renderStats()}</View>
       <View style={styles.profileActionsRow}>{renderProfileActions()}</View>
@@ -55,6 +67,12 @@ const ProfileHeader = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginVertical: verticalScale(20),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loaderView: {
+    height: DeviceUtils.getDeviceWindowHeight,
     justifyContent: 'center',
     alignItems: 'center',
   },

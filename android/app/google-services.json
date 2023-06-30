@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "757548623602",
+    "project_id": "yelp-app-e7dc6",
+    "storage_bucket": "yelp-app-e7dc6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757548623602:android:093c333721f65164c2d26b",
+        "android_client_info": {
+          "package_name": "com.yelpapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757548623602-kuvtjp8vmagqg5qke2mmr28j4hmi3qgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yelpapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "757548623602-kqvsn96rjf6e9gbnah0sngfh8nigcpg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbRLNMuKJMk0F0YYXY1TerKUcNDthCuII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757548623602-8tu5l0dhdbjle9u0ovk51hfno22dhces.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "757548623602-hacb0v09k69rook3o2f8nc4fcsimmsmj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.yelpApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

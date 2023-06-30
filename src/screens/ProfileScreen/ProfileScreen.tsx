@@ -1,6 +1,19 @@
-import React, {useCallback} from 'react';
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import analytics from '@react-native-firebase/analytics';
+import storage from '@react-native-firebase/storage';
+import {observer} from 'mobx-react-lite';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
+  Alert,
   FlatList,
+  GestureResponderEvent,
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
@@ -9,20 +22,117 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import ImagePicker, {
+  Image as ImagePickerResultProps,
+} from 'react-native-image-crop-picker';
+import PushNotification from 'react-native-push-notification';
 import {ExperiencesData, MoreSettings} from '../../assets';
-import {Button, CustomIcon} from '../../components';
-import {fontStyles} from '../../constants';
+import {Button, CustomIcon, CustomIconNames} from '../../components';
+import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
+import {RootStoreContext} from '../../models';
+import {RequiredPermissions, checkPermission} from '../../services';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
-import {LocaleUtils, horizontalScale, verticalScale} from '../../utils';
+import {
+  DeviceUtils,
+  LocaleUtils,
+  horizontalScale,
+  verticalScale,
+} from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
 
-const ProfileScreen = () => {
+const ProfileScreen = observer(() => {
   const {colors} = useThemeColor();
+  const {auth, user} = useContext(RootStoreContext);
 
-  const onPressSeeMore = useCallback(() => {
-    // TODO: Add This Functions once ready
+  const [photoUploading, setPhotoUploading] = useState(false);
+  const [profileImage, setProfileImage] = useState(user.photo);
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const snapPoints = useMemo(() => ['25%'], []);
+
+  const handlePresentModelPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const handleModelClose = useCallback(() => {
+    bottomSheetModalRef.current?.close();
+  }, []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('HandleSheetChanges', index);
+  }, []);
+
+  const reference = storage().ref(user.id);
+
+  const getImagePickerResultUrl = (result: ImagePickerResultProps) => {
+    if (DeviceUtils.isIos && result.sourceURL) {
+      return decodeURI(result.sourceURL);
+    } else {
+      return decodeURI(result.path);
+    }
+  };
+
+  const pickImage = async () => {
+    const result = await ImagePicker.openPicker({
+      mediaType: 'photo',
+      cropping: true,
+    });
+
+    if (result) {
+      setPhotoUploading(true);
+      await reference
+        .putFile(getImagePickerResultUrl(result))
+        .then(res => {
+          console.log('UPLAOD RES :_ ', res);
+        })
+        .catch(() =>
+          Alert.alert(
+            Strings.photoUpload.title,
+            Strings.photoUpload.description,
+          ),
+        );
+      setPhotoUploading(false);
+    } else {
+      Alert.alert(Strings.photoUpload.title, Strings.photoUpload.description);
+    }
+  };
+
+  const pickFromCamera = async () => {
+    const result = await ImagePicker.openCamera({
+      mediaType: 'photo',
+      cropping: true,
+    });
+
+    if (result) {
+      setPhotoUploading(true);
+      await reference.putFile(getImagePickerResultUrl(result)).then(res => {
+        console.log('RES :_ ', res);
+        setPhotoUploading(false);
+      });
+    } else {
+      Alert.alert(Strings.photoUpload.title, Strings.photoUpload.description);
+    }
+  };
+
+  const getImageUrl = async () => {
+    const url = await storage().ref(user.id).getDownloadURL();
+    if (url) {
+      setProfileImage(url);
+    }
+  };
+
+  useEffect(() => {
+    user.getCurrentUser();
+    getImageUrl();
+  });
+
+  const onPressSeeMore = useCallback(async () => {
+    await analytics().logEvent('selected_btn', {
+      value: 'See More',
+    });
   }, []);
 
   const renderExperiencesItem = (
@@ -59,13 +169,30 @@ const ProfileScreen = () => {
     return <View style={styles.horizontalLine} />;
   };
 
+  const getLocalNotification = () =>
+    PushNotification.localNotification({
+      channelId: 'yelp-app',
+      priority: 'high',
+      visibility: 'public',
+      message: 'Local Notification from the RNPN',
+      title: 'Notification title',
+      largeIconUrl:
+        'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
+      picture:
+        'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
+    });
+
   const renderMoreSettingsItem = (
     props: ListRenderItemInfo<MoreSettingItemType>,
   ) => {
     const {item} = props;
 
     return (
-      <TouchableOpacity style={styles.moreSetting}>
+      <TouchableOpacity
+        style={styles.moreSetting}
+        onPress={
+          item.id === 'logout' ? auth.signOut : () => getLocalNotification()
+        }>
         <CustomIcon
           name={item.icon}
           size={verticalScale(25)}
@@ -95,16 +222,81 @@ const ProfileScreen = () => {
     );
   };
 
+  const checkCameraPermission = async () => {
+    await checkPermission(RequiredPermissions.Camera).then(res => {
+      if (res) {
+        pickFromCamera();
+        handleModelClose();
+      }
+    });
+  };
+
+  const checkPhotoLibraryPermission = async () => {
+    await checkPermission(RequiredPermissions.PhotoLibrary).then(res => {
+      if (res) {
+        pickImage();
+        handleModelClose();
+      }
+    });
+  };
+
+  const renderBottomSheetActionButton = (
+    text: string,
+    icon: CustomIconNames,
+    onPress: (event: GestureResponderEvent) => void,
+  ) => {
+    return (
+      <TouchableOpacity style={styles.bottomSheetActionItem} onPress={onPress}>
+        <CustomIcon name={icon} size={verticalScale(30)} color={colors.text} />
+        <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderBottomSheetModal = () => {
+    return (
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}>
+        <View style={styles.bottomSheetContentContainer}>
+          {renderBottomSheetActionButton(
+            Strings.uploadTypes.useCamera,
+            CustomIconNames.Camera,
+            checkCameraPermission,
+          )}
+          {renderBottomSheetActionButton(
+            Strings.uploadTypes.useStorage,
+            CustomIconNames.Image,
+            checkPhotoLibraryPermission,
+          )}
+        </View>
+      </BottomSheetModal>
+    );
+  };
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <SafeAreaView>
-        <ProfileHeader />
-        {renderExperiences()}
-        {renderMoreSettings()}
-      </SafeAreaView>
-    </ScrollView>
+    <BottomSheetModalProvider>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <SafeAreaView>
+          <ProfileHeader
+            email={user.email}
+            image={profileImage ?? Constants.UserImageUrl}
+            name={user.givenName ?? user.familyName + '' + user.name}
+            imageOnPress={handlePresentModelPress}
+            photoUploading={photoUploading}
+          />
+          {renderExperiences()}
+          {renderMoreSettings()}
+          {renderBottomSheetModal()}
+        </SafeAreaView>
+      </ScrollView>
+    </BottomSheetModalProvider>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -134,6 +326,23 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     marginVertical: verticalScale(10),
+  },
+  bottomSheetContentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  bottomSheetActionItem: {
+    padding: verticalScale(20),
+    alignItems: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+    elevation: 9,
   },
 });
 

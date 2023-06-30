@@ -29,5 +29,34 @@
     "yes": "نعم",
     "no": "لا",
     "mayBe": "ربما"
+  },
+  "photoUpload": {
+    "title": "خطأ في تحميل الصور",
+    "description": "جرب بعد بعض الوقت"
+  },
+  "uploadTypes": {
+    "useCamera": "استخدم الكاميرا",
+    "useStorage": "استخدم التخزين"
+  },
+  "permissionService": {
+    "noPermission": "لا إذن",
+    "blocked": "مسدود",
+    "blockedPermission": "إذن محظور. حاول التمكين من الإعدادات",
+    "goToSettings": "اذهب للاعدادات",
+    "cancel": "إلغاء الأمر",
+    "tryEnablingFromSettings": "لا إذن. حاول التمكين من الإعدادات",
+    "notAvailable": "غير متوفر",
+    "denied": "نفي",
+    "deniedDescription": "تم رفض الإذن! جرب التمكين من الإعدادات",
+    "invalidPermission": "إذن غير صالح"
+  },
+  "loginScreen": {
+    "loginToYelp": "تسجيل الدخول إلى Yelp",
+    "subText": "من خلال المتابعة ، فإنك توافق على شروط خدمة Yelp وتقر بسياسة خصوصية Yelp."
+  },
+  "errorViewText": {
+    "categories": "لا يمكن تحميل الفئات الآن",
+    "events": "لا يمكن تحميل الأحداث الآن",
+    "retry": "أعد المحاولة"
   }
 }
