@@ -25,4 +25,6 @@ export const Constants = {
     'https://s3-media0.fl.yelpcdn.com/assets/2/www/img/7922e77f338d/signup/signup_illustration.png',
   ErrorUrl:
     'https://fpdl.in/uploads/20230626134151_[fpdl.in]_no-data-concept-illustration_114360-626_normal.jpg',
+  ContactUsImageUrl:
+    'https://static.vecteezy.com/system/resources/previews/009/361/791/original/woman-with-headphones-and-microphone-with-computer-contact-us-customer-service-assistant-support-call-center-concept-cartoon-illustration-in-flat-style-vector.jpg',
 };

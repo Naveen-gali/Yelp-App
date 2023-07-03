@@ -13,6 +13,7 @@ import {
 import PushNotification, {Importance} from 'react-native-push-notification';
 import {RootStore, RootStoreContext, setupStore} from './models';
 import {RootNavigator} from './navigation';
+import {FormProvider, useForm} from 'react-hook-form';
 
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
@@ -30,6 +31,7 @@ Sentry.init({
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
+  const methods = useForm();
 
   GoogleSignin.configure({
     webClientId:
@@ -123,9 +125,11 @@ function App(): JSX.Element {
     } else {
       return (
         <GestureHandlerRootView style={styles.container}>
-          <RootStoreContext.Provider value={RootStore}>
-            <RootNavigator />
-          </RootStoreContext.Provider>
+          <FormProvider {...methods}>
+            <RootStoreContext.Provider value={RootStore}>
+              <RootNavigator />
+            </RootStoreContext.Provider>
+          </FormProvider>
         </GestureHandlerRootView>
       );
     }
