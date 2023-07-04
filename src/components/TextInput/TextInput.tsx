@@ -36,6 +36,7 @@ export const TextInput = (props: TextInputProps) => {
     value,
     onFocus,
     onEndEditing,
+    defaultValue,
     ...restProps
   } = props;
   const [focused, setFocused] = useState(false);
@@ -212,6 +213,7 @@ export const TextInput = (props: TextInputProps) => {
         editable={editable}
         onChangeText={onChangeText}
         onEndEditing={onEndEditingHandler}
+        defaultValue={defaultValue}
         {...restProps}
       />
     );

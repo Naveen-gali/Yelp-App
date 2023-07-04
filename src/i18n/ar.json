@@ -58,5 +58,13 @@
     "categories": "لا يمكن تحميل الفئات الآن",
     "events": "لا يمكن تحميل الأحداث الآن",
     "retry": "أعد المحاولة"
+  },
+  "contactUs": {
+    "queryError": "لا يمكن أن يكون الاستعلام فارغا.",
+    "submit": "إرسال",
+    "successAlertTitle": "أثير الاستعلام!",
+    "successAlertDescription": "سوف نعود اليكم قريبا.",
+    "errorAlertTitle": "حدث خطأ ما!",
+    "errorAlertDescription": "حاول مرة أخرى بعد وقت ما"
   }
 }

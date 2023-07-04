@@ -6,6 +6,10 @@ import {Constants} from '../../constants';
 import {horizontalScale, verticalScale} from '../../utils';
 import {firebase} from '@react-native-firebase/database';
 import {RootStoreContext} from '../../models';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ProfileStackParams} from '../../navigation';
+import {Strings} from '../../i18n';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -14,13 +18,12 @@ type Inputs = {
 };
 
 const ContactUsScreen = () => {
-  const {
-    handleSubmit,
-    control,
-    formState: {errors},
-  } = useForm<Inputs>({
+  const {handleSubmit, control} = useForm<Inputs>({
     progressive: true,
   });
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ProfileStackParams>>();
 
   const {user} = useContext(RootStoreContext);
 
@@ -30,20 +33,36 @@ const ContactUsScreen = () => {
     .ref('/queries/');
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    console.log('DATA :_ ', data);
-    // .child(data.email.substring(0, 6))
-
-    const date = new Date().getMilliseconds();
-
     await reference
-      .child(date + user.id)
+      .child(user.id)
       .set({
         email: user.email,
         query: data.query,
       })
-      .then(() => {
-        Alert.alert('Query Raised!', 'Will get back to you shortly');
-      });
+      .then(
+        () => {
+          Alert.alert(
+            Strings.contactUs.successAlertTitle,
+            Strings.contactUs.successAlertDescription,
+            [
+              {
+                onPress: () => navigation.goBack(),
+              },
+            ],
+          );
+        },
+        () => {
+          Alert.alert(
+            Strings.contactUs.errorAlertTitle,
+            Strings.contactUs.errorAlertDescription,
+            [
+              {
+                onPress: () => navigation.goBack(),
+              },
+            ],
+          );
+        },
+      );
   };
 
   return (
@@ -53,16 +72,21 @@ const ContactUsScreen = () => {
         name="query"
         control={control}
         rules={{required: true}}
-        render={({field: {onChange, value, onBlur}}) => (
+        render={({field: {onChange, value, onBlur}, fieldState: {error}}) => (
           <TextInput
-            onChangeText={onChange}
             label="Query"
+            mode="outline"
+            onChangeText={onChange}
             value={value}
             onBlur={onBlur}
-            error={errors.query ? true : false}
+            error={error ? true : false}
+            errorMessage={Strings.contactUs.queryError}
             style={styles.input}
             autoCorrect={false}
             multiline={true}
+            numberOfLines={10}
+            editable={true}
+            inputStyle={styles.TextInput}
           />
         )}
       />
@@ -70,7 +94,7 @@ const ContactUsScreen = () => {
         mode="outlined"
         onPress={handleSubmit(onSubmit)}
         style={styles.button}>
-        Submit
+        {Strings.contactUs.submit}
       </Button>
     </ScrollView>
   );
@@ -92,6 +116,9 @@ const styles = StyleSheet.create({
     width: circleSize,
     height: circleSize,
     alignSelf: 'center',
+  },
+  TextInput: {
+    height: verticalScale(150),
   },
 });
 
