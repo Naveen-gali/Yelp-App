@@ -65,6 +65,16 @@
     "successAlertTitle": "Query Raised!",
     "successAlertDescription": "Will get back to you shortly.",
     "errorAlertTitle": "SomeThing Went Wrong!",
-    "errorAlertDescription": "Try Again after SomeTime"
+    "errorAlertDescription": "Try Again after SomeTime",
+    "nameErrorMessage": "Name Should be minimum 8 characters long and should be a combination of numbers and letters.",
+    "ageErrorMessage": "Age must be between 18 and 100",
+    "emailErrorMessage": "Invalid Email Address",
+    "phoneErrorMessage": "Invalid Phone Number",
+    "phoneHintMessage": "Please don't add prefix +91",
+    "nameFieldLabel": "Name",
+    "ageFieldLabel": "Age",
+    "emailFieldLabel": "Email",
+    "phoneFieldLabel": "Phone Number",
+    "queryFieldLabel": "Query"
   }
 }

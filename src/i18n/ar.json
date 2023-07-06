@@ -65,6 +65,16 @@
     "successAlertTitle": "أثير الاستعلام!",
     "successAlertDescription": "سوف نعود اليكم قريبا.",
     "errorAlertTitle": "حدث خطأ ما!",
-    "errorAlertDescription": "حاول مرة أخرى بعد وقت ما"
+    "errorAlertDescription": "حاول مرة أخرى بعد وقت ما",
+    "nameErrorMessage": "يجب ألا يقل طول الاسم عن 8 أحرف ويجب أن يكون مزيجا من الأرقام والحروف.",
+    "ageErrorMessage": "يجب أن يكون العمر بين 18 و 100",
+    "emailErrorMessage": "عنوان البريد الإلكتروني غير صالح",
+    "phoneErrorMessage": "رقم الهاتف غير صالح",
+    "phoneHintMessage": "الرجاء عدم إضافة بادئة +91",
+    "nameFieldLabel": "اسم",
+    "ageFieldLabel": "عمر",
+    "emailFieldLabel": "البريد الإلكتروني",
+    "phoneFieldLabel": "رقم الهاتف",
+    "queryFieldLabel": "استفسار"
   }
 }
