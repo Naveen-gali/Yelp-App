@@ -18,20 +18,48 @@ import {horizontalScale, verticalScale} from '../../utils';
 import {KeyBoardAvoidingScrollViewWrapper} from '../../wrappers';
 import {ScreenStatus} from '../../types';
 import {useThemeColor} from '../../hooks';
+import {z} from 'zod';
+import {zodResolver} from '@hookform/resolvers/zod';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
 type Inputs = {
   name: string;
-  age: number;
+  age: string;
   email: string;
   phone_number: string;
   query: string;
 };
 
+const schema = z.object({
+  name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
+  age: z.coerce
+    .number({
+      invalid_type_error: Strings.contactUs.ageErrorMessage,
+      required_error: 'Age is Required',
+    })
+    .gte(18)
+    .lte(100),
+  email: z
+    .string({
+      invalid_type_error: Strings.contactUs.emailErrorMessage,
+      required_error: 'Required Field',
+    })
+    .email(),
+  phone_number: z.coerce
+    .number({
+      invalid_type_error: Strings.contactUs.phoneErrorMessage,
+      required_error: 'Required Field',
+    })
+    .gte(600000000, {message: Strings.contactUs.phoneErrorMessage})
+    .lte(9999999999, {message: Strings.contactUs.phoneErrorMessage}),
+  query: z.string().min(1),
+});
+
 const ContactUsScreen = () => {
   const {handleSubmit, control} = useForm<Inputs>({
     progressive: true,
+    resolver: zodResolver(schema),
   });
 
   const [isSavingQuery, setIsSavingQuery] = useState(ScreenStatus.DEFAULT);
@@ -49,7 +77,6 @@ const ContactUsScreen = () => {
   const {colors} = useThemeColor();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    console.log('DATA :P ', data);
     setIsSavingQuery(ScreenStatus.LOADING);
     await reference
       .child(user.id)
@@ -102,9 +129,10 @@ const ContactUsScreen = () => {
             label={label}
             mode="outline"
             onChangeText={onChange}
-            value={value?.toString()}
+            value={value}
             onBlur={onBlur}
             error={error ? true : false}
+            errorMessage={error?.message}
             style={styles.input}
             autoCorrect={false}
             editable={true}
@@ -122,30 +150,18 @@ const ContactUsScreen = () => {
           source={{uri: Constants.ContactUsImageUrl}}
           style={styles.image}
         />
-        {renderTextInputController(
-          'name',
-          Strings.contactUs.nameFieldLabel,
-          {
-            multiline: false,
-            errorMessage: Strings.contactUs.nameErrorMessage,
-          },
-          {
-            required: true,
-            minLength: 7,
-            pattern: /^[a-zA-Z0-9]{5,}$/,
-          },
-        )}
+        {renderTextInputController('name', Strings.contactUs.nameFieldLabel, {
+          multiline: false,
+        })}
         {renderTextInputController(
           'age',
           Strings.contactUs.ageFieldLabel,
           {
             multiline: false,
             keyboardType: 'number-pad',
-            errorMessage: Strings.contactUs.ageErrorMessage,
           },
           {
             required: true,
-            pattern: /^(1[5-9]|[2-9]\d|\d{3,})$/,
           },
         )}
         {renderTextInputController(
@@ -153,13 +169,11 @@ const ContactUsScreen = () => {
           Strings.contactUs.emailFieldLabel,
           {
             multiline: false,
-            errorMessage: Strings.contactUs.emailErrorMessage,
             autoCorrect: false,
             autoCapitalize: 'none',
           },
           {
             required: true,
-            pattern: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
           },
         )}
         {renderTextInputController(
@@ -168,12 +182,10 @@ const ContactUsScreen = () => {
           {
             multiline: false,
             hint: Strings.contactUs.phoneHintMessage,
-            errorMessage: Strings.contactUs.phoneErrorMessage,
             keyboardType: 'number-pad',
           },
           {
             required: true,
-            pattern: /^[6-9]\d{9}$/,
           },
         )}
         {renderTextInputController(
@@ -183,7 +195,6 @@ const ContactUsScreen = () => {
             multiline: true,
             numberOfLines: 10,
             inputStyle: styles.TextInput,
-            errorMessage: Strings.contactUs.queryError,
           },
           {required: true},
         )}
