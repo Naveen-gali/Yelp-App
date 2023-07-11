@@ -75,6 +75,7 @@
     "ageFieldLabel": "عمر",
     "emailFieldLabel": "البريد الإلكتروني",
     "phoneFieldLabel": "رقم الهاتف",
-    "queryFieldLabel": "استفسار"
+    "queryFieldLabel": "استفسار",
+    "birthdateLabel": "تاريخ الميلاد"
   }
 }

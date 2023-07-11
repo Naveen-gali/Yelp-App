@@ -75,6 +75,7 @@
     "ageFieldLabel": "Age",
     "emailFieldLabel": "Email",
     "phoneFieldLabel": "Phone Number",
-    "queryFieldLabel": "Query"
+    "queryFieldLabel": "Query",
+    "birthdateLabel": "Birth Date"
   }
 }
