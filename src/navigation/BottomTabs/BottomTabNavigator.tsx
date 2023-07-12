@@ -2,12 +2,12 @@ import remoteConfig from '@react-native-firebase/remote-config';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {CustomIcon, CustomIconNames} from '../../components';
-import {ProfileScreen} from '../../screens';
 import {PrimaryStackNavigator} from '../PrimaryStack';
 import {
   BottomTabBarIconProps,
   BottomTabRoute,
 } from './BottomTabNavigator.types';
+import {ProfileStackNavigator} from '../ProfileStack';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -37,7 +37,7 @@ const BottomTabNavigator = () => {
       />
       <BottomTabs.Screen
         name={BottomTabRoute.Me}
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         options={{
           tabBarIcon: props =>
             tabBarIcon({

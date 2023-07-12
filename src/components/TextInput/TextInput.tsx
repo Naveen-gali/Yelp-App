@@ -1,10 +1,10 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
-  TextInput as InputField,
   NativeSyntheticEvent,
   StyleSheet,
   Text,
+  TextInput as InputField,
   TextInputEndEditingEventData,
   TextInputFocusEventData,
   View,
@@ -36,10 +36,17 @@ export const TextInput = (props: TextInputProps) => {
     value,
     onFocus,
     onEndEditing,
+    defaultValue,
     ...restProps
   } = props;
   const [focused, setFocused] = useState(false);
   const {colors} = useThemeColor();
+
+  useEffect(() => {
+    if (defaultValue) {
+      moveLabelTop();
+    }
+  });
 
   const getStyle = useMemo(() => {
     if (mode === 'outline') {
@@ -181,6 +188,7 @@ export const TextInput = (props: TextInputProps) => {
       },
       fontStyles.b3_Text_Italic,
       focused ? [fontStyles.b3_Text_SemiBold, getLabelColor, labelStyle] : null,
+      labelStyle,
     ];
   }, [
     colors.background,
@@ -212,6 +220,7 @@ export const TextInput = (props: TextInputProps) => {
         editable={editable}
         onChangeText={onChangeText}
         onEndEditing={onEndEditingHandler}
+        defaultValue={defaultValue}
         {...restProps}
       />
     );
