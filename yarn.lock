@@ -2064,11 +2064,6 @@
   dependencies:
     stacktrace-js "^2.0.0"
 
-"@react-native-firebase/database@^18.1.0":
-  version "18.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/database/-/database-18.1.0.tgz#cf35d2d9f97e521aa8153b45e3e1ff15f75acb4f"
-  integrity sha512-PXCC4UGIo3Eg2aDFlfKlSAqE+VuZIPeTaFvAT/vIMWlD3PxSDly3iJN/pVE88XnQxr7VO2PUYg0x25Mpmml00w==
-
 "@react-native-firebase/messaging@^18.0.0":
   version "18.0.0"
   resolved "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-18.0.0.tgz"
@@ -3198,11 +3193,6 @@
   version "1.2.4"
   resolved "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.4.tgz"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
-
-"@types/react-native-push-notification@^8.1.1":
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/@types/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz#0c9a181d7823cfad215d040bc5596c2d83e1a3cd"
-  integrity sha512-ZN4UbU4EM3C7XGt4zI6RqHEZS2+35EwOz9DPAD1lTTY3IpWMHAKYjryykvP35hFkSwrGMpT8nYuMFPEJRwDEJA==
 
 "@types/react-native-vector-icons@^6.4.13":
   version "6.4.13"
@@ -9662,11 +9652,6 @@ react-native-permissions@^3.8.0:
   dependencies:
     picocolors "^1.0.0"
     pkg-dir "^5.0.0"
-
-react-native-push-notification@^8.1.1:
-  version "8.1.1"
-  resolved "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz"
-  integrity sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA==
 
 react-native-reanimated-carousel@^3.3.0:
   version "3.3.0"

@@ -1,23 +1,19 @@
 import {zodResolver} from '@hookform/resolvers/zod';
-import {firebase} from '@react-native-firebase/database';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useContext, useState} from 'react';
+// import {firebase} from '@react-native-firebase/database';
+import React, {useState} from 'react';
 import {
   Controller,
   RegisterOptions,
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
-import {Alert, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {z} from 'zod';
 import {Button, TextInput, TextInputProps} from '../../components';
 import {Constants} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
-import {RootStoreContext} from '../../models';
-import {ProfileStackParams} from '../../navigation';
 import {ScreenStatus} from '../../types';
 import {horizontalScale, verticalScale} from '../../utils';
 import {KeyBoardAvoidingScrollViewWrapper} from '../../wrappers';
@@ -69,47 +65,47 @@ const ContactUsScreen = () => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<ProfileStackParams>>();
+  // const navigation =
+  //   useNavigation<NativeStackNavigationProp<ProfileStackParams>>();
 
-  const {user} = useContext(RootStoreContext);
+  // const {user} = useContext(RootStoreContext);
 
-  const reference = firebase
-    .app()
-    .database(Constants.FirebaseDatabaseUrl)
-    .ref('/queries/');
+  // const reference = firebase
+  //   .app()
+  //   .database(Constants.FirebaseDatabaseUrl)
+  //   .ref('/queries/');
 
   const {colors} = useThemeColor();
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  const onSubmit: SubmitHandler<Inputs> = async _data => {
     setIsSavingQuery(ScreenStatus.LOADING);
-    await reference
-      .child(user.id)
-      .set({
-        email: user.email,
-        data: data,
-      })
-      .then(
-        () => {
-          setIsSavingQuery(ScreenStatus.SUCCESS);
-          Alert.alert(
-            Strings.contactUs.successAlertTitle,
-            Strings.contactUs.successAlertDescription,
-            [
-              {
-                onPress: () => navigation.goBack(),
-              },
-            ],
-          );
-        },
-        () => {
-          setIsSavingQuery(ScreenStatus.ERROR);
-          Alert.alert(
-            Strings.contactUs.errorAlertTitle,
-            Strings.contactUs.errorAlertDescription,
-          );
-        },
-      );
+    // await reference
+    //   .child(user.id)
+    //   .set({
+    //     email: user.email,
+    //     data: data,
+    //   })
+    //   .then(
+    //     () => {
+    //       setIsSavingQuery(ScreenStatus.SUCCESS);
+    //       Alert.alert(
+    //         Strings.contactUs.successAlertTitle,
+    //         Strings.contactUs.successAlertDescription,
+    //         [
+    //           {
+    //             onPress: () => navigation.goBack(),
+    //           },
+    //         ],
+    //       );
+    //     },
+    //     () => {
+    //       setIsSavingQuery(ScreenStatus.ERROR);
+    //       Alert.alert(
+    //         Strings.contactUs.errorAlertTitle,
+    //         Strings.contactUs.errorAlertDescription,
+    //       );
+    //     },
+    //   );
   };
 
   function renderDatePicker() {

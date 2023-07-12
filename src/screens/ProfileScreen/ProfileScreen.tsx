@@ -25,7 +25,7 @@ import {
 import ImagePicker, {
   Image as ImagePickerResultProps,
 } from 'react-native-image-crop-picker';
-import PushNotification from 'react-native-push-notification';
+// import PushNotification from 'react-native-push-notification';
 import {ExperiencesData, MoreSettings} from '../../assets';
 import {Button, CustomIcon, CustomIconNames} from '../../components';
 import {Constants, fontStyles} from '../../constants';
@@ -175,27 +175,28 @@ const ProfileScreen = observer(() => {
     return <View style={styles.horizontalLine} />;
   };
 
-  const getLocalNotification = () =>
-    PushNotification.localNotification({
-      channelId: 'yelp-app',
-      priority: 'high',
-      visibility: 'public',
-      message: 'Local Notification from the RNPN',
-      title: 'Notification title',
-      largeIconUrl:
-        'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
-      picture:
-        'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
-    });
+  // const getLocalNotification = () =>
+  //   PushNotification.localNotification({
+  //     channelId: 'yelp-app',
+  //     priority: 'high',
+  //     visibility: 'public',
+  //     message: 'Local Notification from the RNPN',
+  //     title: 'Notification title',
+  //     largeIconUrl:
+  //       'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
+  //     picture:
+  //       'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
+  //   });
 
   const getRenderItemOnPress = (id: string) => {
     if (id === 'logout') {
       auth.signOut();
     } else if (id === 'contactus') {
       navigation.navigate(ProfileStackRoute.Contact);
-    } else {
-      getLocalNotification();
     }
+    // } else {
+    //   getLocalNotification();
+    // }
   };
 
   const renderMoreSettingsItem = (
