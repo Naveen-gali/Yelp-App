@@ -56,6 +56,14 @@
     "icon": "person-circle-outline"
   },
   {
+    "id": "contactus",
+    "label": {
+      "en": "Contact Us",
+      "ar": "اتصل بنا"
+    },
+    "icon": "call"
+  },
+  {
     "id": "logout",
     "label": {
       "en": "Logout",

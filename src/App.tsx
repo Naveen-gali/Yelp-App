@@ -10,9 +10,10 @@ import {
   checkNotifications,
   requestNotifications,
 } from 'react-native-permissions';
-import PushNotification, {Importance} from 'react-native-push-notification';
+// import PushNotification, {Importance} from 'react-native-push-notification';
 import {RootStore, RootStoreContext, setupStore} from './models';
 import {RootNavigator} from './navigation';
+import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
@@ -30,6 +31,9 @@ Sentry.init({
 
 function App(): JSX.Element {
   const [isSettingStore, setIsSettingStore] = useState(true);
+  const methods = useForm({
+    context: useFormContext,
+  });
 
   GoogleSignin.configure({
     webClientId:
@@ -41,18 +45,18 @@ function App(): JSX.Element {
     await remoteConfig().fetchAndActivate();
   };
 
-  const createNotificationChannel = () =>
-    PushNotification.createChannel(
-      {
-        channelId: 'yelp-app',
-        channelName: 'Yelp App',
-        channelDescription: 'A Channel to get Notifications from the Yelp App',
-        importance: Importance.HIGH,
-        soundName: 'default',
-        vibrate: true,
-      },
-      created => console.log('Channel Created! :- ', created),
-    );
+  // const createNotificationChannel = () =>
+  //   PushNotification.createChannel(
+  //     {
+  //       channelId: 'yelp-app',
+  //       channelName: 'Yelp App',
+  //       channelDescription: 'A Channel to get Notifications from the Yelp App',
+  //       importance: Importance.HIGH,
+  //       soundName: 'default',
+  //       vibrate: true,
+  //     },
+  //     created => console.log('Channel Created! :- ', created),
+  //   );
 
   async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
@@ -84,7 +88,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     requestUserPermission();
-    createNotificationChannel();
+    // createNotificationChannel();
     setupStore()
       .then(() => fetchRemoteConfig())
       .then(() => {
@@ -123,9 +127,11 @@ function App(): JSX.Element {
     } else {
       return (
         <GestureHandlerRootView style={styles.container}>
-          <RootStoreContext.Provider value={RootStore}>
-            <RootNavigator />
-          </RootStoreContext.Provider>
+          <FormProvider {...methods}>
+            <RootStoreContext.Provider value={RootStore}>
+              <RootNavigator />
+            </RootStoreContext.Provider>
+          </FormProvider>
         </GestureHandlerRootView>
       );
     }

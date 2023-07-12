@@ -29,6 +29,7 @@ export type ExperiencesDataItemType = {
 };
 
 export enum ScreenStatus {
+  DEFAULT = 'DEFAULT',
   LOADING = 'LOADING',
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
