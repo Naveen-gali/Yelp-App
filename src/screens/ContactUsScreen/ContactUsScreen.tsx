@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {horizontalScale, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
-// import {z} from 'zod';
 import {
   Controller,
   RegisterOptions,
@@ -14,6 +13,9 @@ import {Button, TextInput, TextInputProps} from '../../components';
 import {KeyBoardAvoidingScrollViewWrapper} from '../../Wrappers';
 import {Constants} from '../../constants';
 import {useThemeColor} from '../../hooks';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {z} from 'zod';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -26,40 +28,66 @@ type Inputs = {
   date: string;
 };
 
-// const schema = z.object({
-//   name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
-//   age: z.coerce
-//     .number({
-//       invalid_type_error: Strings.contactUs.ageErrorMessage,
-//       required_error: 'Age is Required',
-//     })
-//     .gte(18)
-//     .lte(100),
-//   email: z
-//     .string({
-//       invalid_type_error: Strings.contactUs.emailErrorMessage,
-//       required_error: 'Required Field',
-//     })
-//     .email(),
-//   phone_number: z.coerce
-//     .number({
-//       invalid_type_error: Strings.contactUs.phoneErrorMessage,
-//       required_error: 'Required Field',
-//     })
-//     .gte(600000000, {message: Strings.contactUs.phoneErrorMessage})
-//     .lte(9999999999, {message: Strings.contactUs.phoneErrorMessage}),
-//   query: z.string().min(1),
-//   date: z.string(),
-// });
+const schema = z.object({
+  name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
+  age: z.coerce
+    .number({
+      invalid_type_error: Strings.contactUs.ageErrorMessage,
+      required_error: 'Age is Required',
+    })
+    .gte(18)
+    .lte(100),
+  email: z
+    .string({
+      invalid_type_error: Strings.contactUs.emailErrorMessage,
+      required_error: 'Required Field',
+    })
+    .email(),
+  phone_number: z.coerce
+    .number({
+      invalid_type_error: Strings.contactUs.phoneErrorMessage,
+      required_error: 'Required Field',
+    })
+    .gte(600000000, {message: Strings.contactUs.phoneErrorMessage})
+    .lte(9999999999, {message: Strings.contactUs.phoneErrorMessage}),
+  query: z.string().min(1),
+  date: z.string(),
+});
 
 const ContactUsScreen = () => {
-  const {handleSubmit, control} = useForm<Inputs>({
+  const {handleSubmit, control, setValue} = useForm<Inputs>({
     progressive: true,
+    resolver: zodResolver(schema),
   });
 
   const [isSavingQuery, setIsSavingQuery] = useState(ScreenStatus.DEFAULT);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const {colors} = useThemeColor();
+
+  function renderDatePicker() {
+    if (showDatePicker) {
+      return (
+        <DateTimePicker
+          onConfirm={date => {
+            console.log('DATE :_ ', date);
+            setValue('date', date.toLocaleDateString(), {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+            setShowDatePicker(false);
+          }}
+          onCancel={() => {
+            console.log('CANCELLED :_ ');
+            setShowDatePicker(false);
+          }}
+          isVisible={showDatePicker}
+          mode={'date'}
+          maximumDate={new Date()}
+        />
+      );
+    }
+  }
 
   function renderTextInputController(
     name: keyof Inputs,
@@ -84,7 +112,7 @@ const ContactUsScreen = () => {
             onChangeText={onChange}
             value={value}
             onBlur={onBlur}
-            error={error ? true : false}
+            error={!!error}
             errorMessage={error?.message}
             style={styles.input}
             autoCorrect={false}
@@ -100,6 +128,7 @@ const ContactUsScreen = () => {
   const onSubmit: SubmitHandler<Inputs> = async data => {
     setIsSavingQuery(ScreenStatus.LOADING);
     console.log('DATA :_ ', data);
+    setIsSavingQuery(ScreenStatus.SUCCESS);
   };
 
   return (
@@ -147,12 +176,24 @@ const ContactUsScreen = () => {
             required: true,
           },
         )}
+        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+          {renderTextInputController('date', 'Birth Date', {
+            editable: false,
+            selectTextOnFocus: false,
+            inputStyle: {
+              backgroundColor: colors.background,
+            },
+            onTouchStart: () => setShowDatePicker(true),
+            labelStyle: {backgroundColor: colors.background},
+          })}
+        </TouchableOpacity>
+        {renderDatePicker()}
         {renderTextInputController(
           'query',
           Strings.contactUs.queryFieldLabel,
           {
             multiline: true,
-
+            numberOfLines: 10,
             inputStyle: styles.TextInput,
           },
           {required: true},
@@ -186,6 +227,7 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     height: verticalScale(150),
+    textAlignVertical: 'top',
   },
   dropDown: {
     height: verticalScale(100),

@@ -9,7 +9,9 @@ type Props = {
 const KeyBoardAvoidingScrollViewWrapper = (props: Props) => {
   const {children} = props;
   return (
-    <KeyboardAvoidingView behavior={DeviceUtils.isIos ? 'padding' : 'height'}>
+    <KeyboardAvoidingView
+      behavior={DeviceUtils.isIos ? 'padding' : 'height'}
+      renderToHardwareTextureAndroid={true}>
       <ScrollView bounces={true} automaticallyAdjustContentInsets={true}>
         {children}
       </ScrollView>

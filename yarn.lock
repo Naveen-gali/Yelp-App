@@ -1488,6 +1488,11 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@hookform/resolvers@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.1.1.tgz#b374d33e356428fff9c6ef3c933441fe15e40784"
+  integrity sha512-tS16bAUkqjITNSvbJuO1x7MXbn7Oe8ZziDTJdA9mMvsoYthnOOiznOTGBYwbdlYBgU+tgpI/BtTU3paRbCuSlg==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.8.tgz"
@@ -9628,6 +9633,13 @@ react-native-modal-datetime-picker@^14.0.0:
   version "14.0.1"
   resolved "https://registry.npmjs.org/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-14.0.1.tgz"
   integrity sha512-wQt4Pjxt2jiTsVhLMG0E7WrRTYBEQx2d/nUrFVCbRqJ7lrXocXaT5UZsyMpV93TnKcyut62OprbO88wYq/vh0g==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-modal-datetime-picker@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-17.0.0.tgz#699272ffe58159bb5df93910e3cfdffe2f2e99da"
+  integrity sha512-/NFZMlugmd4WnKfNHjWQ5vz7PWfL2ECg8+hH0i661EqunT3+Oulp8a/0BCjNfCy2YEHargeII4T0ztLEe5MsfA==
   dependencies:
     prop-types "^15.7.2"
 

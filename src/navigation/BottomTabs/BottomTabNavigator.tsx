@@ -21,7 +21,10 @@ const BottomTabNavigator = () => {
   const active_color = remoteConfig().getValue('bottom_tab_active_color');
 
   return (
-    <BottomTabs.Navigator>
+    <BottomTabs.Navigator
+      screenOptions={{
+        tabBarHideOnKeyboard: true,
+      }}>
       <BottomTabs.Screen
         name={BottomTabRoute.Search}
         component={PrimaryStackNavigator}
