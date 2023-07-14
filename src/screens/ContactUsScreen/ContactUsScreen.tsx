@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {horizontalScale, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
 import {
@@ -16,6 +16,7 @@ import {useThemeColor} from '../../hooks';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import {CountryPicker} from 'react-native-country-picker-modal/lib/CountryPicker';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -26,6 +27,7 @@ type Inputs = {
   phone_number: string;
   query: string;
   date: string;
+  country_code: string;
 };
 
 const schema = z.object({
@@ -62,6 +64,8 @@ const ContactUsScreen = () => {
 
   const [isSavingQuery, setIsSavingQuery] = useState(ScreenStatus.DEFAULT);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const {colors} = useThemeColor();
 
@@ -75,6 +79,7 @@ const ContactUsScreen = () => {
               shouldValidate: true,
               shouldDirty: true,
             });
+            setDate(date);
             setShowDatePicker(false);
           }}
           onCancel={() => {
@@ -84,10 +89,44 @@ const ContactUsScreen = () => {
           isVisible={showDatePicker}
           mode={'date'}
           maximumDate={new Date()}
+          date={date}
         />
       );
     }
   }
+
+  function renderCountryCodePicker() {
+    return (
+      <CountryPicker
+        visible={showCountryCodePicker}
+        onSelect={c => {
+          console.log('Country :_ ', c.callingCode);
+          setValue('country_code', '+ ' + c.callingCode, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setShowCountryCodePicker(false);
+        }}
+        onClose={() => setShowCountryCodePicker(false)}
+        withAlphaFilter={true}
+        withCallingCode={true}
+        withCountryNameButton={false}
+        containerButtonStyle={{
+          opacity: 0,
+          height: 0,
+        }}
+      />
+    );
+  }
+
+  const getDefaultValue = (name: keyof Inputs, value: string) => {
+    if (name === 'date') {
+      return value?.toString();
+    } else if (name === 'country_code') {
+      return value;
+    }
+    return undefined;
+  };
 
   function renderTextInputController(
     name: keyof Inputs,
@@ -117,7 +156,7 @@ const ContactUsScreen = () => {
             style={styles.input}
             autoCorrect={false}
             editable={true}
-            defaultValue={name === 'date' ? value?.toString() : undefined}
+            defaultValue={getDefaultValue(name, value)}
             {...textInputProps}
           />
         )}
@@ -164,18 +203,35 @@ const ContactUsScreen = () => {
             required: true,
           },
         )}
-        {renderTextInputController(
-          'phone_number',
-          Strings.contactUs.phoneFieldLabel,
-          {
-            multiline: false,
-            hint: Strings.contactUs.phoneHintMessage,
-            keyboardType: 'number-pad',
-          },
-          {
-            required: true,
-          },
-        )}
+        {renderCountryCodePicker()}
+        <View style={styles.phoneNumberRow}>
+          <TouchableOpacity
+            onPress={() => setShowCountryCodePicker(true)}
+            style={styles.countryCodeInput}>
+            {renderTextInputController('country_code', 'Country Code', {
+              editable: false,
+              selectTextOnFocus: false,
+              inputStyle: {
+                backgroundColor: colors.background,
+              },
+              onTouchStart: () => setShowCountryCodePicker(true),
+              style: styles.countryInputDefaultStyle,
+              labelStyle: {backgroundColor: colors.background},
+            })}
+          </TouchableOpacity>
+          {renderTextInputController(
+            'phone_number',
+            Strings.contactUs.phoneFieldLabel,
+            {
+              multiline: false,
+              keyboardType: 'number-pad',
+              style: styles.phoneNumberInput,
+            },
+            {
+              required: true,
+            },
+          )}
+        </View>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           {renderTextInputController('date', 'Birth Date', {
             editable: false,
@@ -242,6 +298,20 @@ const styles = StyleSheet.create({
   dateLabel: {
     marginHorizontal: horizontalScale(10),
     marginBottom: verticalScale(-5),
+  },
+  phoneNumberRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: verticalScale(5),
+  },
+  countryCodeInput: {
+    width: '35%',
+  },
+  phoneNumberInput: {
+    width: '55%',
+  },
+  countryInputDefaultStyle: {
+    padding: 0,
   },
 });
 
