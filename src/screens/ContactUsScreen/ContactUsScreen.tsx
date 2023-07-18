@@ -1,22 +1,27 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TextInputFocusEventData,
+} from 'react-native';
 import {horizontalScale, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
 import {
   Controller,
+  FieldError,
   RegisterOptions,
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
 import {ScreenStatus} from '../../types';
-import {Button, TextInput, TextInputProps} from '../../components';
+import {Button, DatePicker, TextInput, TextInputProps} from '../../components';
 import {KeyBoardAvoidingScrollViewWrapper} from '../../Wrappers';
 import {Constants} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import {CountryPicker} from 'react-native-country-picker-modal/lib/CountryPicker';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -63,61 +68,33 @@ const ContactUsScreen = () => {
   });
 
   const [isSavingQuery, setIsSavingQuery] = useState(ScreenStatus.DEFAULT);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
   const [date, setDate] = useState(new Date());
 
   const {colors} = useThemeColor();
 
-  function renderDatePicker() {
-    if (showDatePicker) {
-      return (
-        <DateTimePicker
-          onConfirm={date => {
-            console.log('DATE :_ ', date);
-            setValue('date', date.toLocaleDateString(), {
-              shouldValidate: true,
-              shouldDirty: true,
-            });
-            setDate(date);
-            setShowDatePicker(false);
-          }}
-          onCancel={() => {
-            console.log('CANCELLED :_ ');
-            setShowDatePicker(false);
-          }}
-          isVisible={showDatePicker}
-          mode={'date'}
-          maximumDate={new Date()}
-          date={date}
-        />
-      );
-    }
-  }
-
-  function renderCountryCodePicker() {
-    return (
-      <CountryPicker
-        visible={showCountryCodePicker}
-        onSelect={c => {
-          console.log('Country :_ ', c.callingCode);
-          setValue('country_code', '+ ' + c.callingCode, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
-          setShowCountryCodePicker(false);
-        }}
-        onClose={() => setShowCountryCodePicker(false)}
-        withAlphaFilter={true}
-        withCallingCode={true}
-        withCountryNameButton={false}
-        containerButtonStyle={{
-          opacity: 0,
-          height: 0,
-        }}
-      />
-    );
-  }
+  // function renderCountryCodePicker() {
+  //   return (
+  //     <CountryPicker
+  //       visible={showCountryCodePicker}
+  //       onSelect={c => {
+  //         console.log('Country :_ ', c.callingCode);
+  //         setValue('country_code', '+ ' + c.callingCode, {
+  //           shouldValidate: true,
+  //           shouldDirty: true,
+  //         });
+  //         setShowCountryCodePicker(false);
+  //       }}
+  //       onClose={() => setShowCountryCodePicker(false)}
+  //       withAlphaFilter={true}
+  //       withCallingCode={true}
+  //       withCountryNameButton={false}
+  //       containerButtonStyle={{
+  //         opacity: 0,
+  //         height: 0,
+  //       }}
+  //     />
+  //   );
+  // }
 
   const getDefaultValue = (name: keyof Inputs, value: string) => {
     if (name === 'date') {
@@ -128,9 +105,44 @@ const ContactUsScreen = () => {
     return undefined;
   };
 
+  function renderTextInput(
+    onChange: (text: string) => void,
+    onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void,
+    label: string,
+    error: FieldError | undefined,
+    value: string,
+    defaultValue: string | undefined,
+    name: keyof Inputs,
+    textInputProps: Omit<
+      TextInputProps,
+      | 'onChangeText'
+      | 'onBlur'
+      | 'value'
+      | 'label'
+      | 'error'
+      | 'defaultValue'
+      | 'onChange'
+    >,
+  ) {
+    return (
+      <TextInput
+        onChangeText={onChange}
+        onBlur={onBlur}
+        mode="outline"
+        value={value}
+        error={!!error}
+        editable={true}
+        autoCorrect={false}
+        label={label}
+        {...textInputProps}
+      />
+    );
+  }
+
   function renderTextInputController(
     name: keyof Inputs,
     label: string,
+    mode: 'textInput' | 'datePicker' | 'countryCodePicker',
     textInputProps?: Omit<TextInputProps, 'onChangeText'>,
     rules?:
       | Omit<
@@ -144,22 +156,45 @@ const ContactUsScreen = () => {
         name={name}
         control={control}
         rules={rules}
-        render={({field: {onChange, value, onBlur}, fieldState: {error}}) => (
-          <TextInput
-            label={label}
-            mode="outline"
-            onChangeText={onChange}
-            value={value}
-            onBlur={onBlur}
-            error={!!error}
-            errorMessage={error?.message}
-            style={styles.input}
-            autoCorrect={false}
-            editable={true}
-            defaultValue={getDefaultValue(name, value)}
-            {...textInputProps}
-          />
-        )}
+        render={({field: {onChange, value, onBlur}, fieldState: {error}}) => {
+          if (mode === 'textInput') {
+            return renderTextInput(
+              onChange,
+              onBlur,
+              label,
+              error,
+              value,
+              undefined,
+              name,
+              {
+                style: styles.input,
+                errorMessage: error?.message,
+                ...textInputProps,
+              },
+            );
+          } else if (mode === 'datePicker') {
+            return (
+              <DatePicker
+                onConfirm={selectedDate => {
+                  setValue('date', selectedDate?.toLocaleDateString(), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
+                  setDate(date);
+                }}
+                onCancel={() => {}}
+                date={date}
+                mode={'date'}
+                value={getDefaultValue(name, value)}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                style={styles.input}
+              />
+            );
+          } else {
+            return <Text>Country Code Picker</Text>;
+          }
+        }}
       />
     );
   }
@@ -170,6 +205,118 @@ const ContactUsScreen = () => {
     setIsSavingQuery(ScreenStatus.SUCCESS);
   };
 
+  function renderNameField() {
+    return renderTextInputController(
+      'name',
+      Strings.contactUs.nameFieldLabel,
+      'textInput',
+      {
+        multiline: false,
+      },
+    );
+  }
+
+  function renderAgeField() {
+    return renderTextInputController(
+      'age',
+      Strings.contactUs.ageFieldLabel,
+      'textInput',
+      {
+        multiline: false,
+        keyboardType: 'number-pad',
+      },
+      {
+        required: true,
+      },
+    );
+  }
+
+  function renderEmailField() {
+    return renderTextInputController(
+      'email',
+      Strings.contactUs.emailFieldLabel,
+      'textInput',
+      {
+        multiline: false,
+        autoCorrect: false,
+        autoCapitalize: 'none',
+      },
+      {
+        required: true,
+      },
+    );
+  }
+
+  // function renderCountryCodeField() {
+  //   return (
+  //     <TouchableOpacity
+  //       onPress={() => setShowCountryCodePicker(true)}
+  //       style={styles.countryCodeInput}>
+  //       {renderTextInputController(
+  //         'country_code',
+  //         'Country Code',
+  //         'textInput',
+  //         {
+  //           editable: false,
+  //           selectTextOnFocus: false,
+  //           inputStyle: {
+  //             backgroundColor: colors.background,
+  //           },
+  //           onTouchStart: () => setShowCountryCodePicker(true),
+  //           style: styles.countryInputDefaultStyle,
+  //           labelStyle: {backgroundColor: colors.background},
+  //         },
+  //       )}
+  //     </TouchableOpacity>
+  //   );
+  // }
+
+  // function renderPhoneNumberField() {
+  //   return renderTextInputController(
+  //     'phone_number',
+  //     Strings.contactUs.phoneFieldLabel,
+  //     'textInput',
+  //     {
+  //       multiline: false,
+  //       keyboardType: 'number-pad',
+  //       style: styles.phoneNumberInput,
+  //     },
+  //     {
+  //       required: true,
+  //     },
+  //   );
+  // }
+
+  function renderBirthDateField() {
+    return renderTextInputController('date', 'Birth Date', 'datePicker', {
+      selectTextOnFocus: false,
+      onTouchStart: () => console.log('On TouchStart'),
+    });
+  }
+
+  function renderQueryField() {
+    return renderTextInputController(
+      'query',
+      Strings.contactUs.queryFieldLabel,
+      'textInput',
+      {
+        multiline: true,
+        numberOfLines: 10,
+        inputStyle: styles.TextInput,
+      },
+      {required: true},
+    );
+  }
+
+  // function renderPhoneNumberRow() {
+  //   return (
+  //     <View style={styles.phoneNumberRow}>
+  //       {renderCountryCodeField()}
+  //       {renderPhoneNumberField()}
+  //     </View>
+  //   );
+  // }
+
   return (
     <KeyBoardAvoidingScrollViewWrapper>
       <React.Fragment>
@@ -177,83 +324,14 @@ const ContactUsScreen = () => {
           source={{uri: Constants.ContactUsImageUrl}}
           style={styles.image}
         />
-        {renderTextInputController('name', Strings.contactUs.nameFieldLabel, {
-          multiline: false,
-        })}
-        {renderTextInputController(
-          'age',
-          Strings.contactUs.ageFieldLabel,
-          {
-            multiline: false,
-            keyboardType: 'number-pad',
-          },
-          {
-            required: true,
-          },
-        )}
-        {renderTextInputController(
-          'email',
-          Strings.contactUs.emailFieldLabel,
-          {
-            multiline: false,
-            autoCorrect: false,
-            autoCapitalize: 'none',
-          },
-          {
-            required: true,
-          },
-        )}
-        {renderCountryCodePicker()}
-        <View style={styles.phoneNumberRow}>
-          <TouchableOpacity
-            onPress={() => setShowCountryCodePicker(true)}
-            style={styles.countryCodeInput}>
-            {renderTextInputController('country_code', 'Country Code', {
-              editable: false,
-              selectTextOnFocus: false,
-              inputStyle: {
-                backgroundColor: colors.background,
-              },
-              onTouchStart: () => setShowCountryCodePicker(true),
-              style: styles.countryInputDefaultStyle,
-              labelStyle: {backgroundColor: colors.background},
-            })}
-          </TouchableOpacity>
-          {renderTextInputController(
-            'phone_number',
-            Strings.contactUs.phoneFieldLabel,
-            {
-              multiline: false,
-              keyboardType: 'number-pad',
-              style: styles.phoneNumberInput,
-            },
-            {
-              required: true,
-            },
-          )}
-        </View>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-          {renderTextInputController('date', 'Birth Date', {
-            editable: false,
-            selectTextOnFocus: false,
-            inputStyle: {
-              backgroundColor: colors.background,
-            },
-            onTouchStart: () => setShowDatePicker(true),
-            labelStyle: {backgroundColor: colors.background},
-          })}
-        </TouchableOpacity>
-        {renderDatePicker()}
-        {renderTextInputController(
-          'query',
-          Strings.contactUs.queryFieldLabel,
-          {
-            multiline: true,
-            numberOfLines: 10,
-            inputStyle: styles.TextInput,
-          },
-          {required: true},
-        )}
+        {renderNameField()}
+        {renderAgeField()}
+        {renderEmailField()}
+        {/*{renderCountryCodePicker()}*/}
+        {/*{renderPhoneNumberRow()}*/}
+        {renderBirthDateField()}
+        {/*{renderDatePicker()}*/}
+        {renderQueryField()}
         <Button
           mode="outlined"
           onPress={handleSubmit(onSubmit)}
