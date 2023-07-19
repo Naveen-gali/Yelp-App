@@ -3,8 +3,8 @@ import {
   Image,
   NativeSyntheticEvent,
   StyleSheet,
-  Text,
   TextInputFocusEventData,
+  View,
 } from 'react-native';
 import {horizontalScale, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
@@ -16,7 +16,13 @@ import {
   useForm,
 } from 'react-hook-form';
 import {ScreenStatus} from '../../types';
-import {Button, DatePicker, TextInput, TextInputProps} from '../../components';
+import {
+  Button,
+  CountryPicker,
+  DatePicker,
+  TextInput,
+  TextInputProps,
+} from '../../components';
 import {KeyBoardAvoidingScrollViewWrapper} from '../../Wrappers';
 import {Constants} from '../../constants';
 import {useThemeColor} from '../../hooks';
@@ -71,30 +77,6 @@ const ContactUsScreen = () => {
   const [date, setDate] = useState(new Date());
 
   const {colors} = useThemeColor();
-
-  // function renderCountryCodePicker() {
-  //   return (
-  //     <CountryPicker
-  //       visible={showCountryCodePicker}
-  //       onSelect={c => {
-  //         console.log('Country :_ ', c.callingCode);
-  //         setValue('country_code', '+ ' + c.callingCode, {
-  //           shouldValidate: true,
-  //           shouldDirty: true,
-  //         });
-  //         setShowCountryCodePicker(false);
-  //       }}
-  //       onClose={() => setShowCountryCodePicker(false)}
-  //       withAlphaFilter={true}
-  //       withCallingCode={true}
-  //       withCountryNameButton={false}
-  //       containerButtonStyle={{
-  //         opacity: 0,
-  //         height: 0,
-  //       }}
-  //     />
-  //   );
-  // }
 
   const getDefaultValue = (name: keyof Inputs, value: string) => {
     if (name === 'date') {
@@ -192,7 +174,27 @@ const ContactUsScreen = () => {
               />
             );
           } else {
-            return <Text>Country Code Picker</Text>;
+            return (
+              <CountryPicker
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={getDefaultValue(name, value)}
+                style={styles.countryCodeInput}
+                onSelect={c => {
+                  setValue('country_code', '+ ' + c.callingCode, {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
+                }}
+                onClose={() => {}}
+                withAlphaFilter={true}
+                withCallingCode={true}
+                withCountryNameButton={false}
+                containerButtonStyle={styles.containerButtonStyle}
+                label={label}
+                textInputProps={textInputProps}
+              />
+            );
           }
         }}
       />
@@ -247,50 +249,41 @@ const ContactUsScreen = () => {
     );
   }
 
-  // function renderCountryCodeField() {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => setShowCountryCodePicker(true)}
-  //       style={styles.countryCodeInput}>
-  //       {renderTextInputController(
-  //         'country_code',
-  //         'Country Code',
-  //         'textInput',
-  //         {
-  //           editable: false,
-  //           selectTextOnFocus: false,
-  //           inputStyle: {
-  //             backgroundColor: colors.background,
-  //           },
-  //           onTouchStart: () => setShowCountryCodePicker(true),
-  //           style: styles.countryInputDefaultStyle,
-  //           labelStyle: {backgroundColor: colors.background},
-  //         },
-  //       )}
-  //     </TouchableOpacity>
-  //   );
-  // }
+  function renderCountryCodeField() {
+    return renderTextInputController(
+      'country_code',
+      'Country Code',
+      'countryCodePicker',
+      {
+        selectTextOnFocus: false,
+        inputStyle: {
+          backgroundColor: colors.background,
+        },
+        style: styles.countryInputDefaultStyle,
+        labelStyle: {backgroundColor: colors.background},
+      },
+    );
+  }
 
-  // function renderPhoneNumberField() {
-  //   return renderTextInputController(
-  //     'phone_number',
-  //     Strings.contactUs.phoneFieldLabel,
-  //     'textInput',
-  //     {
-  //       multiline: false,
-  //       keyboardType: 'number-pad',
-  //       style: styles.phoneNumberInput,
-  //     },
-  //     {
-  //       required: true,
-  //     },
-  //   );
-  // }
+  function renderPhoneNumberField() {
+    return renderTextInputController(
+      'phone_number',
+      Strings.contactUs.phoneFieldLabel,
+      'textInput',
+      {
+        multiline: false,
+        keyboardType: 'number-pad',
+        style: styles.phoneNumberInput,
+      },
+      {
+        required: true,
+      },
+    );
+  }
 
   function renderBirthDateField() {
     return renderTextInputController('date', 'Birth Date', 'datePicker', {
       selectTextOnFocus: false,
-      onTouchStart: () => console.log('On TouchStart'),
     });
   }
 
@@ -308,14 +301,14 @@ const ContactUsScreen = () => {
     );
   }
 
-  // function renderPhoneNumberRow() {
-  //   return (
-  //     <View style={styles.phoneNumberRow}>
-  //       {renderCountryCodeField()}
-  //       {renderPhoneNumberField()}
-  //     </View>
-  //   );
-  // }
+  function renderPhoneNumberRow() {
+    return (
+      <View style={styles.phoneNumberRow}>
+        {renderCountryCodeField()}
+        {renderPhoneNumberField()}
+      </View>
+    );
+  }
 
   return (
     <KeyBoardAvoidingScrollViewWrapper>
@@ -327,10 +320,8 @@ const ContactUsScreen = () => {
         {renderNameField()}
         {renderAgeField()}
         {renderEmailField()}
-        {/*{renderCountryCodePicker()}*/}
-        {/*{renderPhoneNumberRow()}*/}
+        {renderPhoneNumberRow()}
         {renderBirthDateField()}
-        {/*{renderDatePicker()}*/}
         {renderQueryField()}
         <Button
           mode="outlined"
@@ -390,6 +381,10 @@ const styles = StyleSheet.create({
   },
   countryInputDefaultStyle: {
     padding: 0,
+  },
+  containerButtonStyle: {
+    opacity: 0,
+    height: 0,
   },
 });
 
