@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
+  Alert,
   Image,
   NativeSyntheticEvent,
   StyleSheet,
@@ -28,6 +29,11 @@ import {Constants} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
+import {firebase} from '@react-native-firebase/database';
+import {RootStoreContext} from '../../models';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ProfileStackParams} from '../../navigation/ProfileStack';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -78,6 +84,11 @@ const ContactUsScreen = () => {
 
   const {colors} = useThemeColor();
 
+  const {user} = useContext(RootStoreContext);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ProfileStackParams>>();
+
   const getDefaultValue = (name: keyof Inputs, value: string) => {
     if (name === 'date') {
       return value?.toString();
@@ -85,6 +96,47 @@ const ContactUsScreen = () => {
       return value;
     }
     return undefined;
+  };
+
+  const reference = firebase
+    .app()
+    .database('https://yelp-app-e7dc6-default-rtdb.firebaseio.com/')
+    .ref('/queries/');
+
+  const onSubmit: SubmitHandler<Inputs> = async data => {
+    setIsSavingQuery(ScreenStatus.LOADING);
+    const date = new Date().getMilliseconds();
+    await reference
+      .child(date + user.id)
+      .set({
+        data,
+      })
+      .then(
+        () => {
+          setIsSavingQuery(ScreenStatus.SUCCESS);
+          Alert.alert(
+            Strings.contactUs.successAlertTitle,
+            Strings.contactUs.successAlertDescription,
+            [
+              {
+                onPress: () => navigation.goBack(),
+              },
+            ],
+          );
+        },
+        () => {
+          setIsSavingQuery(ScreenStatus.SUCCESS);
+          Alert.alert(
+            Strings.contactUs.errorAlertTitle,
+            Strings.contactUs.errorAlertDescription,
+            [
+              {
+                onPress: () => navigation.goBack(),
+              },
+            ],
+          );
+        },
+      );
   };
 
   function renderTextInput(
@@ -200,12 +252,6 @@ const ContactUsScreen = () => {
       />
     );
   }
-
-  const onSubmit: SubmitHandler<Inputs> = async data => {
-    setIsSavingQuery(ScreenStatus.LOADING);
-    console.log('DATA :_ ', data);
-    setIsSavingQuery(ScreenStatus.SUCCESS);
-  };
 
   function renderNameField() {
     return renderTextInputController(
