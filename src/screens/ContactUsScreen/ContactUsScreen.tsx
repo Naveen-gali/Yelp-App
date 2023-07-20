@@ -34,6 +34,8 @@ import {RootStoreContext} from '../../models';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ProfileStackParams} from '../../navigation/ProfileStack';
+import validator from 'validator';
+import {SchemaType} from './ContactUsScreen.types';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
@@ -53,34 +55,55 @@ enum InputTypes {
   countryCodePicker = 'CountryCodePicker',
 }
 
-const schema = z.object({
-  name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
-  age: z.coerce
-    .number({
-      invalid_type_error: Strings.contactUs.ageErrorMessage,
-      required_error: 'Age is Required',
-    })
-    .gte(18)
-    .lte(100),
-  email: z
-    .string({
-      invalid_type_error: Strings.contactUs.emailErrorMessage,
-      required_error: 'Required Field',
-    })
-    .email(),
-  phone_number: z.coerce
-    .number({
-      invalid_type_error: Strings.contactUs.phoneErrorMessage,
-      required_error: 'Required Field',
-    })
-    .gte(6000000000, {message: Strings.contactUs.phoneErrorMessage})
-    .lte(9999999999, {message: Strings.contactUs.phoneErrorMessage}),
-  query: z.string().min(1),
-  date: z.string(),
-});
-
 const ContactUsScreen = () => {
-  const {handleSubmit, control, setValue} = useForm<Inputs>({
+  const schema: SchemaType = z.object({
+    name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
+    age: z.coerce
+      .number({
+        invalid_type_error: Strings.contactUs.ageErrorMessage,
+        required_error: 'Age is Required',
+      })
+      .gte(18)
+      .lte(100),
+    email: z
+      .string({
+        invalid_type_error: Strings.contactUs.emailErrorMessage,
+        required_error: 'Required Field',
+      })
+      .email(),
+    phone_number: z.coerce
+      .number({
+        invalid_type_error: Strings.contactUs.phoneErrorMessage,
+        required_error: 'Required Field',
+      })
+      .refine(val => {
+        console.log(
+          'PHONE VAL :_ ',
+          validator.isMobilePhone(
+            val.toString(),
+            validator.isMobilePhoneLocales.find(mp =>
+              mp.includes(getValues('country_code')),
+            ),
+            {
+              strictMode: true,
+            },
+          ),
+        );
+        console.log('VALUE :_ ', typeof val);
+        return validator.isMobilePhone(
+          val.toString(),
+          validator.isMobilePhoneLocales.find(mp =>
+            mp.includes(getValues('country_code')),
+          ),
+          {
+            strictMode: false,
+          },
+        );
+      }),
+    query: z.string().min(1),
+    date: z.string(),
+  });
+  const {handleSubmit, control, setValue, getValues} = useForm<Inputs>({
     progressive: true,
     resolver: zodResolver(schema),
   });
@@ -198,6 +221,7 @@ const ContactUsScreen = () => {
         rules={rules}
         render={({field: {onChange, value, onBlur}, fieldState: {error}}) => {
           if (mode === InputTypes.textInput) {
+            name === 'phone_number' ? console.log('VALE :_ ', value) : null;
             return renderTextInput(
               onChange,
               onBlur,
@@ -239,6 +263,12 @@ const ContactUsScreen = () => {
                 value={getDefaultValue(name, value)}
                 style={styles.countryCodeInput}
                 onSelect={c => {
+                  console.log(
+                    'SELECTED VAL CODE CCA2:_ ',
+                    validator.isMobilePhoneLocales.find(mp =>
+                      mp.includes(c.cca2),
+                    ),
+                  );
                   setValue('country_code', '+ ' + c.callingCode, {
                     shouldValidate: true,
                     shouldDirty: true,
