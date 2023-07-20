@@ -15,6 +15,7 @@ const CountryPicker = (props: CountryPickerProps) => {
     style,
     label,
     textInputProps,
+    containerButtonStyle,
     ...restProps
   } = props;
   const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
@@ -33,7 +34,10 @@ const CountryPicker = (props: CountryPickerProps) => {
           setShowCountryCodePicker(false);
         }}
         visible={showCountryCodePicker}
-        containerButtonStyle={styles.containerButtonStyle}
+        containerButtonStyle={[
+          styles.containerButtonStyle,
+          containerButtonStyle,
+        ]}
         {...restProps}
       />
     );

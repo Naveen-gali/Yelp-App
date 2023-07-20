@@ -253,6 +253,7 @@ const ContactUsScreen = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 style={styles.input}
+                textInputProps={textInputProps}
               />
             );
           } else {

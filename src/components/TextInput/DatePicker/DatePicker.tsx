@@ -6,30 +6,39 @@ import {TouchableOpacity} from 'react-native';
 import {useThemeColor} from '../../../hooks';
 
 const DatePicker = (props: DatePickerProps) => {
-  const {onConfirm, onCancel, onChangeText, onBlur, value, date, mode, style} =
-    props;
+  const {
+    onConfirm,
+    onCancel,
+    onChangeText,
+    onBlur,
+    value,
+    date,
+    mode,
+    style,
+    textInputProps,
+    ...restProps
+  } = props;
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   function renderDatePicker() {
-    if (showDatePicker) {
-      return (
-        <DateTimePicker
-          mode={mode}
-          onConfirm={selectedDate => {
-            onConfirm(selectedDate);
-            setShowDatePicker(false);
-          }}
-          onCancel={() => {
-            onCancel();
-            setShowDatePicker(false);
-          }}
-          isVisible={showDatePicker}
-          date={date}
-          maximumDate={new Date()}
-        />
-      );
-    }
+    return (
+      <DateTimePicker
+        mode={mode}
+        onConfirm={selectedDate => {
+          onConfirm(selectedDate);
+          setShowDatePicker(false);
+        }}
+        onCancel={() => {
+          onCancel();
+          setShowDatePicker(false);
+        }}
+        isVisible={showDatePicker}
+        date={date}
+        maximumDate={new Date()}
+        {...restProps}
+      />
+    );
   }
 
   const {colors} = useThemeColor();
@@ -53,6 +62,7 @@ const DatePicker = (props: DatePickerProps) => {
         }}
         onTouchStart={() => setShowDatePicker(true)}
         style={style}
+        {...textInputProps}
       />
       {renderDatePicker()}
     </TouchableOpacity>

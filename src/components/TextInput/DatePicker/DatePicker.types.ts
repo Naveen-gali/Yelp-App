@@ -5,6 +5,7 @@ import {
   TextInputFocusEventData,
   ViewStyle,
 } from 'react-native';
+import {TextInputProps} from '../TextInput.types';
 
 export type DatePickerProps = {
   onConfirm: (date: Date) => void;
@@ -14,5 +15,6 @@ export type DatePickerProps = {
   onChangeText: (text: string) => void;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   value: string | undefined;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
+  textInputProps?: Omit<TextInputProps, 'onChangeText'>;
 } & Omit<ReactNativeModalDateTimePickerProps, 'date' | 'isVisible' | 'mode'>;
