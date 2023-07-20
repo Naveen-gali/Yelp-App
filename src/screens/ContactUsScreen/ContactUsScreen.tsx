@@ -462,10 +462,10 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(5),
   },
   countryCodeInput: {
-    width: '35%',
+    width: '34%',
   },
   phoneNumberInput: {
-    width: '55%',
+    width: '58%',
   },
   countryInputDefaultStyle: {
     padding: 0,

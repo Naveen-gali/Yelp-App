@@ -44,7 +44,7 @@ const DatePicker = (props: DatePickerProps) => {
   const {colors} = useThemeColor();
 
   return (
-    <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+    <TouchableOpacity onPress={() => setShowDatePicker(true)} style={style}>
       <TextInput
         onChangeText={onChangeText}
         onBlur={onBlur}
@@ -61,7 +61,6 @@ const DatePicker = (props: DatePickerProps) => {
           backgroundColor: colors.background,
         }}
         onTouchStart={() => setShowDatePicker(true)}
-        style={style}
         {...textInputProps}
       />
       {renderDatePicker()}
