@@ -47,6 +47,12 @@ type Inputs = {
   country_code: string;
 };
 
+enum InputTypes {
+  textInput = 'TextInput',
+  datePicker = 'DatePicker',
+  countryCodePicker = 'CountryCodePicker',
+}
+
 const schema = z.object({
   name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
   age: z.coerce
@@ -67,7 +73,7 @@ const schema = z.object({
       invalid_type_error: Strings.contactUs.phoneErrorMessage,
       required_error: 'Required Field',
     })
-    .gte(600000000, {message: Strings.contactUs.phoneErrorMessage})
+    .gte(6000000000, {message: Strings.contactUs.phoneErrorMessage})
     .lte(9999999999, {message: Strings.contactUs.phoneErrorMessage}),
   query: z.string().min(1),
   date: z.string(),
@@ -176,7 +182,7 @@ const ContactUsScreen = () => {
   function renderTextInputController(
     name: keyof Inputs,
     label: string,
-    mode: 'textInput' | 'datePicker' | 'countryCodePicker',
+    mode: InputTypes,
     textInputProps?: Omit<TextInputProps, 'onChangeText'>,
     rules?:
       | Omit<
@@ -191,7 +197,7 @@ const ContactUsScreen = () => {
         control={control}
         rules={rules}
         render={({field: {onChange, value, onBlur}, fieldState: {error}}) => {
-          if (mode === 'textInput') {
+          if (mode === InputTypes.textInput) {
             return renderTextInput(
               onChange,
               onBlur,
@@ -206,7 +212,7 @@ const ContactUsScreen = () => {
                 ...textInputProps,
               },
             );
-          } else if (mode === 'datePicker') {
+          } else if (mode === InputTypes.datePicker) {
             return (
               <DatePicker
                 onConfirm={selectedDate => {
@@ -257,7 +263,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'name',
       Strings.contactUs.nameFieldLabel,
-      'textInput',
+      InputTypes.textInput,
       {
         multiline: false,
       },
@@ -268,7 +274,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'age',
       Strings.contactUs.ageFieldLabel,
-      'textInput',
+      InputTypes.textInput,
       {
         multiline: false,
         keyboardType: 'number-pad',
@@ -283,7 +289,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'email',
       Strings.contactUs.emailFieldLabel,
-      'textInput',
+      InputTypes.textInput,
       {
         multiline: false,
         autoCorrect: false,
@@ -299,7 +305,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'country_code',
       'Country Code',
-      'countryCodePicker',
+      InputTypes.countryCodePicker,
       {
         selectTextOnFocus: false,
         inputStyle: {
@@ -315,7 +321,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'phone_number',
       Strings.contactUs.phoneFieldLabel,
-      'textInput',
+      InputTypes.textInput,
       {
         multiline: false,
         keyboardType: 'number-pad',
@@ -328,16 +334,21 @@ const ContactUsScreen = () => {
   }
 
   function renderBirthDateField() {
-    return renderTextInputController('date', 'Birth Date', 'datePicker', {
-      selectTextOnFocus: false,
-    });
+    return renderTextInputController(
+      'date',
+      'Birth Date',
+      InputTypes.datePicker,
+      {
+        selectTextOnFocus: false,
+      },
+    );
   }
 
   function renderQueryField() {
     return renderTextInputController(
       'query',
       Strings.contactUs.queryFieldLabel,
-      'textInput',
+      InputTypes.textInput,
       {
         multiline: true,
         numberOfLines: 10,

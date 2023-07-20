@@ -56,6 +56,7 @@ const CountryPicker = (props: CountryPickerProps) => {
         }}
         label={label}
         labelStyle={textInputProps?.labelStyle}
+        {...textInputProps}
       />
       {renderCountryPicker()}
     </TouchableOpacity>
