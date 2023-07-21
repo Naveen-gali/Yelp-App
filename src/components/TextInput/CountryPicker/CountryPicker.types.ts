@@ -18,6 +18,7 @@ import {CountryFilterProps} from 'react-native-country-picker-modal/lib/CountryF
 import {FlagButtonProps} from 'react-native-country-picker-modal/lib/FlagButton';
 import {ReactNode} from 'react';
 import {TextInputProps} from '../TextInput.types';
+import {FieldError} from 'react-hook-form';
 
 export type CountryPickerProps = {
   onSelect: (country: Country) => void;
@@ -55,5 +56,10 @@ export type CountryPickerProps = {
   onOpen?(): void;
   onClose(): void;
   label: string;
-  textInputProps?: Omit<TextInputProps, 'onChangeText'>;
+  textInputProps?: Omit<
+    TextInputProps,
+    'onChangeText' | 'error' | 'errorMessage'
+  >;
+  error?: FieldError;
+  errorMessage?: string;
 };

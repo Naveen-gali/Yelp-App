@@ -16,6 +16,8 @@ const CountryPicker = (props: CountryPickerProps) => {
     label,
     textInputProps,
     containerButtonStyle,
+    error,
+    errorMessage,
     ...restProps
   } = props;
   const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
@@ -60,6 +62,8 @@ const CountryPicker = (props: CountryPickerProps) => {
         }}
         label={label}
         labelStyle={textInputProps?.labelStyle}
+        error={!!error}
+        errorMessage={errorMessage}
         {...textInputProps}
       />
       {renderCountryPicker()}

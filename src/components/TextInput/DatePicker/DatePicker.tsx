@@ -15,6 +15,8 @@ const DatePicker = (props: DatePickerProps) => {
     date,
     mode,
     style,
+    error,
+    errorMessage,
     textInputProps,
     ...restProps
   } = props;
@@ -60,6 +62,8 @@ const DatePicker = (props: DatePickerProps) => {
         labelStyle={{
           backgroundColor: colors.background,
         }}
+        error={!!error}
+        errorMessage={errorMessage}
         onTouchStart={() => setShowDatePicker(true)}
         {...textInputProps}
       />

@@ -7,7 +7,7 @@ import {
   TextInputFocusEventData,
   View,
 } from 'react-native';
-import {horizontalScale, verticalScale} from '../../utils';
+import {horizontalScale, PhoneUtils, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
 import {
   Controller,
@@ -34,29 +34,13 @@ import {RootStoreContext} from '../../models';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ProfileStackParams} from '../../navigation/ProfileStack';
-import validator from 'validator';
-import {SchemaType} from './ContactUsScreen.types';
+import {ContactUsInputs, ContactUsInputTypes} from './ContactUsScreen.types';
 
 const circleSize = Math.min(horizontalScale(300), verticalScale(300));
 
-type Inputs = {
-  name: string;
-  age: string;
-  email: string;
-  phone_number: string;
-  query: string;
-  date: string;
-  country_code: string;
-};
-
-enum InputTypes {
-  textInput = 'TextInput',
-  datePicker = 'DatePicker',
-  countryCodePicker = 'CountryCodePicker',
-}
-
 const ContactUsScreen = () => {
-  const schema: SchemaType = z.object({
+  //TODO: Add Schema type at last.
+  const schema: any = z.object({
     name: z.string().min(7, {message: Strings.contactUs.nameErrorMessage}),
     age: z.coerce
       .number({
@@ -76,37 +60,26 @@ const ContactUsScreen = () => {
         invalid_type_error: Strings.contactUs.phoneErrorMessage,
         required_error: 'Required Field',
       })
-      .refine(val => {
-        console.log(
-          'PHONE VAL :_ ',
-          validator.isMobilePhone(
-            val.toString(),
-            validator.isMobilePhoneLocales.find(mp =>
-              mp.includes(getValues('country_code')),
-            ),
-            {
-              strictMode: true,
-            },
-          ),
+      .refine(phoneNumber => {
+        return PhoneUtils.isValidPhoneNumber(
+          phoneNumber,
+          getValues('country_code'),
+          PhoneUtils.getCountryLocale(getValues('country_locale')),
         );
-        console.log('VALUE :_ ', typeof val);
-        return validator.isMobilePhone(
-          val.toString(),
-          validator.isMobilePhoneLocales.find(mp =>
-            mp.includes(getValues('country_code')),
-          ),
-          {
-            strictMode: false,
-          },
-        );
-      }),
+      }, Strings.contactUs.phoneErrorMessage),
     query: z.string().min(1),
     date: z.string(),
+    country_code: z.string({
+      invalid_type_error: 'Invalid Country Code',
+      required_error: 'Required Field',
+    }),
   });
-  const {handleSubmit, control, setValue, getValues} = useForm<Inputs>({
-    progressive: true,
-    resolver: zodResolver(schema),
-  });
+  const {handleSubmit, control, setValue, getValues} = useForm<ContactUsInputs>(
+    {
+      progressive: true,
+      resolver: zodResolver(schema),
+    },
+  );
 
   const [isSavingQuery, setIsSavingQuery] = useState(ScreenStatus.DEFAULT);
   const [date, setDate] = useState(new Date());
@@ -118,7 +91,7 @@ const ContactUsScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<ProfileStackParams>>();
 
-  const getDefaultValue = (name: keyof Inputs, value: string) => {
+  const getDefaultValue = (name: keyof ContactUsInputs, value: string) => {
     if (name === 'date') {
       return value?.toString();
     } else if (name === 'country_code') {
@@ -129,10 +102,10 @@ const ContactUsScreen = () => {
 
   const reference = firebase
     .app()
-    .database('https://yelp-app-e7dc6-default-rtdb.firebaseio.com/')
+    .database(Constants.FirebaseDatabaseUrl)
     .ref('/queries/');
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  const onSubmit: SubmitHandler<ContactUsInputs> = async data => {
     setIsSavingQuery(ScreenStatus.LOADING);
     const date = new Date().getMilliseconds();
     await reference
@@ -175,7 +148,7 @@ const ContactUsScreen = () => {
     error: FieldError | undefined,
     value: string,
     defaultValue: string | undefined,
-    name: keyof Inputs,
+    name: keyof ContactUsInputs,
     textInputProps: Omit<
       TextInputProps,
       | 'onChangeText'
@@ -203,13 +176,13 @@ const ContactUsScreen = () => {
   }
 
   function renderTextInputController(
-    name: keyof Inputs,
+    name: keyof ContactUsInputs,
     label: string,
-    mode: InputTypes,
+    mode: ContactUsInputTypes,
     textInputProps?: Omit<TextInputProps, 'onChangeText'>,
     rules?:
       | Omit<
-          RegisterOptions<Inputs, keyof Inputs>,
+          RegisterOptions<ContactUsInputs, keyof ContactUsInputs>,
           'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
         >
       | undefined,
@@ -220,8 +193,7 @@ const ContactUsScreen = () => {
         control={control}
         rules={rules}
         render={({field: {onChange, value, onBlur}, fieldState: {error}}) => {
-          if (mode === InputTypes.textInput) {
-            name === 'phone_number' ? console.log('VALE :_ ', value) : null;
+          if (mode === ContactUsInputTypes.textInput) {
             return renderTextInput(
               onChange,
               onBlur,
@@ -236,11 +208,11 @@ const ContactUsScreen = () => {
                 ...textInputProps,
               },
             );
-          } else if (mode === InputTypes.datePicker) {
+          } else if (mode === ContactUsInputTypes.datePicker) {
             return (
               <DatePicker
                 onConfirm={selectedDate => {
-                  setValue('date', selectedDate?.toLocaleDateString(), {
+                  setValue('date', selectedDate?.toLocaleDateString('en-GB'), {
                     shouldValidate: true,
                     shouldDirty: true,
                   });
@@ -253,6 +225,8 @@ const ContactUsScreen = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 style={styles.input}
+                error={error}
+                errorMessage={error?.message}
                 textInputProps={textInputProps}
               />
             );
@@ -264,16 +238,11 @@ const ContactUsScreen = () => {
                 value={getDefaultValue(name, value)}
                 style={styles.countryCodeInput}
                 onSelect={c => {
-                  console.log(
-                    'SELECTED VAL CODE CCA2:_ ',
-                    validator.isMobilePhoneLocales.find(mp =>
-                      mp.includes(c.cca2),
-                    ),
-                  );
-                  setValue('country_code', '+ ' + c.callingCode, {
+                  setValue('country_code', '+' + c.callingCode, {
                     shouldValidate: true,
                     shouldDirty: true,
                   });
+                  setValue('country_locale', c.cca2);
                 }}
                 onClose={() => {}}
                 withAlphaFilter={true}
@@ -281,6 +250,8 @@ const ContactUsScreen = () => {
                 withCountryNameButton={false}
                 containerButtonStyle={styles.containerButtonStyle}
                 label={label}
+                error={error}
+                errorMessage={error?.message}
                 textInputProps={textInputProps}
               />
             );
@@ -294,7 +265,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'name',
       Strings.contactUs.nameFieldLabel,
-      InputTypes.textInput,
+      ContactUsInputTypes.textInput,
       {
         multiline: false,
       },
@@ -305,7 +276,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'age',
       Strings.contactUs.ageFieldLabel,
-      InputTypes.textInput,
+      ContactUsInputTypes.textInput,
       {
         multiline: false,
         keyboardType: 'number-pad',
@@ -320,7 +291,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'email',
       Strings.contactUs.emailFieldLabel,
-      InputTypes.textInput,
+      ContactUsInputTypes.textInput,
       {
         multiline: false,
         autoCorrect: false,
@@ -336,7 +307,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'country_code',
       'Country Code',
-      InputTypes.countryCodePicker,
+      ContactUsInputTypes.countryCodePicker,
       {
         selectTextOnFocus: false,
         inputStyle: {
@@ -352,11 +323,12 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'phone_number',
       Strings.contactUs.phoneFieldLabel,
-      InputTypes.textInput,
+      ContactUsInputTypes.textInput,
       {
         multiline: false,
         keyboardType: 'number-pad',
         style: styles.phoneNumberInput,
+        hint: Strings.contactUs.phoneHintMessage,
       },
       {
         required: true,
@@ -368,7 +340,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'date',
       'Birth Date',
-      InputTypes.datePicker,
+      ContactUsInputTypes.datePicker,
       {
         selectTextOnFocus: false,
       },
@@ -379,7 +351,7 @@ const ContactUsScreen = () => {
     return renderTextInputController(
       'query',
       Strings.contactUs.queryFieldLabel,
-      InputTypes.textInput,
+      ContactUsInputTypes.textInput,
       {
         multiline: true,
         numberOfLines: 10,

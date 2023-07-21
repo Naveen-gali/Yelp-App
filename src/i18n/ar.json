@@ -70,7 +70,7 @@
     "ageErrorMessage": "يجب أن يكون العمر بين 18 و 100",
     "emailErrorMessage": "عنوان البريد الإلكتروني غير صالح",
     "phoneErrorMessage": "رقم الهاتف غير صالح",
-    "phoneHintMessage": "الرجاء عدم إضافة بادئة +91",
+    "phoneHintMessage": "يرجى تجنب رموز الدول والأحرف الخاصة.",
     "nameFieldLabel": "اسم",
     "ageFieldLabel": "عمر",
     "emailFieldLabel": "البريد الإلكتروني",

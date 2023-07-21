@@ -6,6 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {TextInputProps} from '../TextInput.types';
+import {FieldError} from 'react-hook-form';
 
 export type DatePickerProps = {
   onConfirm: (date: Date) => void;
@@ -16,5 +17,10 @@ export type DatePickerProps = {
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   value: string | undefined;
   style?: StyleProp<ViewStyle>;
-  textInputProps?: Omit<TextInputProps, 'onChangeText'>;
+  error?: FieldError;
+  errorMessage?: string;
+  textInputProps?: Omit<
+    TextInputProps,
+    'onChangeText' | 'error' | 'errorMessage'
+  >;
 } & Omit<ReactNativeModalDateTimePickerProps, 'date' | 'isVisible' | 'mode'>;
