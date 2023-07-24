@@ -299,6 +299,7 @@ const ContactUsScreen = () => {
         multiline: false,
         autoCorrect: false,
         autoCapitalize: 'none',
+        keyboardType: 'email-address',
       },
       {
         required: true,
@@ -329,7 +330,7 @@ const ContactUsScreen = () => {
       ContactUsInputTypes.textInput,
       {
         multiline: false,
-        keyboardType: 'number-pad',
+        keyboardType: 'phone-pad',
         style: styles.phoneNumberInput,
         hint: Strings.contactUs.phoneHintMessage,
       },

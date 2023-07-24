@@ -11,8 +11,9 @@ const KeyBoardAvoidingScrollViewWrapper = (props: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={DeviceUtils.isIos ? 'padding' : 'height'}
-      renderToHardwareTextureAndroid={true}>
-      <ScrollView bounces={true} automaticallyAdjustContentInsets={true}>
+      renderToHardwareTextureAndroid={true}
+      style={{flex: 1}}>
+      <ScrollView bounces={true} automaticallyAdjustKeyboardInsets={true}>
         {children}
       </ScrollView>
     </KeyboardAvoidingView>
