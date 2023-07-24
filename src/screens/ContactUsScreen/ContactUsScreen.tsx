@@ -45,20 +45,20 @@ const ContactUsScreen = () => {
     age: z.coerce
       .number({
         invalid_type_error: Strings.contactUs.ageErrorMessage,
-        required_error: 'Age is Required',
+        required_error: Strings.contactUs.requiredField,
       })
       .gte(18)
       .lte(100),
     email: z
       .string({
         invalid_type_error: Strings.contactUs.emailErrorMessage,
-        required_error: 'Required Field',
+        required_error: Strings.contactUs.requiredField,
       })
       .email(),
     phone_number: z.coerce
       .number({
         invalid_type_error: Strings.contactUs.phoneErrorMessage,
-        required_error: 'Required Field',
+        required_error: Strings.contactUs.requiredField,
       })
       .refine(phoneNumber => {
         return PhoneUtils.isValidPhoneNumber(
@@ -68,10 +68,13 @@ const ContactUsScreen = () => {
         );
       }, Strings.contactUs.phoneErrorMessage),
     query: z.string().min(1),
-    date: z.string(),
+    date: z.string({
+      invalid_type_error: Strings.contactUs.dateErrorMessage,
+      required_error: Strings.contactUs.requiredField,
+    }),
     country_code: z.string({
-      invalid_type_error: 'Invalid Country Code',
-      required_error: 'Required Field',
+      invalid_type_error: Strings.contactUs.countryCodeErrorMessage,
+      required_error: Strings.contactUs.requiredField,
     }),
   });
   const {handleSubmit, control, setValue, getValues} = useForm<ContactUsInputs>(

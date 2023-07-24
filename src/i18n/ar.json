@@ -70,12 +70,15 @@
     "ageErrorMessage": "يجب أن يكون العمر بين 18 و 100",
     "emailErrorMessage": "عنوان البريد الإلكتروني غير صالح",
     "phoneErrorMessage": "رقم الهاتف غير صالح",
+    "countryCodeErrorMessage": "رمز البلد غير صالح",
+    "dateErrorMessage": "تاريخ غير صالح",
     "phoneHintMessage": "يرجى تجنب رموز الدول والأحرف الخاصة.",
     "nameFieldLabel": "اسم",
     "ageFieldLabel": "عمر",
     "emailFieldLabel": "البريد الإلكتروني",
     "phoneFieldLabel": "رقم الهاتف",
     "queryFieldLabel": "استفسار",
-    "birthdateLabel": "تاريخ الميلاد"
+    "birthdateLabel": "تاريخ الميلاد",
+    "requiredField": "يتطلب حقلا"
   }
 }

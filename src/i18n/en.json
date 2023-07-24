@@ -70,12 +70,15 @@
     "ageErrorMessage": "Age must be between 18 and 100",
     "emailErrorMessage": "Invalid Email Address",
     "phoneErrorMessage": "Invalid Phone Number",
+    "countryCodeErrorMessage": "Invalid Country Code",
+    "dateErrorMessage": "Invalid Date",
     "phoneHintMessage": "Please Avoid Country Codes, and Special Characters.",
     "nameFieldLabel": "Name",
     "ageFieldLabel": "Age",
     "emailFieldLabel": "Email",
     "phoneFieldLabel": "Phone Number",
     "queryFieldLabel": "Query",
-    "birthdateLabel": "Birth Date"
+    "birthdateLabel": "Birth Date",
+    "requiredField": "Required Field"
   }
 }
