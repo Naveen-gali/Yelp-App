@@ -77,12 +77,11 @@ const ContactUsScreen = () => {
       required_error: Strings.contactUs.requiredField,
     }),
   });
-  const {handleSubmit, control, setValue, getValues} = useForm<ContactUsInputs>(
-    {
+  const {handleSubmit, control, setValue, getValues, setFocus} =
+    useForm<ContactUsInputs>({
       progressive: true,
       resolver: zodResolver(schema),
-    },
-  );
+    });
 
   const [isSavingQuery, setIsSavingQuery] = useState(ScreenStatus.DEFAULT);
   const [date, setDate] = useState(new Date());
@@ -195,7 +194,10 @@ const ContactUsScreen = () => {
         name={name}
         control={control}
         rules={rules}
-        render={({field: {onChange, value, onBlur}, fieldState: {error}}) => {
+        render={({
+          field: {onChange, value, onBlur, ref},
+          fieldState: {error},
+        }) => {
           if (mode === ContactUsInputTypes.textInput) {
             return renderTextInput(
               onChange,
@@ -208,6 +210,8 @@ const ContactUsScreen = () => {
               {
                 style: styles.input,
                 errorMessage: error?.message,
+                ref: ref,
+                focusable: true,
                 ...textInputProps,
               },
             );
@@ -271,6 +275,11 @@ const ContactUsScreen = () => {
       ContactUsInputTypes.textInput,
       {
         multiline: false,
+        returnKeyType: 'next',
+        onSubmitEditing: () =>
+          setFocus('age', {
+            shouldSelect: true,
+          }),
       },
     );
   }
@@ -283,6 +292,7 @@ const ContactUsScreen = () => {
       {
         multiline: false,
         keyboardType: 'number-pad',
+        focusable: true,
       },
       {
         required: true,

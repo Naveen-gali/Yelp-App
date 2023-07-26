@@ -1,9 +1,10 @@
 import {
   StyleProp,
-  TextStyle,
   TextInputProps as DefaultProps,
+  TextStyle,
   ViewStyle,
 } from 'react-native';
+import {LegacyRef} from 'react';
 
 export type InputErrorProps = {
   error?: boolean;
@@ -23,4 +24,5 @@ export type TextInputProps = Omit<DefaultProps, 'onChangeText' | 'style'> &
     left?: JSX.Element;
     inputStyle?: StyleProp<TextStyle>;
     style?: StyleProp<ViewStyle>;
+    ref?: LegacyRef<any>;
   };
