@@ -16,7 +16,7 @@ import {horizontalScale, verticalScale} from '../../utils';
 import {Label} from '../Label';
 import {TextInputProps} from './TextInput.types';
 
-export const TextInput = (props: TextInputProps) => {
+export const TextInput = React.forwardRef((props: TextInputProps, ref) => {
   const {
     mode = 'default',
     onChangeText,
@@ -221,6 +221,7 @@ export const TextInput = (props: TextInputProps) => {
         onChangeText={onChangeText}
         onEndEditing={onEndEditingHandler}
         defaultValue={defaultValue}
+        ref={ref}
         {...restProps}
       />
     );
@@ -266,7 +267,7 @@ export const TextInput = (props: TextInputProps) => {
       {renderHintAndError()}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   input: {

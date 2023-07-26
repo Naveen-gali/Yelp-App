@@ -1,16 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {
-  Alert,
-  Image,
-  NativeSyntheticEvent,
-  StyleSheet,
-  TextInputFocusEventData,
-  View,
-} from 'react-native';
+import {Alert, Image, StyleSheet, View} from 'react-native';
 import {horizontalScale, PhoneUtils, verticalScale} from '../../utils';
 import {Strings} from '../../i18n';
 import {
   Controller,
+  ControllerRenderProps,
   FieldError,
   RegisterOptions,
   SubmitHandler,
@@ -77,7 +71,7 @@ const ContactUsScreen = () => {
       required_error: Strings.contactUs.requiredField,
     }),
   });
-  const {handleSubmit, control, setValue, getValues, setFocus} =
+  const {handleSubmit, control, register, setValue, getValues, setFocus} =
     useForm<ContactUsInputs>({
       progressive: true,
       resolver: zodResolver(schema),
@@ -144,13 +138,10 @@ const ContactUsScreen = () => {
   };
 
   function renderTextInput(
-    onChange: (text: string) => void,
-    onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void,
+    field: ControllerRenderProps<ContactUsInputs, keyof ContactUsInputs>,
     label: string,
     error: FieldError | undefined,
-    value: string,
     defaultValue: string | undefined,
-    name: keyof ContactUsInputs,
     textInputProps: Omit<
       TextInputProps,
       | 'onChangeText'
@@ -164,14 +155,14 @@ const ContactUsScreen = () => {
   ) {
     return (
       <TextInput
-        onChangeText={onChange}
-        onBlur={onBlur}
+        onChangeText={field.onChange}
         mode="outline"
-        value={value}
         error={!!error}
         editable={true}
         autoCorrect={false}
         label={label}
+        {...field}
+        {...register(field.name)}
         {...textInputProps}
       />
     );
@@ -188,33 +179,21 @@ const ContactUsScreen = () => {
           'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
         >
       | undefined,
+    onSelect?: () => void,
   ) {
     return (
       <Controller
         name={name}
         control={control}
         rules={rules}
-        render={({
-          field: {onChange, value, onBlur, ref},
-          fieldState: {error},
-        }) => {
+        render={({field, fieldState: {error}}) => {
           if (mode === ContactUsInputTypes.textInput) {
-            return renderTextInput(
-              onChange,
-              onBlur,
-              label,
-              error,
-              value,
-              undefined,
-              name,
-              {
-                style: styles.input,
-                errorMessage: error?.message,
-                ref: ref,
-                focusable: true,
-                ...textInputProps,
-              },
-            );
+            return renderTextInput(field, label, error, undefined, {
+              style: styles.input,
+              errorMessage: error?.message,
+              focusable: true,
+              ...textInputProps,
+            });
           } else if (mode === ContactUsInputTypes.datePicker) {
             return (
               <DatePicker
@@ -228,9 +207,9 @@ const ContactUsScreen = () => {
                 onCancel={() => {}}
                 date={date}
                 mode={'date'}
-                value={getDefaultValue(name, value)}
-                onChangeText={onChange}
-                onBlur={onBlur}
+                value={getDefaultValue(name, field.value)}
+                onChangeText={field.onChange}
+                onBlur={field.onBlur}
                 style={styles.input}
                 error={error}
                 errorMessage={error?.message}
@@ -240,9 +219,9 @@ const ContactUsScreen = () => {
           } else {
             return (
               <CountryPicker
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={getDefaultValue(name, value)}
+                onBlur={field.onBlur}
+                onChangeText={field.onChange}
+                value={getDefaultValue(name, field.value)}
                 style={styles.countryCodeInput}
                 onSelect={c => {
                   setValue('country_code', '+' + c.callingCode, {
@@ -250,6 +229,7 @@ const ContactUsScreen = () => {
                     shouldDirty: true,
                   });
                   setValue('country_locale', c.cca2);
+                  onSelect ? onSelect() : null;
                 }}
                 onClose={() => {}}
                 withAlphaFilter={true}
@@ -259,6 +239,7 @@ const ContactUsScreen = () => {
                 label={label}
                 error={error}
                 errorMessage={error?.message}
+                ref={field.ref}
                 textInputProps={textInputProps}
               />
             );
@@ -276,10 +257,7 @@ const ContactUsScreen = () => {
       {
         multiline: false,
         returnKeyType: 'next',
-        onSubmitEditing: () =>
-          setFocus('age', {
-            shouldSelect: true,
-          }),
+        onSubmitEditing: () => setFocus('age'),
       },
     );
   }
@@ -292,7 +270,8 @@ const ContactUsScreen = () => {
       {
         multiline: false,
         keyboardType: 'number-pad',
-        focusable: true,
+        onSubmitEditing: () => setFocus('email'),
+        returnKeyType: 'done',
       },
       {
         required: true,
@@ -310,6 +289,7 @@ const ContactUsScreen = () => {
         autoCorrect: false,
         autoCapitalize: 'none',
         keyboardType: 'email-address',
+        onSubmitEditing: () => setFocus('country_code'),
       },
       {
         required: true,
@@ -330,6 +310,8 @@ const ContactUsScreen = () => {
         style: styles.countryInputDefaultStyle,
         labelStyle: {backgroundColor: colors.background},
       },
+      {},
+      () => setFocus('phone_number'),
     );
   }
 
@@ -343,6 +325,8 @@ const ContactUsScreen = () => {
         keyboardType: 'phone-pad',
         style: styles.phoneNumberInput,
         hint: Strings.contactUs.phoneHintMessage,
+        returnKeyType: 'done',
+        onSubmitEditing: () => setFocus('query'),
       },
       {
         required: true,

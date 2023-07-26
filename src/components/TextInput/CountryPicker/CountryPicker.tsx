@@ -1,11 +1,11 @@
 import {CountryPicker as RNCountryPicker} from 'react-native-country-picker-modal/lib/CountryPicker';
 import {CountryPickerProps} from './CountryPicker.types';
-import {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {TextInput} from '../TextInput';
 import {useThemeColor} from '../../../hooks';
 
-const CountryPicker = (props: CountryPickerProps) => {
+const CountryPicker = forwardRef((props: CountryPickerProps, ref) => {
   const {
     onSelect,
     onClose,
@@ -64,12 +64,13 @@ const CountryPicker = (props: CountryPickerProps) => {
         labelStyle={textInputProps?.labelStyle}
         error={!!error}
         errorMessage={errorMessage}
+        ref={ref}
         {...textInputProps}
       />
       {renderCountryPicker()}
     </TouchableOpacity>
   );
-};
+});
 
 const styles = StyleSheet.create({
   containerButtonStyle: {

@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {DatePickerProps} from './DatePicker.types';
 import {TextInput} from '../TextInput';
 import {TouchableOpacity} from 'react-native';
 import {useThemeColor} from '../../../hooks';
 
-const DatePicker = (props: DatePickerProps) => {
+const DatePicker = forwardRef((props: DatePickerProps, ref) => {
   const {
     onConfirm,
     onCancel,
@@ -65,11 +65,12 @@ const DatePicker = (props: DatePickerProps) => {
         error={!!error}
         errorMessage={errorMessage}
         onTouchStart={() => setShowDatePicker(true)}
+        ref={ref}
         {...textInputProps}
       />
       {renderDatePicker()}
     </TouchableOpacity>
   );
-};
+});
 
 export {DatePicker};
