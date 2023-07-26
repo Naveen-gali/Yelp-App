@@ -101,6 +101,13 @@ const ContactUsScreen = () => {
     .database(Constants.FirebaseDatabaseUrl)
     .ref('/queries/');
 
+  const dataSavedAlert = (title: string, description: string) =>
+    Alert.alert(title, description, [
+      {
+        onPress: () => navigation.goBack(),
+      },
+    ]);
+
   const onSubmit: SubmitHandler<ContactUsInputs> = async data => {
     setIsSavingQuery(ScreenStatus.LOADING);
     const date = new Date().getMilliseconds();
@@ -112,26 +119,16 @@ const ContactUsScreen = () => {
       .then(
         () => {
           setIsSavingQuery(ScreenStatus.SUCCESS);
-          Alert.alert(
+          dataSavedAlert(
             Strings.contactUs.successAlertTitle,
             Strings.contactUs.successAlertDescription,
-            [
-              {
-                onPress: () => navigation.goBack(),
-              },
-            ],
           );
         },
         () => {
           setIsSavingQuery(ScreenStatus.SUCCESS);
-          Alert.alert(
+          dataSavedAlert(
             Strings.contactUs.errorAlertTitle,
             Strings.contactUs.errorAlertDescription,
-            [
-              {
-                onPress: () => navigation.goBack(),
-              },
-            ],
           );
         },
       );
@@ -161,9 +158,73 @@ const ContactUsScreen = () => {
         editable={true}
         autoCorrect={false}
         label={label}
+        multiline={false}
         {...field}
         {...register(field.name)}
         {...textInputProps}
+      />
+    );
+  }
+
+  function renderDatePicker(
+    field: ControllerRenderProps<ContactUsInputs, keyof ContactUsInputs>,
+    error: FieldError | undefined,
+    textInputProps?: Omit<TextInputProps, 'onChangeText'>,
+  ) {
+    return (
+      <DatePicker
+        onConfirm={selectedDate => {
+          setValue('date', selectedDate?.toLocaleDateString('en-GB'), {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setDate(date);
+        }}
+        onCancel={() => {}}
+        date={date}
+        mode={'date'}
+        value={getDefaultValue(field.name, field.value)}
+        onChangeText={field.onChange}
+        onBlur={field.onBlur}
+        style={styles.input}
+        error={error}
+        errorMessage={error?.message}
+        textInputProps={textInputProps}
+        ref={field.ref}
+      />
+    );
+  }
+
+  function renderCountryCodePicker(
+    field: ControllerRenderProps<ContactUsInputs, keyof ContactUsInputs>,
+    label: string,
+    error?: FieldError,
+    onSelect?: () => void,
+    textInputProps?: Omit<TextInputProps, 'onChangeText'>,
+  ) {
+    return (
+      <CountryPicker
+        onChangeText={field.onChange}
+        style={styles.countryCodeInput}
+        onSelect={c => {
+          setValue('country_code', '+' + c.callingCode, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setValue('country_locale', c.cca2);
+          onSelect ? onSelect() : null;
+        }}
+        onClose={() => {}}
+        withAlphaFilter={true}
+        withCallingCode={true}
+        withCountryNameButton={false}
+        containerButtonStyle={styles.containerButtonStyle}
+        label={label}
+        error={error}
+        errorMessage={error?.message}
+        textInputProps={textInputProps}
+        {...field}
+        value={getDefaultValue(field.name, field.value)}
       />
     );
   }
@@ -195,53 +256,14 @@ const ContactUsScreen = () => {
               ...textInputProps,
             });
           } else if (mode === ContactUsInputTypes.datePicker) {
-            return (
-              <DatePicker
-                onConfirm={selectedDate => {
-                  setValue('date', selectedDate?.toLocaleDateString('en-GB'), {
-                    shouldValidate: true,
-                    shouldDirty: true,
-                  });
-                  setDate(date);
-                }}
-                onCancel={() => {}}
-                date={date}
-                mode={'date'}
-                value={getDefaultValue(name, field.value)}
-                onChangeText={field.onChange}
-                onBlur={field.onBlur}
-                style={styles.input}
-                error={error}
-                errorMessage={error?.message}
-                textInputProps={textInputProps}
-              />
-            );
+            return renderDatePicker(field, error, textInputProps);
           } else {
-            return (
-              <CountryPicker
-                onBlur={field.onBlur}
-                onChangeText={field.onChange}
-                value={getDefaultValue(name, field.value)}
-                style={styles.countryCodeInput}
-                onSelect={c => {
-                  setValue('country_code', '+' + c.callingCode, {
-                    shouldValidate: true,
-                    shouldDirty: true,
-                  });
-                  setValue('country_locale', c.cca2);
-                  onSelect ? onSelect() : null;
-                }}
-                onClose={() => {}}
-                withAlphaFilter={true}
-                withCallingCode={true}
-                withCountryNameButton={false}
-                containerButtonStyle={styles.containerButtonStyle}
-                label={label}
-                error={error}
-                errorMessage={error?.message}
-                ref={field.ref}
-                textInputProps={textInputProps}
-              />
+            return renderCountryCodePicker(
+              field,
+              label,
+              error,
+              onSelect,
+              textInputProps,
             );
           }
         }}
@@ -255,7 +277,6 @@ const ContactUsScreen = () => {
       Strings.contactUs.nameFieldLabel,
       ContactUsInputTypes.textInput,
       {
-        multiline: false,
         returnKeyType: 'next',
         onSubmitEditing: () => setFocus('age'),
       },
@@ -268,7 +289,6 @@ const ContactUsScreen = () => {
       Strings.contactUs.ageFieldLabel,
       ContactUsInputTypes.textInput,
       {
-        multiline: false,
         keyboardType: 'number-pad',
         onSubmitEditing: () => setFocus('email'),
         returnKeyType: 'done',
@@ -285,7 +305,6 @@ const ContactUsScreen = () => {
       Strings.contactUs.emailFieldLabel,
       ContactUsInputTypes.textInput,
       {
-        multiline: false,
         autoCorrect: false,
         autoCapitalize: 'none',
         keyboardType: 'email-address',
@@ -353,7 +372,7 @@ const ContactUsScreen = () => {
       {
         multiline: true,
         numberOfLines: 10,
-        inputStyle: styles.TextInput,
+        inputStyle: styles.textArea,
       },
       {required: true},
     );
@@ -408,7 +427,7 @@ const styles = StyleSheet.create({
     height: circleSize,
     alignSelf: 'center',
   },
-  TextInput: {
+  textArea: {
     height: verticalScale(150),
     textAlignVertical: 'top',
   },
