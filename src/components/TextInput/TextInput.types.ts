@@ -1,7 +1,7 @@
 import {
   StyleProp,
-  TextStyle,
   TextInputProps as DefaultProps,
+  TextStyle,
   ViewStyle,
 } from 'react-native';
 

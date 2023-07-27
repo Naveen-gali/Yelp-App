@@ -58,5 +58,27 @@
     "categories": "Can't Load Categories Right now",
     "events": "Can't Load Events Right now",
     "retry": "Retry"
+  },
+  "contactUs": {
+    "queryError": "Query Cant be empty.",
+    "submit": "Submit",
+    "successAlertTitle": "Query Raised!",
+    "successAlertDescription": "Will get back to you shortly.",
+    "errorAlertTitle": "SomeThing Went Wrong!",
+    "errorAlertDescription": "Try Again after SomeTime",
+    "nameErrorMessage": "Name Should be minimum 8 characters long and should be a combination of numbers and letters.",
+    "ageErrorMessage": "Age must be between 18 and 100",
+    "emailErrorMessage": "Invalid Email Address",
+    "phoneErrorMessage": "Invalid Phone Number",
+    "countryCodeErrorMessage": "Invalid Country Code",
+    "dateErrorMessage": "Invalid Date",
+    "phoneHintMessage": "Please Avoid Country Codes, and Special Characters.",
+    "nameFieldLabel": "Name",
+    "ageFieldLabel": "Age",
+    "emailFieldLabel": "Email",
+    "phoneFieldLabel": "Phone Number",
+    "queryFieldLabel": "Query",
+    "birthdateLabel": "Birth Date",
+    "requiredField": "Required Field"
   }
 }
