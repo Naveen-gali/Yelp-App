@@ -27,20 +27,25 @@ import ImagePicker, {
 } from 'react-native-image-crop-picker';
 import PushNotification from 'react-native-push-notification';
 import {ExperiencesData, MoreSettings} from '../../assets';
-import {Button, CustomIcon, CustomIconNames} from '../../components';
+import {Button, CustomIcon, CustomIconNames, Label} from '../../components';
 import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
 import {RootStoreContext} from '../../models';
-import {RequiredPermissions, checkPermission} from '../../services';
+import {checkPermission, RequiredPermissions} from '../../services';
 import {ExperiencesDataItemType, MoreSettingItemType} from '../../types';
 import {
   DeviceUtils,
-  LocaleUtils,
   horizontalScale,
+  LocaleUtils,
   verticalScale,
 } from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
+
+enum MyImpactTabs {
+  Reviews = 'Reviews',
+  Photos = 'Photos',
+}
 
 const ProfileScreen = observer(() => {
   const {colors} = useThemeColor();
@@ -48,6 +53,9 @@ const ProfileScreen = observer(() => {
 
   const [photoUploading, setPhotoUploading] = useState(false);
   const [profileImage, setProfileImage] = useState(user.photo);
+  const [activeTab, setActiveTab] = useState<MyImpactTabs>(
+    MyImpactTabs.Reviews,
+  );
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -165,6 +173,50 @@ const ProfileScreen = observer(() => {
     );
   };
 
+  const impactActionItem = (
+    label: string,
+    active: boolean,
+    onPress: (event: GestureResponderEvent) => void,
+  ) => {
+    return (
+      <TouchableOpacity onPress={onPress} style={styles.impactActionItem}>
+        <Label
+          label={label}
+          style={[
+            {
+              textAlign: 'left',
+            },
+            active ? fontStyles.b2_Medium : fontStyles.b2_Text_Regular,
+          ]}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const renderMyImpact = () => {
+    return (
+      <View style={styles.myImpactSection}>
+        <Text style={[fontStyles.b1_Text_Bold]}>My Impact</Text>
+        <View style={styles.myImpactActionsRow}>
+          {impactActionItem('Reviews', activeTab === MyImpactTabs.Reviews, () =>
+            setActiveTab(MyImpactTabs.Reviews),
+          )}
+          {impactActionItem('Photos', activeTab === MyImpactTabs.Photos, () =>
+            setActiveTab(MyImpactTabs.Photos),
+          )}
+        </View>
+
+        <View>
+          {activeTab === MyImpactTabs.Photos ? (
+            <Text>Photos Will Be Shown Here</Text>
+          ) : (
+            <Text>Reviews Go Here</Text>
+          )}
+        </View>
+      </View>
+    );
+  };
+
   const renderHorizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
@@ -214,7 +266,6 @@ const ProfileScreen = observer(() => {
     return (
       <FlatList
         data={MoreSettings}
-        ListHeaderComponent={renderHorizontalLine}
         ListHeaderComponentStyle={styles.listHeader}
         renderItem={renderMoreSettingsItem}
         ItemSeparatorComponent={renderHorizontalLine}
@@ -290,6 +341,7 @@ const ProfileScreen = observer(() => {
             photoUploading={photoUploading}
           />
           {renderExperiences()}
+          {renderMyImpact()}
           {renderMoreSettings()}
           {renderBottomSheetModal()}
         </SafeAreaView>
@@ -343,6 +395,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
     elevation: 9,
+  },
+  myImpactSection: {
+    marginVertical: verticalScale(15),
+  },
+  myImpactActionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '50%',
+  },
+  impactActionItem: {
+    padding: verticalScale(10),
+    borderWidth: 1,
   },
 });
 
