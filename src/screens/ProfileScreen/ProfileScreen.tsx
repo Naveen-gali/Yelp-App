@@ -41,6 +41,12 @@ import {
   verticalScale,
 } from '../../utils';
 import {ExperienceCard, ProfileHeader} from './components';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {
+  ProfileStackParams,
+  ProfileStackRoute,
+} from '../../navigation/ProfileStack';
 
 enum MyImpactTabs {
   Reviews = 'Reviews',
@@ -50,6 +56,9 @@ enum MyImpactTabs {
 const ProfileScreen = observer(() => {
   const {colors} = useThemeColor();
   const {auth, user} = useContext(RootStoreContext);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ProfileStackParams>>();
 
   const [photoUploading, setPhotoUploading] = useState(false);
   const [profileImage, setProfileImage] = useState(user.photo);
@@ -234,6 +243,16 @@ const ProfileScreen = observer(() => {
         'https://s3-media0.fl.yelpcdn.com/bphoto/TjSiQgUlKHalp3iC4Y2SYg/o.jpg',
     });
 
+  const getRenderItemOnPres = (id: string) => {
+    if (id === 'logout') {
+      auth.signOut();
+    } else if (id === 'contactus') {
+      navigation.navigate(ProfileStackRoute.Contact);
+    } else {
+      getLocalNotification();
+    }
+  };
+
   const renderMoreSettingsItem = (
     props: ListRenderItemInfo<MoreSettingItemType>,
   ) => {
@@ -242,9 +261,7 @@ const ProfileScreen = observer(() => {
     return (
       <TouchableOpacity
         style={styles.moreSetting}
-        onPress={
-          item.id === 'logout' ? auth.signOut : () => getLocalNotification()
-        }>
+        onPress={() => getRenderItemOnPres(item.id)}>
         <CustomIcon
           name={item.icon}
           size={verticalScale(25)}
