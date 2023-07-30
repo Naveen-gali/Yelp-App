@@ -17,17 +17,25 @@ import {
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
+  StyleProp,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import ImagePicker, {
   Image as ImagePickerResultProps,
 } from 'react-native-image-crop-picker';
 import PushNotification from 'react-native-push-notification';
 import {ExperiencesData, MoreSettings} from '../../assets';
-import {Button, CustomIcon, CustomIconNames, Label} from '../../components';
+import {
+  Button,
+  Card,
+  CustomIcon,
+  CustomIconNames,
+  Label,
+} from '../../components';
 import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
@@ -186,9 +194,12 @@ const ProfileScreen = observer(() => {
     label: string,
     active: boolean,
     onPress: (event: GestureResponderEvent) => void,
+    style?: StyleProp<ViewStyle>,
   ) => {
     return (
-      <TouchableOpacity onPress={onPress} style={styles.impactActionItem}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.impactActionItem, style]}>
         <Label
           label={label}
           style={[
@@ -202,24 +213,96 @@ const ProfileScreen = observer(() => {
     );
   };
 
+  const renderImpactDateCard = (title: string, count: number) => {
+    return (
+      <Card style={[styles.impactCard]}>
+        <Text>{title}</Text>
+        <Text style={[fontStyles.b1_Text_Bold]}>{count}</Text>
+      </Card>
+    );
+  };
+
   const renderMyImpact = () => {
     return (
       <View style={styles.myImpactSection}>
-        <Text style={[fontStyles.b1_Text_Bold]}>My Impact</Text>
+        <Text style={[fontStyles.b1_Text_Bold]}>
+          {Strings.profile.myImpact.myImpact}
+        </Text>
         <View style={styles.myImpactActionsRow}>
-          {impactActionItem('Reviews', activeTab === MyImpactTabs.Reviews, () =>
-            setActiveTab(MyImpactTabs.Reviews),
+          {impactActionItem(
+            Strings.profile.myImpact.reviews,
+            activeTab === MyImpactTabs.Reviews,
+            () => setActiveTab(MyImpactTabs.Reviews),
           )}
-          {impactActionItem('Photos', activeTab === MyImpactTabs.Photos, () =>
-            setActiveTab(MyImpactTabs.Photos),
+          {impactActionItem(
+            Strings.profile.myImpact.photos,
+            activeTab === MyImpactTabs.Photos,
+            () => setActiveTab(MyImpactTabs.Photos),
+            {paddingLeft: horizontalScale(10)},
           )}
         </View>
 
         <View>
           {activeTab === MyImpactTabs.Photos ? (
-            <Text>Photos Will Be Shown Here</Text>
+            <>
+              <View style={styles.impactRowContainer}>
+                {renderImpactDateCard(Strings.profile.myImpact.likesAllTime, 0)}
+                {renderImpactDateCard(
+                  Strings.profile.myImpact.viewsLast90Days,
+                  0,
+                )}
+              </View>
+              <Text
+                style={[
+                  fontStyles.b3_Text_Regular,
+                  {color: colors.text},
+                  styles.helperText,
+                ]}>
+                {Strings.profile.myImpact.photosHelperText}
+              </Text>
+              <Button
+                mode={'outlined'}
+                onPress={() => {}}
+                style={[
+                  styles.button,
+                  {
+                    borderColor: colors.buttonBorder,
+                  },
+                  styles.impactButton,
+                ]}>
+                {Strings.profile.myImpact.photosButtonText}
+              </Button>
+            </>
           ) : (
-            <Text>Reviews Go Here</Text>
+            <>
+              <View style={styles.impactRowContainer}>
+                {renderImpactDateCard(Strings.profile.myImpact.votesAllTime, 0)}
+                {renderImpactDateCard(
+                  Strings.profile.myImpact.viewsLast90Days,
+                  0,
+                )}
+              </View>
+              <Text
+                style={[
+                  fontStyles.b3_Text_Regular,
+                  {color: colors.text},
+                  styles.helperText,
+                ]}>
+                {Strings.profile.myImpact.reviewsHelperText}
+              </Text>
+              <Button
+                mode={'outlined'}
+                onPress={() => {}}
+                style={[
+                  styles.button,
+                  {
+                    borderColor: colors.buttonBorder,
+                  },
+                  styles.impactButton,
+                ]}>
+                {Strings.profile.myImpact.reviewsButtonText}
+              </Button>
+            </>
           )}
         </View>
       </View>
@@ -420,11 +503,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '50%',
+    width: '40%',
   },
   impactActionItem: {
-    padding: verticalScale(10),
-    borderWidth: 1,
+    paddingVertical: verticalScale(10),
+    paddingRight: horizontalScale(10),
+  },
+  impactCard: {
+    padding: verticalScale(20),
+    borderRadius: verticalScale(5),
+  },
+  impactRowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+  },
+  helperText: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(5),
+  },
+  impactButton: {
+    marginTop: verticalScale(10),
   },
 });
 

@@ -14,7 +14,19 @@
     "location": "سان فرانسيسكو، كاليفورنيا",
     "shareYourExperiences": "شارك تجاربك",
     "doYouRecommendThisBusiness": "هل تنصح بهذا العمل؟",
-    "seeMore": "شاهد المزيد"
+    "seeMore": "شاهد المزيد",
+    "myImpact": {
+      "myImpact": "تأثير بلدي",
+      "reviews": "ملاحظات",
+      "photos": "الصور",
+      "votesAllTime": "الأصوات في كل وقت",
+      "likesAllTime": "يحب كل الوقت",
+      "viewsLast90Days": "المشاهدات آخر 90 يوم",
+      "reviewsHelperText": "يبدو أنه لا يوجد أي تصويت لمراجعاتك حتى الآن.",
+      "photosHelperText": "لا توجد تعليقات على الصور حتى الآن ، ولكن استمر في تحميل تلك الصور الرائعة ومن المؤكد أن Yelpers ستلاحظ!",
+      "photosButtonText": "إضافة صورة",
+      "reviewsButtonText": "كتابة مراجعة"
+    }
   },
   "input": {
     "default_error": "حدث خطأ!"
