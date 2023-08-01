@@ -28,7 +28,7 @@ import ImagePicker, {
   Image as ImagePickerResultProps,
 } from 'react-native-image-crop-picker';
 import PushNotification from 'react-native-push-notification';
-import {ExperiencesData, MoreSettings} from '../../assets';
+import {ExperiencesData, MoreSettings, ProfileTasks} from '../../assets';
 import {
   Button,
   Card,
@@ -55,6 +55,7 @@ import {
   ProfileStackParams,
   ProfileStackRoute,
 } from '../../navigation/ProfileStack';
+import {SvgWithCssUri} from 'react-native-svg';
 
 enum MyImpactTabs {
   Reviews = 'Reviews',
@@ -73,6 +74,7 @@ const ProfileScreen = observer(() => {
   const [activeTab, setActiveTab] = useState<MyImpactTabs>(
     MyImpactTabs.Reviews,
   );
+  const [showFullTasks, setShowFullTasks] = useState(false);
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -309,6 +311,58 @@ const ProfileScreen = observer(() => {
     );
   };
 
+  const renderMyTasks = () => {
+    return (
+      <View style={styles.myTasksSection}>
+        <View style={styles.tasksHeader}>
+          <View>
+            <Text style={[fontStyles.b1_Text_Bold]}>0/6 Completed</Text>
+            <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+              You're ready to unlock the basics
+            </Text>
+          </View>
+          <SvgWithCssUri
+            uri={Constants.NightLifeIconUrl}
+            width={horizontalScale(50)}
+            height={verticalScale(50)}
+          />
+        </View>
+        <FlatList
+          data={showFullTasks ? ProfileTasks : ProfileTasks.slice(0, 3)}
+          renderItem={({item}) => (
+            <View style={styles.profileTasksItem}>
+              <CustomIcon name={item.icon} size={verticalScale(26)} />
+              <View style={styles.profileTasksItemHeadings}>
+                <Text style={[fontStyles.b2_Text_Bold]}>
+                  {LocaleUtils.localizedText(item.title)}
+                </Text>
+                <Text
+                  style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+                  {LocaleUtils.localizedText(item.description)}
+                </Text>
+              </View>
+            </View>
+          )}
+          ItemSeparatorComponent={renderHorizontalLine}
+          ListFooterComponent={() => (
+            <Button
+              mode={'outlined'}
+              onPress={() => setShowFullTasks(!showFullTasks)}
+              style={[
+                styles.button,
+                {
+                  borderColor: colors.buttonBorder,
+                },
+                styles.impactButton,
+              ]}>
+              {showFullTasks ? 'See Less' : 'See More'}
+            </Button>
+          )}
+        />
+      </View>
+    );
+  };
+
   const renderHorizontalLine = () => {
     return <View style={styles.horizontalLine} />;
   };
@@ -442,6 +496,7 @@ const ProfileScreen = observer(() => {
           />
           {renderExperiences()}
           {renderMyImpact()}
+          {renderMyTasks()}
           {renderMoreSettings()}
           {renderBottomSheetModal()}
         </SafeAreaView>
@@ -524,6 +579,21 @@ const styles = StyleSheet.create({
   },
   impactButton: {
     marginTop: verticalScale(10),
+  },
+  tasksHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: verticalScale(15),
+  },
+  profileTasksItem: {
+    flexDirection: 'row',
+    marginVertical: verticalScale(10),
+  },
+  profileTasksItemHeadings: {
+    marginHorizontal: horizontalScale(10),
+  },
+  myTasksSection: {
+    marginBottom: verticalScale(15),
   },
 });
 
