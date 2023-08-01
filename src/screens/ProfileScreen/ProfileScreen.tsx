@@ -185,7 +185,11 @@ const ProfileScreen = observer(() => {
         <Button
           onPress={onPressSeeMore}
           mode="outlined"
-          style={[styles.button, {borderColor: colors.buttonBorder}]}>
+          style={[
+            styles.button,
+            {borderColor: colors.buttonBorder},
+            styles.impactButton,
+          ]}>
           {Strings.profile.seeMore}
         </Button>
       </View>
@@ -363,8 +367,18 @@ const ProfileScreen = observer(() => {
     );
   };
 
-  const renderHorizontalLine = () => {
-    return <View style={styles.horizontalLine} />;
+  const renderHorizontalLine = (mode: 'line' | 'spacer') => {
+    return (
+      <View
+        style={[
+          styles.horizontalLine,
+          mode === 'spacer' ? styles.spacerLine : null,
+          {
+            backgroundColor: colors.loaderBackground,
+          },
+        ]}
+      />
+    );
   };
 
   const getLocalNotification = () =>
@@ -423,6 +437,9 @@ const ProfileScreen = observer(() => {
         ListHeaderComponentStyle={styles.listHeader}
         renderItem={renderMoreSettingsItem}
         ItemSeparatorComponent={renderHorizontalLine}
+        contentContainerStyle={{
+          marginHorizontal: horizontalScale(12),
+        }}
       />
     );
   };
@@ -493,10 +510,17 @@ const ProfileScreen = observer(() => {
             name={user.givenName ?? user.familyName + '' + user.name}
             imageOnPress={handlePresentModelPress}
             photoUploading={photoUploading}
+            style={{
+              marginHorizontal: horizontalScale(12),
+            }}
           />
+          {renderHorizontalLine('spacer')}
           {renderExperiences()}
+          {renderHorizontalLine('spacer')}
           {renderMyImpact()}
+          {renderHorizontalLine('spacer')}
           {renderMyTasks()}
+          {renderHorizontalLine('spacer')}
           {renderMoreSettings()}
           {renderBottomSheetModal()}
         </SafeAreaView>
@@ -507,11 +531,15 @@ const ProfileScreen = observer(() => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: horizontalScale(12),
     marginTop: verticalScale(15),
   },
+  spacerLine: {
+    height: verticalScale(7),
+    borderBottomWidth: 0,
+  },
   experiencesSection: {
-    marginTop: verticalScale(15),
+    marginVertical: verticalScale(15),
+    marginHorizontal: horizontalScale(12),
   },
   button: {
     paddingHorizontal: verticalScale(15),
@@ -553,6 +581,7 @@ const styles = StyleSheet.create({
   },
   myImpactSection: {
     marginVertical: verticalScale(15),
+    marginHorizontal: horizontalScale(12),
   },
   myImpactActionsRow: {
     flexDirection: 'row',
@@ -579,6 +608,7 @@ const styles = StyleSheet.create({
   },
   impactButton: {
     marginTop: verticalScale(10),
+    paddingVertical: 9,
   },
   tasksHeader: {
     flexDirection: 'row',
@@ -594,6 +624,7 @@ const styles = StyleSheet.create({
   },
   myTasksSection: {
     marginBottom: verticalScale(15),
+    marginHorizontal: horizontalScale(12),
   },
 });
 
