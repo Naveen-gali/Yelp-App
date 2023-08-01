@@ -14,7 +14,19 @@
     "location": "San Francisco, CA",
     "shareYourExperiences": "Share your experiences",
     "doYouRecommendThisBusiness": "Do you recommend this business?",
-    "seeMore": "See More"
+    "seeMore": "See More",
+    "myImpact": {
+      "myImpact": "My Impact",
+      "reviews": "Reviews",
+      "photos": "Photos",
+      "votesAllTime": "votes all time",
+      "likesAllTime": "likes all time",
+      "viewsLast90Days": "views last 90 days",
+      "reviewsHelperText": "Looks like there aren't any votes for your reviews yet.",
+      "photosHelperText": "No photo feedback yet, but keep uploading those awesome pics and Yelpers are sure to notice!",
+      "photosButtonText": "Add a Photo",
+      "reviewsButtonText": "Write a Review"
+    }
   },
   "input": {
     "default_error": "Error Occured!"

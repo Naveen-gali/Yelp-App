@@ -1,0 +1,68 @@
+[
+  {
+    "title": {
+      "en": "Bookmark a Business",
+      "ar": "احفظ الأعمال"
+    },
+    "description": {
+      "en": "Save places you want to try for later",
+      "ar": "احفظ الأماكن التي تريد تجربتها لاحقًا"
+    },
+    "icon": "bookmark"
+  },
+  {
+    "title": {
+      "en": "Vote a review useful",
+      "ar": "التصويت على مراجعة مفيدة"
+    },
+    "description": {
+      "en": "Let others know they're helpful",
+      "ar": "دع الآخرين يعرفون أنهم مفيدون"
+    },
+    "icon": "information-circle"
+  },
+  {
+    "title": {
+      "en": "Like a food photo",
+      "ar": "مثل صورة طعام"
+    },
+    "description": {
+      "en": "Help others find the best shots",
+      "ar": "ساعد الآخرين في العثور على أفضل اللقطات"
+    },
+    "icon": "thumbs-up"
+  },
+  {
+    "title": {
+      "en": "Follow a current Yelp Elite",
+      "ar": "تابع برنامج Yelp Elite الحالي"
+    },
+    "description": {
+      "en": "Stay up-to-date on the hottest new places",
+      "ar": "ابق على اطلاع بأحدث الأماكن الجديدة"
+    },
+    "icon": "person-add"
+  },
+  {
+    "title": {
+      "en": "Write Review",
+      "ar": "أكتب مراجعة"
+    },
+    "description": {
+      "en": "Share your thoughts with the community",
+      "ar": "شارك أفكارك مع المجتمع"
+    },
+    "icon": "star"
+  },
+  {
+    "title": {
+      "en": "Add a food photo",
+      "ar": "أضف صورة طعام"
+    },
+    "description": {
+      "en": "Get people excited about the menu",
+      "ar": "اجعل الناس متحمسين بشأن القائمة"
+    },
+    "icon": "camera"
+  }
+]

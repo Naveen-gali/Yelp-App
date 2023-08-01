@@ -19,7 +19,7 @@ import {ProfileHeaderProps} from './ProfileHeader.types';
 const circleSize = Math.min(horizontalScale(80), verticalScale(80));
 
 const ProfileHeader = (props: ProfileHeaderProps) => {
-  const {email, image, name, imageOnPress, photoUploading} = props;
+  const {email, image, name, imageOnPress, photoUploading, style} = props;
   const {colors} = useThemeColor();
 
   const renderStats = () => {
@@ -47,7 +47,7 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <TouchableOpacity onPress={imageOnPress} disabled={photoUploading}>
         {photoUploading ? (
           <ActivityIndicator size="large" />

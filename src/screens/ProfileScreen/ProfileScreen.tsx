@@ -17,17 +17,25 @@ import {
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
+  StyleProp,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import ImagePicker, {
   Image as ImagePickerResultProps,
 } from 'react-native-image-crop-picker';
 import PushNotification from 'react-native-push-notification';
-import {ExperiencesData, MoreSettings} from '../../assets';
-import {Button, CustomIcon, CustomIconNames} from '../../components';
+import {ExperiencesData, MoreSettings, ProfileTasks} from '../../assets';
+import {
+  Button,
+  Card,
+  CustomIcon,
+  CustomIconNames,
+  Label,
+} from '../../components';
 import {Constants, fontStyles} from '../../constants';
 import {useThemeColor} from '../../hooks';
 import {Strings} from '../../i18n';
@@ -47,6 +55,12 @@ import {
   ProfileStackParams,
   ProfileStackRoute,
 } from '../../navigation/ProfileStack';
+import {SvgWithCssUri} from 'react-native-svg';
+
+enum MyImpactTabs {
+  Reviews = 'Reviews',
+  Photos = 'Photos',
+}
 
 const ProfileScreen = observer(() => {
   const {colors} = useThemeColor();
@@ -57,6 +71,10 @@ const ProfileScreen = observer(() => {
 
   const [photoUploading, setPhotoUploading] = useState(false);
   const [profileImage, setProfileImage] = useState(user.photo);
+  const [activeTab, setActiveTab] = useState<MyImpactTabs>(
+    MyImpactTabs.Reviews,
+  );
+  const [showFullTasks, setShowFullTasks] = useState(false);
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -167,15 +185,200 @@ const ProfileScreen = observer(() => {
         <Button
           onPress={onPressSeeMore}
           mode="outlined"
-          style={[styles.button, {borderColor: colors.buttonBorder}]}>
+          style={[
+            styles.button,
+            {borderColor: colors.buttonBorder},
+            styles.impactButton,
+          ]}>
           {Strings.profile.seeMore}
         </Button>
       </View>
     );
   };
 
-  const renderHorizontalLine = () => {
-    return <View style={styles.horizontalLine} />;
+  const impactActionItem = (
+    label: string,
+    active: boolean,
+    onPress: (event: GestureResponderEvent) => void,
+    style?: StyleProp<ViewStyle>,
+  ) => {
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.impactActionItem, style]}>
+        <Label
+          label={label}
+          style={[
+            {
+              textAlign: 'left',
+            },
+            active ? fontStyles.b2_Medium : fontStyles.b2_Text_Regular,
+          ]}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const renderImpactDateCard = (title: string, count: number) => {
+    return (
+      <Card style={[styles.impactCard]}>
+        <Text>{title}</Text>
+        <Text style={[fontStyles.b1_Text_Bold]}>{count}</Text>
+      </Card>
+    );
+  };
+
+  const renderMyImpact = () => {
+    return (
+      <View style={styles.myImpactSection}>
+        <Text style={[fontStyles.b1_Text_Bold]}>
+          {Strings.profile.myImpact.myImpact}
+        </Text>
+        <View style={styles.myImpactActionsRow}>
+          {impactActionItem(
+            Strings.profile.myImpact.reviews,
+            activeTab === MyImpactTabs.Reviews,
+            () => setActiveTab(MyImpactTabs.Reviews),
+          )}
+          {impactActionItem(
+            Strings.profile.myImpact.photos,
+            activeTab === MyImpactTabs.Photos,
+            () => setActiveTab(MyImpactTabs.Photos),
+            {paddingLeft: horizontalScale(10)},
+          )}
+        </View>
+
+        <View>
+          {activeTab === MyImpactTabs.Photos ? (
+            <>
+              <View style={styles.impactRowContainer}>
+                {renderImpactDateCard(Strings.profile.myImpact.likesAllTime, 0)}
+                {renderImpactDateCard(
+                  Strings.profile.myImpact.viewsLast90Days,
+                  0,
+                )}
+              </View>
+              <Text
+                style={[
+                  fontStyles.b3_Text_Regular,
+                  {color: colors.text},
+                  styles.helperText,
+                ]}>
+                {Strings.profile.myImpact.photosHelperText}
+              </Text>
+              <Button
+                mode={'outlined'}
+                onPress={() => {}}
+                style={[
+                  styles.button,
+                  {
+                    borderColor: colors.buttonBorder,
+                  },
+                  styles.impactButton,
+                ]}>
+                {Strings.profile.myImpact.photosButtonText}
+              </Button>
+            </>
+          ) : (
+            <>
+              <View style={styles.impactRowContainer}>
+                {renderImpactDateCard(Strings.profile.myImpact.votesAllTime, 0)}
+                {renderImpactDateCard(
+                  Strings.profile.myImpact.viewsLast90Days,
+                  0,
+                )}
+              </View>
+              <Text
+                style={[
+                  fontStyles.b3_Text_Regular,
+                  {color: colors.text},
+                  styles.helperText,
+                ]}>
+                {Strings.profile.myImpact.reviewsHelperText}
+              </Text>
+              <Button
+                mode={'outlined'}
+                onPress={() => {}}
+                style={[
+                  styles.button,
+                  {
+                    borderColor: colors.buttonBorder,
+                  },
+                  styles.impactButton,
+                ]}>
+                {Strings.profile.myImpact.reviewsButtonText}
+              </Button>
+            </>
+          )}
+        </View>
+      </View>
+    );
+  };
+
+  const renderMyTasks = () => {
+    return (
+      <View style={styles.myTasksSection}>
+        <View style={styles.tasksHeader}>
+          <View>
+            <Text style={[fontStyles.b1_Text_Bold]}>0/6 Completed</Text>
+            <Text style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+              You're ready to unlock the basics
+            </Text>
+          </View>
+          <SvgWithCssUri
+            uri={Constants.NightLifeIconUrl}
+            width={horizontalScale(50)}
+            height={verticalScale(50)}
+          />
+        </View>
+        <FlatList
+          data={showFullTasks ? ProfileTasks : ProfileTasks.slice(0, 3)}
+          renderItem={({item}) => (
+            <View style={styles.profileTasksItem}>
+              <CustomIcon name={item.icon} size={verticalScale(26)} />
+              <View style={styles.profileTasksItemHeadings}>
+                <Text style={[fontStyles.b2_Text_Bold]}>
+                  {LocaleUtils.localizedText(item.title)}
+                </Text>
+                <Text
+                  style={[fontStyles.b3_Text_Regular, {color: colors.text}]}>
+                  {LocaleUtils.localizedText(item.description)}
+                </Text>
+              </View>
+            </View>
+          )}
+          ItemSeparatorComponent={renderHorizontalLine}
+          ListFooterComponent={() => (
+            <Button
+              mode={'outlined'}
+              onPress={() => setShowFullTasks(!showFullTasks)}
+              style={[
+                styles.button,
+                {
+                  borderColor: colors.buttonBorder,
+                },
+                styles.impactButton,
+              ]}>
+              {showFullTasks ? 'See Less' : 'See More'}
+            </Button>
+          )}
+        />
+      </View>
+    );
+  };
+
+  const renderHorizontalLine = (mode: 'line' | 'spacer') => {
+    return (
+      <View
+        style={[
+          styles.horizontalLine,
+          mode === 'spacer' ? styles.spacerLine : null,
+          {
+            backgroundColor: colors.loaderBackground,
+          },
+        ]}
+      />
+    );
   };
 
   const getLocalNotification = () =>
@@ -231,10 +434,12 @@ const ProfileScreen = observer(() => {
     return (
       <FlatList
         data={MoreSettings}
-        ListHeaderComponent={renderHorizontalLine}
         ListHeaderComponentStyle={styles.listHeader}
         renderItem={renderMoreSettingsItem}
         ItemSeparatorComponent={renderHorizontalLine}
+        contentContainerStyle={{
+          marginHorizontal: horizontalScale(12),
+        }}
       />
     );
   };
@@ -305,8 +510,17 @@ const ProfileScreen = observer(() => {
             name={user.givenName ?? user.familyName + '' + user.name}
             imageOnPress={handlePresentModelPress}
             photoUploading={photoUploading}
+            style={{
+              marginHorizontal: horizontalScale(12),
+            }}
           />
+          {renderHorizontalLine('spacer')}
           {renderExperiences()}
+          {renderHorizontalLine('spacer')}
+          {renderMyImpact()}
+          {renderHorizontalLine('spacer')}
+          {renderMyTasks()}
+          {renderHorizontalLine('spacer')}
           {renderMoreSettings()}
           {renderBottomSheetModal()}
         </SafeAreaView>
@@ -317,11 +531,15 @@ const ProfileScreen = observer(() => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: horizontalScale(12),
     marginTop: verticalScale(15),
   },
+  spacerLine: {
+    height: verticalScale(7),
+    borderBottomWidth: 0,
+  },
   experiencesSection: {
-    marginTop: verticalScale(15),
+    marginVertical: verticalScale(15),
+    marginHorizontal: horizontalScale(12),
   },
   button: {
     paddingHorizontal: verticalScale(15),
@@ -360,6 +578,53 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
     elevation: 9,
+  },
+  myImpactSection: {
+    marginVertical: verticalScale(15),
+    marginHorizontal: horizontalScale(12),
+  },
+  myImpactActionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '40%',
+  },
+  impactActionItem: {
+    paddingVertical: verticalScale(10),
+    paddingRight: horizontalScale(10),
+  },
+  impactCard: {
+    padding: verticalScale(20),
+    borderRadius: verticalScale(5),
+  },
+  impactRowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+  },
+  helperText: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(5),
+  },
+  impactButton: {
+    marginTop: verticalScale(10),
+    paddingVertical: 9,
+  },
+  tasksHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: verticalScale(15),
+  },
+  profileTasksItem: {
+    flexDirection: 'row',
+    marginVertical: verticalScale(10),
+  },
+  profileTasksItemHeadings: {
+    marginHorizontal: horizontalScale(10),
+  },
+  myTasksSection: {
+    marginBottom: verticalScale(15),
+    marginHorizontal: horizontalScale(12),
   },
 });
 
